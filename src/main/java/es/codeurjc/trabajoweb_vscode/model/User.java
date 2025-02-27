@@ -17,8 +17,7 @@ public class User {
 
     public User() {}
 
-    public User(int rol,String name, String psw) {
-        this.rol = rol;
+    public User(String name, String psw) {
         this.name = name;
         this.psw = psw;
     }
@@ -40,9 +39,7 @@ public class User {
     public void setPsw(String psw) {
         this.psw = psw;
     }
-    public void setRol(int rol) {
-        this.rol = rol;
-    }
+  
     public void setUserId(Long userId) {
         this.userId = userId;
     }

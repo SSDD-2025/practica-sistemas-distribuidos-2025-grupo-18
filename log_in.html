@@ -3,19 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log in</title>
+    <title>BookNest - Página Principal</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
+    <header class="toolbar">
+        <div class="logo">
+            <img src="logo.png" alt="BookNest Logo">
+            <h1>BOOKNEST</h1>
+        </div>
+        <div class="toolbar-right">
+        </div>
+    </header>
     <header>
         <h1>Log In</h1>
     </header>
+    <div class="centered-content">
     <main>
         <form action="procesar_login.php" method="POST">
-            <label for="user">User:</label>
-            <input type="text" id="user" name="user" required>
+            <pForm>LOG IN</pForm>
+            <labelUser for="user">User:</labelUser>
+            <input type="text" id="user" name="user"required>
             
-            <label for="password">Password:</label>
+            <labelPassword for="password">Password:</labelPassword>
             <input type="password" id="password" name="password" required>
             
             <button type="submit">Enter</button>

@@ -2,6 +2,9 @@ package es.codeurjc.trabajoweb_vscode.controller;
 
 //import java.util.Optional;
 
+import es.codeurjc.trabajoweb_vscode.model.*;
+
+
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 //import org.springframework.ui.Model;

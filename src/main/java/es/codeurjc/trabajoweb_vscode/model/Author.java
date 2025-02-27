@@ -1,14 +1,25 @@
 package es.codeurjc.trabajoweb_vscode.model;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
 public class Author {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId;
+
     private String nombreAutor;
     private String nacionalidad;
+    
+
+    @OneToMany(cascade = CascadeType.ALL)
+	private List<Book> comments = new ArrayList<>();
+
 
     public  Author() {}
 
@@ -20,9 +31,10 @@ public class Author {
 
 
 
-    
 
-
+    public List<Book> getComments() {
+        return comments;
+    }
     public String getNacionalidad() {
         return nacionalidad;
     }
@@ -31,6 +43,9 @@ public class Author {
     }
     public Long getUserId() {
         return userId;
+    }
+    public void setComments(List<Book> comments) {
+        this.comments = comments;
     }
     public void setNacionalidad(String nacionalidad) {
         this.nacionalidad = nacionalidad;

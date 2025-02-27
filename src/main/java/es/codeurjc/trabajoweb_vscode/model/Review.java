@@ -4,20 +4,24 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idReview;
-    private Long idLibro;
     private int valoracion;
     private String textReview;
 
+    @OneToOne
+    private Long idLibro;
+
+
+
     public Review() {}
 
-    public Review(Long idLibro, int valoracion, String textReview) {
-        this.idLibro = idLibro;
+    public Review( int valoracion, String textReview) {
         this.valoracion = valoracion;
         this.textReview = textReview;
 
@@ -26,7 +30,7 @@ public class Review {
 
 
 
-    
+
     public Long getIdLibro() {
         return idLibro;
     }

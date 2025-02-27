@@ -10,33 +10,37 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId;
-    private String rol;
+
+    private String name;
     private String psw;
+    
 
     public User() {}
 
-    public User(String rol, String psw) {
+    public User(int rol,String name, String psw) {
         this.rol = rol;
+        this.name = name;
         this.psw = psw;
     }
 
 
-
-
-
+    public String getName() {
+        return name;
+    }
     public String getPsw() {
         return psw;
     }
-    public String getRol() {
-        return rol;
-    }
+
     public Long getUserId() {
         return userId;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
     public void setPsw(String psw) {
         this.psw = psw;
     }
-    public void setRol(String rol) {
+    public void setRol(int rol) {
         this.rol = rol;
     }
     public void setUserId(Long userId) {

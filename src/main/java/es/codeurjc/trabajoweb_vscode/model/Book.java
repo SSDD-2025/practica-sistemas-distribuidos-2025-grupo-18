@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 
 @Entity
@@ -13,21 +14,29 @@ public class Book {
     private Long idLibro;
 
     private String nombreLibro;
-    private String nombreAutor;
     private int yearPub;
     private byte[] imagen;
 
+    @OneToOne
+    private String nombreAutor;
+
     public  Book() {}
 
-    public  Book(String nombreLibro, String nombreAutor, int yearPub, byte[] imagen) {
+    public  Book(String nombreLibro, int yearPub, byte[] imagen) {
         this.nombreLibro = nombreLibro;
-        this.nombreAutor = nombreAutor;
         this.yearPub = yearPub;
         this.imagen = imagen;
     }
 
 
 
+    public Book getInfoBook(String nombreLibro){
+
+        Book newBook = new Book();
+        if newBook.nombreLibro = nombr
+        return newBook;
+
+    }
 
 
 

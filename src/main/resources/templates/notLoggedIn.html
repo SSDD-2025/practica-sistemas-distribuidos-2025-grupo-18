@@ -12,7 +12,7 @@
 <body>
     <header class="toolbar">
         <div class="logo">
-            <img src="logo.png" alt="BookNest Logo">
+            <img src="../images/logo.png" alt="BookNest Logo">
             <h1>BOOKNEST</h1>
         </div>
         <div class="toolbar-right">
@@ -26,6 +26,16 @@
         <section class="top-libros">
             <h2>📚 Libros populares de esta semana</h2>
             <div class="libros-container">
+                {{#books}}
+                <a href="/books/{{id}}">{{name}}</a>
+                <br>
+                {{/books}}
+                
+                {{^books}}
+                <p>Todavia no hay libros.</p>
+                {{/books}}
+
+
                 <!-- Aquí se agregarán los libros dinámicamente -->
             </div>
         </section>

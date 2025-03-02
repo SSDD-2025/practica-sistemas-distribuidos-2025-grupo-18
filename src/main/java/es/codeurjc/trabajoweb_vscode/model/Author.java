@@ -11,50 +11,48 @@ public class Author {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long userId;
+    private Long id;
 
-    private String nombreAutor;
-    private String nacionalidad;
+    private String name;
+    private String nacionality;
     
-
-    @OneToMany(cascade = CascadeType.ALL)
-	private List<Book> comments = new ArrayList<>();
-
+    @OneToMany(mappedBy = "author")
+	private List<Book> books = new ArrayList<>();
 
     public  Author() {}
 
     public  Author(String nombreAutor, String nacionalidad) {
-        this.nombreAutor = nombreAutor;
-        this.nacionalidad = nacionalidad;
+        this.name = nombreAutor;
+        this.nacionality = nacionalidad;
     }
     
 
 
 
 
-    public List<Book> getComments() {
-        return comments;
+    public List<Book> getBooks() {
+        return books;
     }
-    public String getNacionalidad() {
-        return nacionalidad;
+    public String getNacionality() {
+        return nacionality;
     }
-    public String getNombreAutor() {
-        return nombreAutor;
+    public String getName() {
+        return name;
     }
-    public Long getUserId() {
-        return userId;
+    public Long getId() {
+        return id;
     }
-    public void setComments(List<Book> comments) {
-        this.comments = comments;
+    public void setBooks(List<Book> comments) {
+        this.books = comments;
     }
-    public void setNacionalidad(String nacionalidad) {
-        this.nacionalidad = nacionalidad;
+    public void setNacionality(String nacionalidad) {
+        this.nacionality = nacionalidad;
     }
-    public void setNombreAutor(String nombreAutor) {
-        this.nombreAutor = nombreAutor;
+    public void setName(String nombreAutor) {
+        this.name = nombreAutor;
     }
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setId(Long userId) {
+        this.id = userId;
     }
 
 }

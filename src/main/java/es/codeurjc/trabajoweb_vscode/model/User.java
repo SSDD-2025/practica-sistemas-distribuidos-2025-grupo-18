@@ -1,19 +1,31 @@
 package es.codeurjc.trabajoweb_vscode.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
-@Entity
+@Entity (name = "UserTable")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long userId;
+    private Long id;
 
     private String name;
     private String psw;
     
+    @ManyToMany(mappedBy = "users")
+	private List<Book> books = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Review> reviews = new ArrayList<>();
 
     public User() {}
 
@@ -30,9 +42,17 @@ public class User {
         return psw;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getId() {
+        return id;
     }
+    public List<Book> getBooks() {
+        return books;
+    }
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+
     public void setName(String name) {
         this.name = name;
     }
@@ -40,8 +60,14 @@ public class User {
         this.psw = psw;
     }
   
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setId(Long userId) {
+        this.id = userId;
+    }
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
 }

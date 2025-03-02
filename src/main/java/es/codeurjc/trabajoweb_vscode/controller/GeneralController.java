@@ -22,13 +22,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class GeneralController {
 
 	@Autowired
-	private UserRepository userService;
+	private UserService userService;
 
+	@Autowired
+	private ReviewService reviewService;
+
+	@Autowired
+	private BookService bookService;
+
+	@Autowired
+	private AuthorService authorService;
 
 
    @GetMapping("/")
-	public String getPosts(){
-		return "index";
+	public String getPosts(Model model){
+		model.addAttribute("books", bookService.findAll());
+		return "notLoggedIn";
 	}
 
 	

@@ -1,28 +1,32 @@
 package es.codeurjc.trabajoweb_vscode.model;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idReview;
-    private int valoracion;
+    private Long id;
+
+    private int rate;
     private String textReview;
 
-    @OneToOne
-    private Long idLibro;
+    @ManyToOne
+    private Book book;
 
+    @ManyToOne
+    private User user;
 
 
     public Review() {}
 
     public Review( int valoracion, String textReview) {
-        this.valoracion = valoracion;
+        this.rate = valoracion;
         this.textReview = textReview;
 
     }
@@ -31,29 +35,38 @@ public class Review {
 
 
 
-    public Long getIdLibro() {
-        return idLibro;
-    }
-    public Long getIdReview() {
-        return idReview;
+
+    public Long getId() {
+        return id;
     }
     public String getTextReview() {
         return textReview;
     }
-    public int getValoracion() {
-        return valoracion;
+    public int getRate() {
+        return rate;
     }
-    public void setIdLibro(Long idLibro) {
-        this.idLibro = idLibro;
+
+    public Book getBook() {
+        return book;
     }
-    public void setIdReview(Long idReview) {
-        this.idReview = idReview;
+    public User getUser() {
+        return user;
+    }
+
+    public void setId(Long idReview) {
+        this.id = idReview;
     }
     public void setTextReview(String textReview) {
         this.textReview = textReview;
     }
-    public void setValoracion(int valoracion) {
-        this.valoracion = valoracion;
+    public void setRate(int valoracion) {
+        this.rate = valoracion;
+    }
+    public void setBook(Book book) {
+        this.book = book;
+    }
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }

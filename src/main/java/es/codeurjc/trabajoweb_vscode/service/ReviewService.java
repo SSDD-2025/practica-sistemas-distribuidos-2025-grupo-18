@@ -15,4 +15,8 @@ public class ReviewService {
     @Autowired
     private ReviewRepository reviewRepository;
 
+    public Optional<Review> findById(long id) {
+        return reviewRepository.findById(id);
+    }
+
 }

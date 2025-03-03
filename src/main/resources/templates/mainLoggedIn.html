@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BookNest - Página Principal</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../static/css/styles.css">
     <script src="script.js" defer></script>
 </head>
 <body>
     <header class="toolbar">
         <div class="logo">
-            <img src="../images/logo.pngg" alt="BookNest Logo">
+            <img src="../images/logo.png" alt="BookNest Logo">
             <h1>BOOKNEST</h1>
         </div>
         <div class="toolbar-right">
@@ -23,6 +23,16 @@
         <section class="top-libros">
             <h2>📚 Libros populares de esta semana</h2>
             <div class="libros-container">
+                {{#books}}
+                <a href="/books/{{id}}">{{name}}</a>
+                <br>
+                {{/books}}
+                
+                {{^books}}
+                <p>Todavia no hay libros.</p>
+                {{/books}}
+
+
                 <!-- Aquí se agregarán los libros dinámicamente -->
             </div>
         </section>

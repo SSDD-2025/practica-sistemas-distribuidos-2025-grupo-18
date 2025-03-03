@@ -37,7 +37,8 @@ public class GeneralController {
    @GetMapping("/")
 	public String getPosts(Model model){
 		model.addAttribute("books", bookService.findAll());
-		return "notLoggedIn";
+		model.addAttribute("usuario", userService.findById(0) );
+		return "mainLoggedIn";
 	}
 
 	

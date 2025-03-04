@@ -6,8 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BookNest - Página Principal</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
     <header class="toolbar">
@@ -18,14 +17,16 @@
         <div class="toolbar-right">
             <input type="text" placeholder="Buscar libros..." class="search-bar">
             
-            <a href="log_in.html">Log in</a>
-            <a href="sign_up.html">Sign up</a>
+            <a href="login">Log in</a>
+            <a href="signUp">Sign up</a>
         </div>
     </header>
     <main>
         <section class="top-libros">
             <h2>📚 Libros populares de esta semana</h2>
             <div class="libros-container">
+
+                
                 {{#books}}
                 <a href="/books/{{id}}">{{name}}</a>
                 <br>

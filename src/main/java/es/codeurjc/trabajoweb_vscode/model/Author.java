@@ -14,16 +14,14 @@ public class Author {
     private Long id;
 
     private String name;
-    private String nacionality;
     
     @OneToMany(mappedBy = "author")
 	private List<Book> books = new ArrayList<>();
 
     public  Author() {}
 
-    public  Author(String nombreAutor, String nacionalidad) {
+    public  Author(String nombreAutor) {
         this.name = nombreAutor;
-        this.nacionality = nacionalidad;
     }
     
 
@@ -33,9 +31,7 @@ public class Author {
     public List<Book> getBooks() {
         return books;
     }
-    public String getNacionality() {
-        return nacionality;
-    }
+
     public String getName() {
         return name;
     }
@@ -44,9 +40,6 @@ public class Author {
     }
     public void setBooks(List<Book> comments) {
         this.books = comments;
-    }
-    public void setNacionality(String nacionalidad) {
-        this.nacionality = nacionalidad;
     }
     public void setName(String nombreAutor) {
         this.name = nombreAutor;

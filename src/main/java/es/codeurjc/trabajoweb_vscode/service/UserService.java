@@ -18,6 +18,25 @@ public class UserService {
 		return userRepository.findById(id);
 	}
 
+  
+  
+  public Long login(String name, String psw) {
+    Optional<User> userOpt = userRepository.findByName(name);
+
+
+    
+    if (userOpt.isPresent() && userOpt.get().getName().equals(name) && userOpt.get().getPsw().equals(psw)) {
+        return userOpt.get().getId();  // Retorna el ID del usuario autenticado
+    } else {
+        throw new RuntimeException("Credenciales inválidas");
+    }
+  }
+
+  public void singup(String name, String psw) {
+    User user = new User(name, psw);
+    userRepository.save(user);
+  }
+
 
 
 }

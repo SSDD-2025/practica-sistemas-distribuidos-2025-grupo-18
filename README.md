@@ -16,13 +16,13 @@ Si
 5.	La aplicación tiene datos de ejemplo cargados
 Si 
 6.	Se utiliza una BBDD MySQL
-Si | No (-5.5)
+Si 
 7.	Al menos  en una entidad se valida un campo en su creación en el formulario 
 Si 
 8.	Cualquier tipo de cambio sobre un registro se refleja en la BBDD
-Si | Tiene algún error (-1) | Faltan cosas importantes (-4)
+Si 
 9.	Existen relaciones entre entidades en la BBDD
-Si | Tiene algún error (-1) | Faltan cosas importantes (-4)
+Si 
 10.	La aplicación sigue una arquitectura adecuada (Controlador/Servicio/Repositorio)
 Si
 11.	Contiene estilos (CSS)

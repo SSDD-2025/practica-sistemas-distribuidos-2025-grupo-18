@@ -13,6 +13,12 @@ import es.codeurjc.trabajoweb_vscode.repository.*;
 @Service
 public class ReviewService {
     @Autowired
-    private ReviewRepository reviewRepository;
-
+    private  ReviewRepository repository;
+    public ReviewService(ReviewRepository repository) { this.repository = repository; }
+    public List<Review> findAll() { return repository.findAll(); }
+    public void save(Review review) { repository.save(review); }
+    public void delete(Long id) { repository.deleteById(id); }
+    public Review findById(Long id) {
+        return repository.findById(id).orElse(null);
+    }
 }

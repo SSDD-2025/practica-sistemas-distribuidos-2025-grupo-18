@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Libro</title>
+</head>
+<body>
+    <h1>Editar Libro</h1>
+
+    <form action="/books/edit" method="post">
+        <input type="hidden" name="id" value="{{book.id}}">
+
+        <label>Nombre del Libro:</label>
+        <input type="text" name="name" value="{{book.name}}" required>
+
+        <label>Año de Publicación:</label>
+        <input type="number" name="yearPub" value="{{book.yearPub}}" required>
+
+        <label>Autor:</label>
+        <select name="authorId" required>
+            {{#authors}}
+                <option value="{{id}}" {{#selected}}selected{{/selected}}>{{name}}</option>
+            {{/authors}}
+        </select>
+
+        <button type="submit">Actualizar</button>
+    </form>
+
+    <br>
+    <a href="/"><button>Volver</button></a>
+</body>
+</html>

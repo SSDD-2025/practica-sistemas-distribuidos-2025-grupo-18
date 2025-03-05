@@ -1,14 +1,94 @@
-
+<!DOCTYPE html>
 <html>
 <head>
-
-
+    <title>Lista de Reviews, Books, Authors y Users</title>
+    <style>
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { border: 1px solid black; padding: 10px; text-align: left; }
+        th { background-color: lightgray; }
+        button { margin-left: 10px; }
+    </style>
 </head>
-
 <body>
 
-<h1> HOLAAAA</h1>
+    <h1>Lista de Autores</h1>
+    <a href="/add-author"><button>Añadir Autor</button></a>
+    <table>
+        <tr><th>ID</th><th>Nombre</th><th>Acciones</th></tr>
+        {{#authors}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{name}}</td>
+            <td>
+                <a href="/authors/edit-author/{{id}}"><button>Editar</button></a>
+                <form action="/delete-author/{{id}}" method="post" style="display:inline;">
+                    <button type="submit">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {{/authors}}
+    </table>
+
+    <h1>Lista de Libros</h1>
+    <a href="/add-book"><button>Añadir Libro</button></a>
+    <table>
+        <tr><th>ID</th><th>Nombre</th><th>Año</th><th>Autor</th><th>Imagen</th><th>Acciones</th></tr>
+        {{#books}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{name}}</td>
+            <td>{{yearPub}}</td>
+            <td>{{author.name}}</td>
+            <td>
+                <img src="/book-images/{{id}}" width="200" alt="Imagen del libro">
+            </td>
+            <td>
+                <form action="/delete-book/{{id}}" method="post" style="display:inline;">
+                    <button type="submit">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {{/books}}
+    </table>
+
+    <h1>Lista de Reseñas</h1>
+    <a href="/add-review"><button>Añadir Reseña</button></a>
+    <table>
+        <tr><th>ID</th><th>Puntuación</th><th>Comentario</th><th>Libro</th><th>Usuario</th><th>Acciones</th></tr>
+        {{#reviews}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{rate}}</td>
+            <td>{{textReview}}</td>
+            <td>{{book.name}}</td>
+            <td>{{user.name}}</td>
+            <td>
+                <a href="/reviews/edit-review/{{id}}"><button>Editar</button></a>
+                <form action="/delete-review/{{id}}" method="post" style="display:inline;">
+                    <button type="submit">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {{/reviews}}
+    </table>
+
+    <h1>Lista de Usuarios</h1>
+    <a href="/add-user"><button>Añadir Usuario</button></a>
+    <table>
+        <tr><th>ID</th><th>Nombre</th><th>Acciones</th></tr>
+        {{#users}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{name}}</td>
+            <td>
+                <a href="/users/edit-user/{{id}}"><button>Editar</button></a>
+                <form action="/delete-user/{{id}}" method="post" style="display:inline;">
+                    <button type="submit">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {{/users}}
+    </table>
 
 </body>
-
 </html>

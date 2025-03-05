@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Añadir Libro</title>
+</head>
+<body>
+
+    <h1>Añadir Libro</h1>
+
+    <form action="/books/save" method="post" enctype="multipart/form-data">
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="name" required>
+        <br>
+
+        <label for="authorId">Autor:</label>
+        <select id="authorId" name="authorId" required>
+            {{#authors}}
+            <option value="{{id}}">{{name}}</option>
+            {{/authors}}
+        </select>
+        <br>
+
+        <label for="yearPub">Año de Publicación:</label>
+        <input type="number" id="yearPub" name="yearPub" required>
+        <br>
+
+        <label for="description">Descripción:</label>
+        <textarea id="description" name="description"></textarea>
+        <br>
+
+        <label for="image">Imagen:</label>
+        <input type="file" id="image" name="image" accept="image/*">
+        <br>
+
+        <button type="submit">Añadir Libro</button>
+    </form>
+
+</body>
+</html>

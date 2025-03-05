@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Reseña</title>
+</head>
+<body>
+    <h1>Editar Reseña</h1>
+
+    <form action="/reviews/edit" method="post">
+        <input type="hidden" name="id" value="{{review.id}}">
+        
+        <label>Calificación (1-5):</label>
+        <input type="number" name="rate" value="{{review.rate}}" min="1" max="5" required>
+        
+        <label>Comentario:</label>
+        <textarea name="textReview" required>{{review.textReview}}</textarea>
+
+        <label>Libro:</label>
+        <select name="bookId" required>
+            <option value="{{book.id}}" selected>{{book.name}}</option>
+            {{#books}}
+                <option value="{{id}}">{{name}}</option>
+            {{/books}}
+        </select>
+
+        <button type="submit">Actualizar</button>
+    </form>
+
+    <br>
+    <a href="/"><button>Volver</button></a>
+</body>
+</html>

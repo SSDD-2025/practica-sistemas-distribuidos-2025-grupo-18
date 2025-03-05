@@ -8,30 +8,28 @@ import jakarta.persistence.*;
 
 @Entity
 public class Author {
-    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
+    @Column(unique = true, nullable = false)
     private String name;
     private String nacionality;
     
-    @OneToMany(mappedBy = "author")
-	private List<Book> books = new ArrayList<>();
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Book> books;
 
-    public  Author() {}
-
-    public  Author(String nombreAutor, String nacionalidad) {
-        this.name = nombreAutor;
-        this.nacionality = nacionalidad;
+    public Author (String name){
+        this.name = name;
     }
-    
 
-
-
+    public Author()
+    {}
 
     public List<Book> getBooks() {
         return books;
+    }
+    public Long getId() {
+        return id;
     }
     public String getNacionality() {
         return nacionality;
@@ -39,20 +37,16 @@ public class Author {
     public String getName() {
         return name;
     }
-    public Long getId() {
-        return id;
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
-    public void setBooks(List<Book> comments) {
-        this.books = comments;
+    public void setId(Long id) {
+        this.id = id;
     }
-    public void setNacionality(String nacionalidad) {
-        this.nacionality = nacionalidad;
+    public void setNacionality(String nacionality) {
+        this.nacionality = nacionality;
     }
-    public void setName(String nombreAutor) {
-        this.name = nombreAutor;
+    public void setName(String name) {
+        this.name = name;
     }
-    public void setId(Long userId) {
-        this.id = userId;
-    }
-
 }

@@ -16,11 +16,15 @@ import jakarta.annotation.PostConstruct;
 public class SampleData {
     @Autowired
     private BookRepository bookRepository;
+    @Autowired
+    private AuthorRepository authorRepository;
+    @Autowired
+    private ReviewRepository reviewRepository;
 
     @PostConstruct
     public void init(){
-        Book HP = new Book("Harry Potter", 2019);
-        bookRepository.save(HP);
+        Author author = new Author("Juan");
+        authorRepository.save(author);
 
     }
 

@@ -57,3 +57,65 @@ Si | No (-1)
 Completo | Poco uso (-1) | Solo una subida (-2) 
 
 Participación de cada miembro del equipo:
+El desarrollo del proyecto se hizo en local, los commits en github aunque sean subidos por una persona, tienen la participación de todos los miembros del equipo, 
+
+Este es el diagrama de clases:
+
+![image](https://github.com/user-attachments/assets/e2ad7d6a-6b73-40a4-b405-4a62b87dc711)
+
+Este es el diagrama de navegación:
+![image](https://github.com/user-attachments/assets/086371fe-d249-400b-89e2-690718cddd4d)
+
+Con las pantallas mas significativas:
+![image](https://github.com/user-attachments/assets/6dcf802b-4dc7-4ed9-8da4-59f5c6ee6530)
+
+
+Este es el diagrama con las entidades de la base de datos:
+![image](https://github.com/user-attachments/assets/995711c8-406d-4369-844c-b38c68e6a842)
+
+documentación de las instrucciones para el entorno de desarrollo:
+Solo hemos usado un plugin, el spring boot extension pack:
+
+las dependencias son estas:
+<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mustache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+   
+   <dependency>
+     <groupId>org.apache.commons</groupId>
+     <artifactId>commons-math3</artifactId>
+     <version>3.6.1</version>
+   </dependency>
+ </dependencies>
+
+
+
+
+
+
+
+

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Añadir Autor - BookNest</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body>
+    <header class="toolbar">
+        <div class="logo">
+            <img src="../images/logo.png" alt="BookNest Logo">
+            <h1>BOOKNEST</h1>
+        </div>
+        <div class="toolbar-right">
+            <a href="/author-manager">Volver</a>
+        </div>
+    </header>
+    <main>
+        <section class="añadir-autor">
+            <h2>Añadir Autor</h2>
+            <form action="/add-author" method="post">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+            <label for="bio">Biografía:</label>
+            <textarea id="bio" name="bio" rows="4" required></textarea>
+            <button type="submit">Guardar</button>
+        </form>
+        </section>
+    </main>
+</body>
+
+</html>

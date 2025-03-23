@@ -1,13 +1,13 @@
-/* Es igual que la página normal pero no deja guardar listas ni libros, solo verlos */
-
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BookNest - Página Principal</title>
     <link rel="stylesheet" href="../css/styles.css">
 </head>
+
 <body>
     <header class="toolbar">
         <div class="logo">
@@ -16,8 +16,7 @@
         </div>
         <div class="toolbar-right">
             <input type="text" placeholder="Buscar libros..." class="search-bar">
-            
-            <a href="login">Log in</a>
+            <a href="log-in-admin">Log in</a>
             <a href="signUp">Sign up</a>
         </div>
     </header>
@@ -25,21 +24,15 @@
         <section class="top-libros">
             <h2>📚 Libros populares de esta semana</h2>
             <div class="libros-container">
-
-                
                 {{#books}}
-                <a href="/books/{{id}}">{{name}}</a>
-                <br>
+                <a href="/books/{{id}}" class="libro-card">
+                    <img src="data:image/jpeg;base64,{{#imageBase64}}{{imageBase64}}{{/imageBase64}}" alt="{{name}}">
+                    <h3>{{name}}</h3>
+                </a>
                 {{/books}}
-                
-                {{^books}}
-                <p>Todavia no hay libros.</p>
-                {{/books}}
-
-
-                <!-- Aquí se agregarán los libros dinámicamente -->
             </div>
         </section>
     </main>
 </body>
+
 </html>

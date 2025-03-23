@@ -1,71 +1,49 @@
 package es.codeurjc.trabajoweb_vscode.service;
 
-
-import java.sql.Blob;
+import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import es.codeurjc.trabajoweb_vscode.model.*;
-import es.codeurjc.trabajoweb_vscode.repository.*;
+import es.codeurjc.trabajoweb_vscode.model.Book;
+import es.codeurjc.trabajoweb_vscode.repository.BookRepository;
 
 
 @Service
 public class BookService {
+
     @Autowired
-    private BookRepository bookRepository;
-    
+    private BookRepository repository;
 
-    public List<Book> findAll(){
-        return bookRepository.findAll();
-    }
-    
-
-
-    public void createBook(String nombreLibro, int yearPub, Author autor,  Blob imagen, String descripcion) {
-        
-        Book newBook = new Book(nombreLibro, yearPub, autor, imagen, descripcion);
-        bookRepository.save(newBook);
+    public BookService(BookRepository repository) {
+        this.repository = repository;
     }
 
-
-    public Optional<Book> obtenerLibroPorId(Long id) {
-        return bookRepository.findById(id);
+    public List<Book> findAll() {
+        return repository.findAll();
     }
 
-    public Optional<Book> actualizarLibro(Long id, Book bookInfo) {
-        return bookRepository.findById(id).map(book -> {
-            book.setName(bookInfo.getName());
-            book.setYearPub(bookInfo.getYearPub());
-           // book.setAuthor(bookInfo.getAuthor());
-            book.setImage(bookInfo.getImage());
-            book.setDescription(bookInfo.getDescription());
-            return bookRepository.save(book);
-        });
+    public void save(Book book) {
+        repository.save(book);
     }
 
-    
-    public boolean eliminarLibro(Long id) {
-        if (bookRepository.existsById(id)) {
-            bookRepository.deleteById(id);
-            return true;
-        }
-        return false;
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
 
-
-    public Book saveBook(Book libro) {
-        return bookRepository.save(libro);
+    public Book findById(Long id) {
+        return repository.findById(id).orElse(null);
     }
 
+    // FUNCIÓN CREADA PARA MOSTRAR EN "/" LIBROS ALEATORIOS
+    public List<Book> findRandomBooks(int size) {
+        List<Book> books = repository.findAll();
+        Collections.shuffle(books);
+        return books.stream().limit(size).collect(Collectors.toList());
 
-    
-    public Optional<Book> findById(long id) {
-		return bookRepository.findById(id);
-	}
+    }
 
-    
 
 }

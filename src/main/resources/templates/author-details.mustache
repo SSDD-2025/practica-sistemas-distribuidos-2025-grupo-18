@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookNest - Detalles del autor</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <header class="toolbar">
+        <div class="logo">
+            <img src="../images/logo.png" alt="BookNest Logo">
+            <h1>BOOKNEST</h1>
+        </div>
+        <div class="toolbar-right">
+            <a href="/">Inicio</a>
+        </div>
+    </header>
+    <main>
+        <section class="author-details">
+            <div class="author-header">
+                <h1>{{author.name}}</h1>
+            </div>
+            <div class="author-content">
+                <div class="author-info">
+                    <h2>Información del autor</h2>
+                    <p>{{author.bio}}</p> 
+                </div>
+                <div class="author-books">
+                    <h2>Libros de {{author.name}}</h2>
+                    <ul>
+                        {{#author.books}}
+                        <li><a href="/books/{{id}}">{{name}}</a> ({{yearPub}})</li>
+                        {{/author.books}}
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

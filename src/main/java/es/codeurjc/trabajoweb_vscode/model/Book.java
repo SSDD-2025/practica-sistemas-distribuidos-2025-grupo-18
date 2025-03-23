@@ -1,141 +1,104 @@
 package es.codeurjc.trabajoweb_vscode.model;
 
-import java.sql.Blob;
-import java.util.ArrayList;
-import java.util.List;
-
-import jakarta.persistence.*;
-
-import java.sql.Blob;
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "books")
 public class Book {
+
+    // SIMPLIFICADO
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "name")
     private String name;
 
-  
+    private int yearPub;
+
+    @Lob
+    private byte[] image;
+
     @ManyToOne
     private Author author;
 
-    @Column(name = "yearPub")
-    private int yearPub;
-
-    @Column(name = "description")
     private String description;
 
-    @Column(name = "image")
-    private Blob image;
-  
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews;
 
-    @OneToMany(mappedBy = "book")
-    private List<Review> reviews = new ArrayList<>();
+    private String imageBase64;
 
-    @ManyToMany
-    private List<User> users;
+
+    ////////////// CONSRTUCTORS///////////////
 
     public Book() {
     }
 
+    /////////// GET AND SET////////////
 
-
-    public Book(String nombreLibro, int yearPub, Author autor, Blob imagen, String descripcion) {
-        this.name = nombreLibro;
-        this.yearPub = yearPub;
-        this.image = imagen;
-        this.description = descripcion;
-        this.author = autor;
-
-    }
-
-    public Book(String nombreLibro, int yearPub) {
-        this.name = nombreLibro;
-        this.yearPub = yearPub;
-    }
-
-    public Book getInfoBook(String nombreLibro) {
-
-        Book newBook = new Book();
-        // if newBook.nombreLibro = nombr
-        return newBook;
-
+    public Author getAuthor() {
+        return author;
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public byte[] getImage() {
+        return image;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String nombreLibro) {
-        this.name = nombreLibro;
+    public List<Review> getReviews() {
+        return reviews;
     }
-
 
     public int getYearPub() {
         return yearPub;
-    }
-
-    public Author getAuthor() {
-        return author;
     }
 
     public void setAuthor(Author author) {
         this.author = author;
     }
 
-
-    public void setYearPub(int yearPub) {
-        this.yearPub = yearPub;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-
-    public Blob getImage() {
-        return image;
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
-    public void setDescription(String descripcion) {
-        this.description = descripcion;
+    public void setName(String name) {
+        this.name = name;
     }
-    public String getDescription() {
-        return description;
-    }
-
-    public List<Review> getReviews() {
-        return reviews;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-
-    public void setImage(Blob imagen) {
-        this.image = imagen;
-    }
-
-
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setYearPub(int yearPub) {
+        this.yearPub = yearPub;
     }
 
+    public String getImageBase64() {
+        return imageBase64;
+    }
+
+    public void setImageBase64(String imageBase64) {
+        this.imageBase64 = imageBase64;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

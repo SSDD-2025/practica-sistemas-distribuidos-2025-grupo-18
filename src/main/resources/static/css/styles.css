@@ -6,6 +6,10 @@ body {
 
 /* ESTO ES PARA EL MAIN */
 
+.top-libros h2 {
+    margin-top: 120px; /* Ajusta este valor según sea necesario */
+}
+
 /* Centrar el contenido y cambiar el tipo de letra */
 .centered-content {
     text-align: center;
@@ -39,7 +43,38 @@ body {
 }
 
 .centered-content p3 {
-    margin-top: 50px; /* Ajusta el margen superior según sea necesario */
+    margin-top: 20px; /* Ajusta el margen superior según sea necesario */
+}
+
+/* ESTO ES PARA LOS LIBROS EN EL INDEX */
+.libros-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.libro-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+}
+
+.libro-card img {
+    max-width: 80%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.libro-card h3 {
+    margin: 10px 0;
+    font-size: 1.2em;
+}
+
+.libro-card p {
+    margin: 5px 0;
+    color: #555;
 }
 
 
@@ -188,4 +223,84 @@ labelPassword{
     justify-content: center;
     gap: 10px;
     flex-wrap: wrap;
+}
+
+
+
+/* PARA BOOK-DETAILS */
+.book-details {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    margin-top: 120px;
+}
+
+.book-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.book-content {
+    display: flex;
+    gap: 40px;
+}
+
+.book-content img {
+    max-width: 300px;
+    height: auto;
+    border-radius: 8px;
+}
+
+.book-info {
+    flex: 1;
+}
+
+.book-info h2 {
+    margin-top: 20px;
+    color: #333;
+}
+
+.book-info ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.book-info ul li {
+    margin: 10px 0;
+}
+
+
+.author-details {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    margin-top: 120px;
+}
+
+.author-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.author-content {
+    display: flex;
+    gap: 20px;
+}
+
+.author-info, .author-books {
+    flex: 1;
+}
+
+.author-info h2, .author-books h2 {
+    margin-top: 20px;
+    color: #333;
+}
+
+.author-books ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.author-books ul li {
+    margin: 10px 0;
 }

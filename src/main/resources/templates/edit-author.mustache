@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar Autor - BookNest</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body>
+    <header class="toolbar">
+        <div class="logo">
+            <img src="../images/logo.png" alt="BookNest Logo">
+            <h1>BOOKNEST</h1>
+        </div>
+        <div class="toolbar-right">
+            <a href="/gestion-autores">Volver</a>
+        </div>
+    </header>
+    <main>
+        <section class="modificar-autor">
+            <h2>Modificar Autor</h2>
+            <form action="/actualizar-autor" method="post">
+                <input type="hidden" name="id" value="{{author.id}}"> <!-- Campo oculto para el ID del autor -->
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" value="{{author.name}}" required>
+                <label for="bio">Biografía:</label>
+                <textarea id="bio" name="bio" rows="4" required>{{author.bio}}</textarea>
+                <button type="submit">Guardar cambios</button>
+            </form>
+        </section>
+    </main>
+</body>
+
+</html>

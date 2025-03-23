@@ -1,121 +1,40 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/D1C1HU9V)
+23/03 --> Marta
 
-Grupo: 18 (Ariabod Fatehi, Marta Sancristán, GUillermo Lara y Pablo León) 
-Nota:
-1.	Se ha rellenado la rúbrica antes de la defensa
-Si 
+**COSAS QUE HE HECHO:**
 
-Funcionalidad de la aplicación
+    1.- He creado una pantalla inicial (similar a Letterboxd) donde se muestran los libros, modificando y creando tanto HTMLs como el código Java (sobre todo los controllers para hacer bien los Mapping). Con esto, considero que la página para "usuario no registrado" ya estaría completa, ya que solo puede ver los libros y no puede hacer nada más.
 
-2.	Funcionalidad completa (Creación, consulta y borrado de todas las entidades)
-Completa
-3.	Se puede editar al menos una entidad 
-Si 
-4.	Al menos una entidad tiene una imagen como parámetro, se puede visualizar y se almacena en BBDD
-Si 
-5.	La aplicación tiene datos de ejemplo cargados
-Si 
-6.	Se utiliza una BBDD MySQL
-Si 
-7.	Al menos  en una entidad se valida un campo en su creación en el formulario 
-Si 
-8.	Cualquier tipo de cambio sobre un registro se refleja en la BBDD
-Si 
-9.	Existen relaciones entre entidades en la BBDD
-Si 
-10.	La aplicación sigue una arquitectura adecuada (Controlador/Servicio/Repositorio)
-Si
-11.	Contiene estilos (CSS)
- Algunos elementos sin estilos (-0.5) 
-12.	La aplicación tiene errores 
-No
-13.	Hay páginas de error propias
-No (-0.5)
+    2.- Además, he añadido navegación por la página de 2 formas (de momento):
+
+        2.1.- Si pulsas en el libro de la página principal, nos lleva a la página de detalles del libro.
+
+        2.2.- Dentro de los detalles del libro, aparece el autor. Si pulsamos encima de su nombre, vamos a ir a una página de detalles del autor, que nos muestra su biografía y los libros existentes en la página que sean suyos.
+
+        ¡!: de momento, los libros y autores se inicializan en SampleData, con la función init.
+
+    3.- Si pulsamos en Log In, nos va a llevar a una página de "admin", donde deberíamos d epoder gestionar libros y autores. De momento, no funciona, pero ya he creado la estructura de la página y el controller que nos servirán de base.
 
 
+**COSAS QUE HAY QUE HACER:**
 
-Calidad del código
+    1.- Mi idea sería hacer primero la parte de la Fase 2 (seguridad), porque necesitamos los distintos roles (user y admin) para añadir la funcionalidad de cada uno:
 
-14.	El código y los comentarios están en inglés
-Si 
-15.	El código tiene un formato y estilo adecuado.
-Si 
+        - User: crear listas de libros y añadir reseñas. La página de "usuario registrado" debería de ser muy similar a la de no registrado, con la diferencia de esas 2 funciones cuando pulsemos en los detalles de un libro. Además, en la cabecera debería de tener la opción de configurar su cuenta (lo dijo el profe en clase cuando explicó la rúbrica).
 
-Documentación y repositorio GitHub
-
-16.	La documentación contiene un diagrama de navegación 
-Si 
-17.	La documentación contiene un diagrama con las entidades de la base de datos actualizado
-Si 
-18.	La documentación contiene un diagrama con las clases separando los controladores, servicios, repositorios, etc.
-Si 
-19.	La documentación contiene una sección con instrucciones sobre cómo configurar el entorno de desarrollo y cómo desarrollar la aplicación
-Si
-20.	La documentación contiene información sobre la participación de cada miembro del equipo
-Si 
-21.	Uso de GitHub
-Poco uso (-1)
-
-Participación de cada miembro del equipo:
-El desarrollo del proyecto se hizo en local, los commits en github aunque sean subidos por una persona, tienen la participación de todos los miembros del equipo, 
-
-Este es el diagrama de clases:
-
-![image](https://github.com/user-attachments/assets/e2ad7d6a-6b73-40a4-b405-4a62b87dc711)
-
-Este es el diagrama de navegación:
-![image](https://github.com/user-attachments/assets/086371fe-d249-400b-89e2-690718cddd4d)
-
-Con las pantallas mas significativas:
-![image](https://github.com/user-attachments/assets/6dcf802b-4dc7-4ed9-8da4-59f5c6ee6530)
+        - Admin: gestionar (ver, modificar y borrar) libros y autores. Esta página no tiene tanta importancia, simplemente tiene que poder gestionarlo de manera efectiva en la base de datos y tenemos que asegurarnos de que no nos deje meternos de cualquier manera (seguridad).
 
 
-Este es el diagrama con las entidades de la base de datos:
-![image](https://github.com/user-attachments/assets/995711c8-406d-4369-844c-b38c68e6a842)
+Respecto a la estructura, Como podéis ver, he modificado prácticamente todo el trabajo. 
+Además, teníamos otro repositorio en el que he hecho todos estos cambios para no modificar el repositorio de la práctica 1 mientras el profe estaba corrigiendo. Así que, **IMPORTANTE**, si descomentáis alguna clase que está comentada, es posible que os salgan errores en los imports y en el paquete. Tendréis que cambiar de: "package es.codeurjc.booknest.controller;" a "package es.codeurjc.trabajoweb_vscode.controller;" y lo mismo con el resto de imports que puedan dar error. 
 
-documentación de las instrucciones para el entorno de desarrollo:
-Solo hemos usado un plugin, el spring boot extension pack:
-
-las dependencias son estas:
-<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-data-jpa</artifactId>
-    </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mustache</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-   
-   <dependency>
-     <groupId>org.apache.commons</groupId>
-     <artifactId>commons-math3</artifactId>
-     <version>3.6.1</version>
-   </dependency>
- </dependencies>
+Al ejecutar el trabajo con Spring Boot, os van a salir 2 opciones: seleccionar la de BooknestApplication.
 
 
+------------------------------------------------------------------------------------------------------
+10/3 --> Guille
 
+Los cambios que he hecho en general han sido de simplicar y poner un poco todo en orden, he estado pensando como organizar todo y que estructura debemos de seguir. En conclusión pienso que lo mejor es seguir la estructura de url del mismo letterbox.
 
+Objetivos:
 
-
-
-
+Crear la pantalla principal para un usuario que no está registrado Configurar el login Adaptar la pantlla principal para que haya diferencias cuando se ha iniciado sesion

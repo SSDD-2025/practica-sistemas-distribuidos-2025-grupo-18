@@ -1,19 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestionar Libros - BookNest</title>
-    <link rel="stylesheet" href="../css/styles.css">
-</head>
-
-<body>
-    <header class="toolbar">
-        <div class="logo">
-            <img src="../images/logo.png" alt="BookNest Logo">
-            <h1>BOOKNEST</h1>
-        </div>
+{{>header}}
         <div class="toolbar-right">
             <a href="/adminLoggedIn">Volver</a>
         </div>
@@ -26,8 +11,4 @@
                 <a href="/edit-book" class="boton">Modificar libro</a>
                 <a href="/delete-book" class="boton">Eliminar libro</a>
             </div>
-        </section>
-    </main>
-</body>
-
-</html>
+{{>footer}}

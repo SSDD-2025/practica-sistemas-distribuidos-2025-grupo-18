@@ -1,23 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BookNest - Página Principal</title>
-    <link rel="stylesheet" href="../css/styles.css">
-</head>
-
-<body>
-    <header class="toolbar">
-        <div class="logo">
-            <img src="../images/logo.png" alt="BookNest Logo">
-            <h1>BOOKNEST</h1>
-        </div>
+{{>header}}
         <div class="toolbar-right">
             <input type="text" placeholder="Buscar libros..." class="search-bar">
-            <a href="log-in-admin">Log in</a>
-            <a href="signUp">Sign up</a>
+            <a href="/book-manager">Gestionar libros</a>
+            <a href="/author-manager">Gestionar autores</a>
+            <a href="/">Cerrar sesión</a>
         </div>
     </header>
     <main>
@@ -31,8 +17,4 @@
                 </a>
                 {{/books}}
             </div>
-        </section>
-    </main>
-</body>
-
-</html>
+{{>footer}}

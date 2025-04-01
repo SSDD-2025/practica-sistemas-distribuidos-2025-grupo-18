@@ -304,3 +304,20 @@ labelPassword{
 .author-books ul li {
     margin: 10px 0;
 }
+
+.reviews-section {
+    margin-top: 20px;
+}
+
+.reviews-container {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background: #f9f9f9;
+}
+
+.review {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}

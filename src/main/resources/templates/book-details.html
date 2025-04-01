@@ -1,17 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BookNest - Detalles del libro</title>
-    <link rel="stylesheet" href="../css/styles.css"> <!-- Asegúrate de que la ruta sea correcta -->
-</head>
-<body>
-    <header class="toolbar">
-        <div class="logo">
-            <img src="../images/logo.png" alt="BookNest Logo"> <!-- Asegúrate de que la ruta sea correcta -->
-            <h1>BOOKNEST</h1>
-        </div>
+{{>header}}
         <div class="toolbar-right">
             <a href="/">Inicio</a>
         </div>
@@ -34,7 +21,14 @@
                     </ul>
                 </div>
             </div>
-        </section>
-    </main>
-</body>
-</html>
+            <div class="reviews-section">
+                <h2>Reseñas</h2>
+                <div class="reviews-container">
+                    {{#book.reviews}}
+                        <div class="review">
+                            <p><a href="/user/{{user.id}}"><strong>{{user.name}}</strong></a> - Calificación: {{rate}}/5</p>
+                            <p>{{textReview}}</p>
+                        </div>
+                    {{/book.reviews}}
+            </div>
+{{>footer}}

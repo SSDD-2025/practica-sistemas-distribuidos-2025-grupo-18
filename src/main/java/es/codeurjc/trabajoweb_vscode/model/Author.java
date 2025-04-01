@@ -31,6 +31,11 @@ public class Author {
     public Author()
     {}
 
+    public Author(String name, String bio){
+        this.bio = bio;
+        this.name = name;
+    }
+
 
     ///////////GET AND SET////////////
     

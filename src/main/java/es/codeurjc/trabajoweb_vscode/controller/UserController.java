@@ -1,9 +1,10 @@
-/*package es.codeurjc.booknest.controller;
+package es.codeurjc.trabajoweb_vscode.controller;
 
-import es.codeurjc.booknest.model.*;
+import es.codeurjc.trabajoweb_vscode.model.*;
 
-import es.codeurjc.booknest.service.*;
+import es.codeurjc.trabajoweb_vscode.service.*;
 
+import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,11 +12,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
+
+
+        @GetMapping("/{id}")
+    public String getBookDetails(@PathVariable Long id, Model model) {
+        User user = userService.findById(id);
+
+        model.addAttribute("user", user);
+        return "user-details";
+    }
 
 
 
@@ -63,5 +73,5 @@ public class UserController {
     public String deleteUser(@PathVariable Long id) {
         userService.delete(id);
         return "redirect:/users";
-    }
-}*/
+    }*/
+}

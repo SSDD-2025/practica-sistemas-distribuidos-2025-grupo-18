@@ -1,0 +1,22 @@
+{{>header}}
+        <div class="toolbar-right">
+            <form action="/search" method="get">
+                <input type="text" name = "query"placeholder="¿Que quieres buscar?" required>
+                <button type="submit">Buscar</button>
+            </form>
+            <a href="login">Log in</a>
+            <a href="signUp">Sign up</a>
+        </div>
+    </header>
+    <main>
+        <section class="top-libros">
+            <h2>📚 Libros populares de esta semana</h2>
+            <div class="libros-container">
+                {{#books}}
+                <a href="/book/{{id}}" class="libro-card">
+                    <img src="data:image/jpeg;base64,{{#imageBase64}}{{imageBase64}}{{/imageBase64}}" alt="{{name}}">
+                    <h3>{{name}}</h3>
+                </a>
+                {{/books}}
+            </div>
+{{>footer}}

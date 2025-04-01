@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resultados de Búsqueda</title>
+</head>
+<body>
+    <h1>Resultados para "{{query}}"</h1>
+
+    <h2>Usuarios</h2>
+    <ul>
+        {{#usuarios}}
+            <li>{{name}}</li>
+        {{/usuarios}}
+        {{^usuarios}}
+            <li>No se encontraron usuarios.</li>
+        {{/usuarios}}
+    </ul>
+
+    <h2>Libros</h2>
+    <ul>
+        {{#libros}}
+            <li>{{name}}</li>
+        {{/libros}}
+        {{^libros}}
+            <li>No se encontraron libros.</li>
+        {{/libros}}
+    </ul>
+
+    <a href="/">Volver</a>
+</body>
+</html>

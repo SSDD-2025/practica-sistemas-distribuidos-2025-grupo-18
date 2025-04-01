@@ -31,6 +31,15 @@ public class Review {
     //////////////CONSRTUCTORS///////////////
 
     public Review(){}
+    
+    public Review(int rate, String textReview, Book book, User user) {
+        if (rate >= 0 && rate <= 5)
+        this.rate = rate;
+        this.textReview = textReview;
+        this.book = book;
+        this.user = user;
+    }
+
     ///////////GET AND SET/////////////
     public Book getBook() {
         return book;
@@ -54,6 +63,7 @@ public class Review {
         this.id = id;
     }
     public void setRate(int rate) {
+        if (rate >= 0 && rate <= 5)
         this.rate = rate;
     }
     public void setTextReview(String textReview) {

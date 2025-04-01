@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 //NO HE HECHO CAMBIOS
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/authors/")
 public class AuthorController {
     @Autowired
     private AuthorService service;
 
-    @GetMapping("/authors/{id}")
+    @GetMapping("{id}")
     public String getAuthorDetails(@PathVariable Long id, Model model) {
         Author author = service.findById(id);
         if (author == null) {
@@ -34,7 +34,7 @@ public class AuthorController {
         return "author-details";
     }
 
-    @PostMapping("/add-author")
+    @PostMapping("/add")
     public String saveAuthor(
             @RequestParam String nombre, 
             @RequestParam String bio, 

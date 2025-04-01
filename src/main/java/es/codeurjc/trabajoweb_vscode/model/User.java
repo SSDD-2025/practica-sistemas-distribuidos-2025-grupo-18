@@ -2,7 +2,6 @@ package es.codeurjc.trabajoweb_vscode.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
@@ -30,7 +29,7 @@ public class User {
     private String name;
     
     @Column(nullable = false)
-    private String password;
+    private String encodedPassword;
 
     @OneToMany(mappedBy = "user", cascade =  CascadeType.ALL, orphanRemoval = true)
     private List<BookList> bookLists = new ArrayList<>();
@@ -41,7 +40,7 @@ public class User {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
-    private Set<String> roles;
+    private List<String> roles;
     
     //PARA SEGURIDAD VAMOS A ASIGNAR ROLES CON UNA TABLA HASH
 
@@ -51,6 +50,11 @@ public class User {
 
 
     public User() {}
+    public User(String name, String encodedPassword, String... roles) {
+		this.name = name;
+		this.encodedPassword = encodedPassword;
+		this.roles = List.of(roles);
+	}
 
 
     ///////////GET AND SET/////////////
@@ -78,12 +82,12 @@ public class User {
         this.reviews = reviews;
     }
 
-    public String getPassword() {
-        return password;
+    public String getEncodedPassword() {
+        return encodedPassword;
     }
     
-    public void setPassword(String password) {
-        this.password = password;
+    public void setEncodedPassword(String password) {
+        this.encodedPassword = password;
     }
     
     public List<BookList> getBookLists() {
@@ -92,6 +96,13 @@ public class User {
     
     public void setBookLists(List<BookList> bookLists) {
         this.bookLists = bookLists;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 
 

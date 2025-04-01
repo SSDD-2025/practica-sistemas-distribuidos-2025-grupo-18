@@ -36,7 +36,18 @@ public class Book {
     public Book() {
     }
 
+    public Book(String name, int yearPub, Author author, String description) {
+        this.name = name;
+        this.yearPub = yearPub;
+        this.author = author;
+        this.description = description;
+    }
+
     /////////// GET AND SET////////////
+
+
+
+
 
     public Author getAuthor() {
         return author;

@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 //NO HE HECHO CAMBIOS
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/book")
 public class BookController {
     @Autowired
     private BookService service;
@@ -33,7 +33,7 @@ public class BookController {
         this.authorService = authorService;
     }
 
-    @GetMapping("/books/{id}")
+    @GetMapping("/{id}")
     public String getBookDetails(@PathVariable Long id, Model model) {
         Book book = service.findById(id);
         /*
@@ -51,7 +51,7 @@ public class BookController {
         return "book-details";
     }
 
-    @PostMapping("/add-book")
+    @PostMapping("/add")
     public String saveBook(
             @RequestParam String nombre,
             @RequestParam String autor, 

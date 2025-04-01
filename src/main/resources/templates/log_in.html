@@ -14,6 +14,7 @@
 
                 <labelPassword for="password">Password:</labelPassword>
                 <input type="password" id="password" name="password" required>
+                <input type="hidden" name="_csrf" value="{{token}}"/>
 
                 <button type="submit" class="btn btn-primary">Enter</button>
                 <p th:if="${error}" class="text-danger mt-3" th:text="${error}"></p>

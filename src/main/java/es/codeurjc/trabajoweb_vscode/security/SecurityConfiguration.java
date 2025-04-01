@@ -35,6 +35,9 @@ public class SecurityConfiguration {
     
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+        http.authenticationProvider(authenticationProvider());
+
         http
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/**").permitAll()
@@ -54,7 +57,4 @@ public class SecurityConfiguration {
 
         return http.build();
     }
-
-
-
 }

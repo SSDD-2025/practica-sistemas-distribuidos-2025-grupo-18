@@ -4,8 +4,19 @@
                 <input type="text" name = "query"placeholder="¿Que quieres buscar?" required>
                 <button type="submit">Buscar</button>
             </form>
-            <a href="/login">Log in</a>
-            <a href="/signUp">Sign up</a>
+
+            {{#logged}}
+            <li><form action="/logout" method="post">
+                <button class="btn btn-primary navbar-btn" type="submit">Log
+                    Out</button>
+                <input type="hidden" name="_csrf" value="{{token}}" />
+            </form></li>    
+            {{/logged}}
+        {{^logged}}
+        <a href="/login">Log in</a>
+        <a href="/signUp">Sign up</a>        
+        {{/logged}}
+
         </div>
     </header>
     <main>

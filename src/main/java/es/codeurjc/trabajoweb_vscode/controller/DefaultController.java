@@ -1,18 +1,15 @@
 package es.codeurjc.trabajoweb_vscode.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-
 import java.security.Principal;
 import java.util.Base64;
 import java.util.List;
 
-//import es.codeurjc.booknest.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import es.codeurjc.trabajoweb_vscode.model.Author;
@@ -128,22 +125,23 @@ public class DefaultController {
         return "adminLoggedIn";
     }
 
-    @GetMapping("/book-manager")
+    @GetMapping("/adminLoggedIn/book-manager")
     public String gestionLibros() {
+
         return "book-manager"; 
     }
 
-    @GetMapping("/author-manager")
+    @GetMapping("/adminLoggedIn/author-manager")
     public String gestionAutores() {
         return "author-manager"; 
     }
 
-    @GetMapping("/add-book")
+    @GetMapping("/adminLoggedIn/add-book")
     public String añadirLibro() {
         return "add-book";
     }
 
-    @GetMapping("/edit-book/{id}")
+    @GetMapping("/adminLoggedIn/edit-book/{id}")
     public String modificarLibro(@PathVariable Long id, Model model) {
         Book book = bookService.findById(id);
         if (book == null) {
@@ -153,7 +151,7 @@ public class DefaultController {
         return "edit-book";
     }
 
-    @GetMapping("/delete-book/{id}")
+    @GetMapping("/adminLoggedIn/delete-book/{id}")
     public String eliminarLibro(@PathVariable Long id, Model model) {
         Book book = bookService.findById(id);
         if (book == null) {
@@ -163,12 +161,12 @@ public class DefaultController {
         return "delete-book";
     }
 
-    @GetMapping("/add-author")
+    @GetMapping("/adminLoggedIn/add-author")
     public String añadirAutor() {
         return "add-author";
     }
 
-    @GetMapping("/edit-author/{id}")
+    @GetMapping("/adminLoggedIn/edit-author/{id}")
     public String modificarAutor(@PathVariable Long id, Model model) {
         Author author = authorService.findById(id);
         if (author == null) {
@@ -178,7 +176,7 @@ public class DefaultController {
         return "edit-author";
     }
 
-    @GetMapping("/delete-author/{id}")
+    @GetMapping("/adminLoggedIn/delete-author/{id}")
     public String eliminarAutor(@PathVariable Long id, Model model) {
         Author author = authorService.findById(id);
         if (author == null) {

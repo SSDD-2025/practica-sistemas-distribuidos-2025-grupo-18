@@ -4,6 +4,30 @@ body {
     font-family: Arial, sans-serif;
 }
 
+.book-manager .botones-gestion{
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center; 
+    height: 100vh; 
+    gap: 20px;
+}
+.book-manager .boton {
+    display: inline-block;
+    padding: 20px 40px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    width: 200px;
+    font-size: 1.2em;
+}
+
+.boton:hover {
+    background-color: #0056b3;
+}
 /* ESTO ES PARA EL MAIN */
 
 .top-libros h2 {

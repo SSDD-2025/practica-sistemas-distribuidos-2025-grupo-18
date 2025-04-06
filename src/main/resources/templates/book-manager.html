@@ -1,14 +1,16 @@
 {{>header}}
-        <div class="toolbar-right">
-            <a href="/adminLoggedIn">Volver</a>
+    <div class="toolbar-right">
+        <a href="/adminLoggedIn">Volver</a>
+    </div>
+</header>
+<main>
+    <section class="book-manager">
+        <h2>Gestionar Libros</h2>
+        <div class="botones-gestion">
+            <a href="/adminLoggedIn/add-book" class="boton">Añadir libro</a>
+            <a href="/adminLoggedIn/edit-book" class="boton">Modificar libro</a>
+            <a href="/adminLoggedIn/delete-book" class="boton">Eliminar libro</a>
         </div>
-    </header>
-    <main>
-        <section class="gestion-libros">
-            <h2>Gestionar Libros</h2>
-            <div class="botones-gestion">
-                <a href="/add-book" class="boton">Añadir libro</a>
-                <a href="/edit-book" class="boton">Modificar libro</a>
-                <a href="/delete-book" class="boton">Eliminar libro</a>
-            </div>
+    </section>
+</main>
 {{>footer}}

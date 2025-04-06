@@ -3,16 +3,20 @@ package es.codeurjc.trabajoweb_vscode;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import es.codeurjc.trabajoweb_vscode.model.Author;
+import es.codeurjc.trabajoweb_vscode.model.Book;
+import es.codeurjc.trabajoweb_vscode.model.Review;
+import es.codeurjc.trabajoweb_vscode.model.User;
+import es.codeurjc.trabajoweb_vscode.repository.AuthorRepository;
+import es.codeurjc.trabajoweb_vscode.repository.BookRepository;
+import es.codeurjc.trabajoweb_vscode.repository.ReviewRepository;
+import es.codeurjc.trabajoweb_vscode.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
-
-import es.codeurjc.trabajoweb_vscode.model.*;
-import es.codeurjc.trabajoweb_vscode.repository.*;
 
 //LO QUITO, LUEGO REALIZAREMOS PRUEBAS
 
@@ -66,6 +70,9 @@ public class SampleData {
 
             User user1 = new User("user", passwordEncoder.encode("pass"), "USER");
             userRepository.save(user1);
+
+            User admin = new User("admin", passwordEncoder.encode("admin"), "ADMIN");
+            userRepository.save(admin);
 
             Review review1 = new Review(3, "Esta bien",book1,user1);
             reviewRepository.save(review1);

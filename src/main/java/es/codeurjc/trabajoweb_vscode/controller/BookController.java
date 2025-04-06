@@ -1,32 +1,39 @@
 package es.codeurjc.trabajoweb_vscode.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Base64;
 
-import es.codeurjc.trabajoweb_vscode.model.*;
-import es.codeurjc.trabajoweb_vscode.service.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-//NO HE HECHO CAMBIOS
+import es.codeurjc.trabajoweb_vscode.model.Author;
+import es.codeurjc.trabajoweb_vscode.model.Book;
+import es.codeurjc.trabajoweb_vscode.model.User;
+import es.codeurjc.trabajoweb_vscode.service.AuthorService;
+import es.codeurjc.trabajoweb_vscode.service.BookService;
+import es.codeurjc.trabajoweb_vscode.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 
+//NO HE HECHO CAMBIOS
 @Controller
 @RequestMapping("/book")
 public class BookController {
+
     @Autowired
     private BookService service;
     @Autowired
     private AuthorService authorService;
+    @Autowired
+    private UserService userService;
 
     public BookController(BookService service, AuthorService authorService) {
         this.service = service;
@@ -34,13 +41,8 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public String getBookDetails(@PathVariable Long id, Model model) {
+    public String getBookDetails(@PathVariable Long id, Model model, Principal principal,HttpServletRequest request) {
         Book book = service.findById(id);
-        /*
-         * if (book == null) {
-         * return "redirect:/error";
-         * }
-         */
 
         if (book.getImage() != null) {
             String imageBase64 = Base64.getEncoder().encodeToString(book.getImage());
@@ -48,16 +50,30 @@ public class BookController {
         }
 
         model.addAttribute("book", book);
+
+        boolean isLogged = (principal != null);
+        System.out.println("Usuario autenticado: " + (principal != null));
+        model.addAttribute("logged", isLogged);
+        CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("_csrf", csrfToken);
+
+        if (isLogged) {
+            User loggedUser = userService.findByName(principal.getName());
+            model.addAttribute("loggedUser", loggedUser);
+        }
+
         return "book-details";
+
+
     }
 
     @PostMapping("/add")
     public String saveBook(
             @RequestParam String nombre,
-            @RequestParam String autor, 
+            @RequestParam String autor,
             @RequestParam int año,
-            @RequestParam String descripcion, 
-            @RequestParam("imagen") MultipartFile imagen, 
+            @RequestParam String descripcion,
+            @RequestParam("imagen") MultipartFile imagen,
             Model model) {
 
         // Buscar o crear el autor
@@ -68,27 +84,24 @@ public class BookController {
             authorService.save(author);
         }
 
-     
         Book book = new Book();
         book.setName(nombre);
         book.setYearPub(año);
-        book.setDescription(descripcion); 
+        book.setDescription(descripcion);
         book.setAuthor(author);
 
-    
         try {
             if (!imagen.isEmpty()) {
-                book.setImage(imagen.getBytes()); 
+                book.setImage(imagen.getBytes());
             }
         } catch (IOException e) {
             e.printStackTrace();
             model.addAttribute("error", "Error al procesar la imagen");
-            return "add-book"; 
+            return "add-book";
         }
 
-     
         service.save(book);
-        return "redirect:/adminLoggedIn"; 
+        return "redirect:/adminLoggedIn";
     }
 
     /*

@@ -1,40 +1,61 @@
 {{>header}}
-        <div class="toolbar-right">
-            <a href="/">Inicio</a>
+<div class="toolbar-right">
+    <a href="/">Inicio</a>
+</div>
+</header>
+<main>
+    <section class="book-details">
+        <div class="book-header">
+            <h1>{{book.name}}</h1>
+            <p><a href="/authors/{{book.author.id}}">{{book.author.name}}</a> ({{book.yearPub}})</p>
         </div>
-    </header>
-    <main>
-        <section class="book-details">
-            <div class="book-header">
-                <h1>{{book.name}}</h1>
-                <p><a href="/authors/{{book.author.id}}">{{book.author.name}}</a> ({{book.yearPub}})</p>
-            </div>
-            <div class="book-content">
-                <img src="data:image/jpeg;base64,{{#book.imageBase64}}{{book.imageBase64}}{{/book.imageBase64}}" alt="{{book.name}}">
-                <div class="book-info">
-                    <h2>Descripción</h2>
-                    <p>{{book.description}}</p> 
-                    <h2>Detalles</h2>
-                    <ul>
-                        <li><strong>Autor:</strong> {{book.author.name}}</li>
-                        <li><strong>Año de publicación:</strong> {{book.yearPub}}</li>
-                    </ul>
+        <div class="book-content">
+            <img src="data:image/jpeg;base64,{{#book.imageBase64}}{{book.imageBase64}}{{/book.imageBase64}}"
+                alt="{{book.name}}">
+            <div class="book-info">
+                <h2>Descripción</h2>
+                <p>{{book.description}}</p>
+                <h2>Detalles</h2>
+                <ul>
+                    <li><strong>Autor:</strong> {{book.author.name}}</li>
+                    <li><strong>Año de publicación:</strong> {{book.yearPub}}</li>
+                </ul>
+                {{#logged}}
+                <div class="review-form">
+                    <h2>Escribe una reseña</h2>
+                    <form action="/book/{{book.id}}/reviews/add" method="post">
+                        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+                        <textarea name="textReview" placeholder="Escribe tu reseña aquí..." required></textarea>
+                        <label for="rate">Calificación:</label>
+                        <select name="rate" id="rate" required>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                        <input type="hidden" name="bookId" value="{{book.id}}">
+                        <input type="hidden" name="userId" value="{{#loggedUser}}{{loggedUser.id}}{{/loggedUser}}">
+                        <button type="submit">Publicar reseña</button>
+                    </form>
                 </div>
+                {{/logged}}
             </div>
-            <div class="reviews-section">
-                <h2>Reseñas</h2>
-                <div class="reviews-container">
-                    {{#book.reviews}}
-                        <div class="review">
-                            <p><a href="/user/{{user.id}}"><strong>{{user.name}}</strong></a> - Calificación: {{rate}}/5</p>
-                            <p>{{textReview}}</p>
-                        </div>
-                    {{/book.reviews}}
+        </div>
+        <div class="reviews-section">
+            <h2>Reseñas</h2>
+            <div class="reviews-container">
+                {{#book.reviews}}
+                <div class="review">
+                    <p><a href="/user/{{user.id}}"><strong>{{user.name}}</strong></a> - Calificación: {{rate}}/5</p>
+                    <p>{{textReview}}</p>
+                </div>
+                {{/book.reviews}}
             </div>
             {{#logged}}
             <div class="textbox-review">
-                
+
             </div>
             {{/logged}}
 
-{{>footer}}
+            {{>footer}}

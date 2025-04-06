@@ -1,33 +1,27 @@
-/*package es.codeurjc.booknest.controller;
+package es.codeurjc.trabajoweb_vscode.controller;
 
-//marta
-
-
-
-import java.util.Optional;
-
-
-import es.codeurjc.booknest.model.*;
-import es.codeurjc.booknest.repository.*;
-import es.codeurjc.booknest.service.*;
+import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import es.codeurjc.trabajoweb_vscode.model.Book;
+import es.codeurjc.trabajoweb_vscode.model.Review;
+import es.codeurjc.trabajoweb_vscode.model.User;
+import es.codeurjc.trabajoweb_vscode.repository.BookRepository;
+import es.codeurjc.trabajoweb_vscode.service.BookService;
+import es.codeurjc.trabajoweb_vscode.service.ReviewService;
+import es.codeurjc.trabajoweb_vscode.service.UserService;
+
 //NO HE HECHO CAMBIOS
-
-
 @Controller
-@RequestMapping("/reviews")
+@RequestMapping("/book/{bookId}/reviews")
 public class ReviewController {
+
     @Autowired
     private ReviewService service;
     @Autowired
@@ -35,27 +29,30 @@ public class ReviewController {
     @Autowired
     private BookService bookService;
     @Autowired
-    private UserRepository userRepository;
-  
-    @PostMapping("/save")
-    public String save(@RequestParam int rate, @RequestParam String textReview, @RequestParam Long bookId, @RequestParam Long userId) {
-        Optional <Book> book = bookRepository.findById(bookId);
-        Optional <User> user = userRepository.findById(userId);
-        if(book.isPresent()){
-        Review review = new Review();
-        review.setRate(rate);
-        review.setTextReview(textReview);
-        review.setBook(book.get());
-        review.setUser(user.get());
-        service.save(review);
-        return "redirect:/";
-    }
-        else{
-            return"error";
-        }
-    }
+    private UserService userService;
 
-    @GetMapping("/edit-review/{id}")
+    @PostMapping("/add")
+    public String addReview(
+            @PathVariable Long bookId,
+            @RequestParam int rate,
+            @RequestParam String textReview,
+            @RequestParam(required = false) Long userId,
+            Principal principal) {
+
+        Book book = bookService.findById(bookId);
+        User user = userId != null ? userService.findById(userId)
+                : userService.findByName(principal.getName());
+
+        if (book != null && user != null) {
+            Review review = new Review(rate, textReview, book, user);
+            service.save(review);
+        } else {
+            System.out.println("Failed to save review");
+        }
+
+        return "redirect:/book/" + bookId;
+    }
+    /*@GetMapping("/edit-review/{id}")
     public String showEditReviewForm(@PathVariable("id") Long id, Model model) {
         Review review = service.findById(id);
         if (review == null) {
@@ -114,5 +111,5 @@ public class ReviewController {
     public String delete(@PathVariable Long id) {
         service.delete(id);
         return "redirect:/";
-    }
-}*/
+    }*/
+}

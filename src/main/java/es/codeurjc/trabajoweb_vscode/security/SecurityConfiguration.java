@@ -1,13 +1,15 @@
 package es.codeurjc.trabajoweb_vscode.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.*;
-import org.springframework.security.web.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 
 
@@ -39,10 +41,18 @@ public class SecurityConfiguration {
         http.authenticationProvider(authenticationProvider());
 
         http
+        
+            .csrf(csrf -> csrf
+            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+            )
+
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/**").permitAll()
                 .requestMatchers("/private").hasAnyRole("USER")
                 .requestMatchers("/admin").hasAnyRole("ADMIN")
+                .requestMatchers("/reviews/add").hasRole("USER")
+
+                
             )
             .formLogin(form -> form
                 .loginPage("/login")

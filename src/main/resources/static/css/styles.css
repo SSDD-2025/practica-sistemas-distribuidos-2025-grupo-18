@@ -270,8 +270,8 @@ labelPassword{
 }
 
 .book-content img {
-    max-width: 300px;
-    height: auto;
+    max-width: 500px;
+    height: 250px;
     border-radius: 8px;
 }
 

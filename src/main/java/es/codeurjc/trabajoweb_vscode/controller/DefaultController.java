@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import es.codeurjc.trabajoweb_vscode.model.Author;
@@ -19,8 +20,8 @@ import es.codeurjc.trabajoweb_vscode.repository.BookRepository;
 import es.codeurjc.trabajoweb_vscode.repository.UserRepository;
 import es.codeurjc.trabajoweb_vscode.service.AuthorService;
 import es.codeurjc.trabajoweb_vscode.service.BookService;
+import es.codeurjc.trabajoweb_vscode.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
-
 
 @Controller
 public class DefaultController {
@@ -36,28 +37,26 @@ public class DefaultController {
     private UserRepository userRepository;
     // @Autowired
     // private ReviewService reviewService;
-    // @Autowired
-    // private UserService userService;
+    @Autowired
+    private UserService userService;
     // Los comentados todavía no se usan, pero supongo que los tendremos que acabar
     // usando
 
-
-
     @ModelAttribute
-	public void addAttributes(Model model, HttpServletRequest request) {
+    public void addAttributes(Model model, HttpServletRequest request) {
 
-		Principal principal = request.getUserPrincipal();
+        Principal principal = request.getUserPrincipal();
 
-		if(principal != null) {
-		
-			model.addAttribute("logged", true);		
-			model.addAttribute("userName", principal.getName());
-			model.addAttribute("admin", request.isUserInRole("ADMIN"));
-			
-		} else {
-			model.addAttribute("logged", false);
-		}
-	}
+        if (principal != null) {
+
+            model.addAttribute("logged", true);
+            model.addAttribute("userName", principal.getName());
+            model.addAttribute("admin", request.isUserInRole("ADMIN"));
+
+        } else {
+            model.addAttribute("logged", false);
+        }
+    }
 
     public String convertImageToBase64(byte[] image) {
         return Base64.getEncoder().encodeToString(image);
@@ -83,15 +82,14 @@ public class DefaultController {
         model.addAttribute("usuarios", usuarios);
         model.addAttribute("libros", libros);
         model.addAttribute("query", query);
-        
+
         return "search";
     }
 
-
-	@GetMapping("/login")
-	public String login() {
-		return "log_in";
-	}
+    @GetMapping("/login")
+    public String login() {
+        return "log_in";
+    }
 
     // @GetMapping("/login")
     // public String login(Model model) {
@@ -104,10 +102,6 @@ public class DefaultController {
     //     model.addAttribute("books", books);
     //     return "index";
     // }
-    
-
-
-
     @GetMapping("/log-in-admin")
     public String loginFalso() {
         return "log-in-admin";
@@ -128,12 +122,12 @@ public class DefaultController {
     @GetMapping("/adminLoggedIn/book-manager")
     public String gestionLibros() {
 
-        return "book-manager"; 
+        return "book-manager";
     }
 
     @GetMapping("/adminLoggedIn/author-manager")
     public String gestionAutores() {
-        return "author-manager"; 
+        return "author-manager";
     }
 
     @GetMapping("/adminLoggedIn/add-book")
@@ -155,7 +149,7 @@ public class DefaultController {
     public String eliminarLibro(@PathVariable Long id, Model model) {
         Book book = bookService.findById(id);
         if (book == null) {
-            return "redirect:/error"; 
+            return "redirect:/error";
         }
         model.addAttribute("book", book);
         return "delete-book";
@@ -180,11 +174,44 @@ public class DefaultController {
     public String eliminarAutor(@PathVariable Long id, Model model) {
         Author author = authorService.findById(id);
         if (author == null) {
-            return "redirect:/error"; 
+            return "redirect:/error";
         }
         model.addAttribute("author", author);
         return "delete-author";
     }
+
+    @PostMapping("/adminLoggedIn/book-manager/add-book")
+    public String saveBook(
+            @RequestParam String nombre,
+            @RequestParam String autor,
+            @RequestParam int año,
+            @RequestParam String descripcion,
+            Model model) {
+
+        System.out.println("Entro en el método saveBook() del BookController.\n");
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Autor: " + autor);
+        System.out.println("Año: " + año);
+        System.out.println("Descripción: " + descripcion);
+
+        Author author = authorService.findByName(autor);
+        if (author == null) {
+            author = new Author();
+            author.setName(autor);
+            authorService.save(author);
+        }
+
+        Book book = new Book();
+        book.setName(nombre);
+        book.setYearPub(año);
+        book.setDescription(descripcion);
+        book.setAuthor(author);
+        bookService.save(book);
+
+        System.out.println("Libro guardado correctamente.\n");
+        return "redirect:/adminLoggedIn/book-manager";
+    }
+
 
     /*
      * @GetMapping
@@ -193,7 +220,6 @@ public class DefaultController {
      * return "index";
      * }
      */
-
     // EN LA PÁGINA PRINCIPAL SERÁ COMO EN LETTERBOX, SE MOSTRARÁN UNOS LIBROS
     // ALEATORIAMENTE
     // TENEMOS QUE SEGUIR EL MISMO SISTEMA DE URLS QUE LETTERBOX O UNO MUY SIMILAR

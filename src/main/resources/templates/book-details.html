@@ -10,8 +10,13 @@
             <p><a href="/authors/{{book.author.id}}">{{book.author.name}}</a> ({{book.yearPub}})</p>
         </div>
         <div class="book-content">
-            <img src="data:image/jpeg;base64,{{#book.imageBase64}}{{book.imageBase64}}{{/book.imageBase64}}"
-                alt="{{book.name}}">
+            {{#book.imageBase64}}
+            <img src="data:image/jpeg;base64,{{book.imageBase64}}" alt="{{book.name}}">
+            {{/book.imageBase64}}
+            {{^book.imageBase64}}
+            <img src="/images/default.jpg" alt="{{book.name}} (Sin imagen)">
+            {{/book.imageBase64}}
+
             <div class="book-info">
                 <h2>Descripción</h2>
                 <p>{{book.description}}</p>
@@ -20,7 +25,7 @@
                     <li><strong>Autor:</strong> {{book.author.name}}</li>
                     <li><strong>Año de publicación:</strong> {{book.yearPub}}</li>
                 </ul>
-                {{#logged}}
+                {{#isUser}}
                 <div class="review-form">
                     <h2>Escribe una reseña</h2>
                     <form action="/book/{{book.id}}/reviews/add" method="post">
@@ -39,7 +44,7 @@
                         <button type="submit">Publicar reseña</button>
                     </form>
                 </div>
-                {{/logged}}
+                {{/isUser}}
             </div>
         </div>
         <div class="reviews-section">
@@ -52,10 +57,7 @@
                 </div>
                 {{/book.reviews}}
             </div>
-            {{#logged}}
-            <div class="textbox-review">
-
-            </div>
-            {{/logged}}
-
-            {{>footer}}
+        </div>
+    </section>
+</main>
+{{>footer}}

@@ -1,6 +1,5 @@
 package es.codeurjc.trabajoweb_vscode.controller;
 
-import java.io.IOException;
 import java.security.Principal;
 import java.util.Base64;
 
@@ -10,18 +9,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import es.codeurjc.trabajoweb_vscode.model.Author;
 import es.codeurjc.trabajoweb_vscode.model.Book;
 import es.codeurjc.trabajoweb_vscode.model.User;
 import es.codeurjc.trabajoweb_vscode.service.AuthorService;
 import es.codeurjc.trabajoweb_vscode.service.BookService;
 import es.codeurjc.trabajoweb_vscode.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+
 
 //NO HE HECHO CAMBIOS
 @Controller
@@ -41,8 +37,12 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public String getBookDetails(@PathVariable Long id, Model model, Principal principal,HttpServletRequest request) {
+    public String getBookDetails(@PathVariable Long id, Model model, Principal principal, HttpServletRequest request) {
         Book book = service.findById(id);
+
+        if (book == null) {
+            return "redirect:/error";
+        }
 
         if (book.getImage() != null) {
             String imageBase64 = Base64.getEncoder().encodeToString(book.getImage());
@@ -51,32 +51,36 @@ public class BookController {
 
         model.addAttribute("book", book);
 
-        boolean isLogged = (principal != null);
-        System.out.println("Usuario autenticado: " + (principal != null));
-        model.addAttribute("logged", isLogged);
-        CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
-        model.addAttribute("_csrf", csrfToken);
+        // Verifica si el usuario tiene el rol USER
+        boolean isUser = false;
+        if (principal != null) {
+            User user = userService.findByName(principal.getName());
+            isUser = user.getRoles().contains("USER");
+        }
+        model.addAttribute("isUser", isUser);
 
-        if (isLogged) {
-            User loggedUser = userService.findByName(principal.getName());
-            model.addAttribute("loggedUser", loggedUser);
+        CsrfToken csrfToken = (CsrfToken)request.getAttribute("_csrf");
+        if (csrfToken != null) {
+            model.addAttribute("_csrf", csrfToken);
         }
 
         return "book-details";
-
-
     }
 
-    @PostMapping("/add")
+    /* @PostMapping("/adminLoggedIn/book-manager/add-book")
     public String saveBook(
             @RequestParam String nombre,
             @RequestParam String autor,
             @RequestParam int año,
             @RequestParam String descripcion,
-            @RequestParam("imagen") MultipartFile imagen,
             Model model) {
 
-        // Buscar o crear el autor
+        System.out.println("Entro en el método saveBook() del BookController.\n");
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Autor: " + autor);
+        System.out.println("Año: " + año);
+        System.out.println("Descripción: " + descripcion);
+
         Author author = authorService.findByName(autor);
         if (author == null) {
             author = new Author();
@@ -89,22 +93,10 @@ public class BookController {
         book.setYearPub(año);
         book.setDescription(descripcion);
         book.setAuthor(author);
-
-        try {
-            if (!imagen.isEmpty()) {
-                book.setImage(imagen.getBytes());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            model.addAttribute("error", "Error al procesar la imagen");
-            return "add-book";
-        }
-
         service.save(book);
         return "redirect:/adminLoggedIn";
-    }
-
-    /*
+    }*/
+ /*
      * @GetMapping("/edit-book/{id}")
      * public String showEditBookForm(@PathVariable("id") Long id, Model model) {
      * Book book = service.findById(id);

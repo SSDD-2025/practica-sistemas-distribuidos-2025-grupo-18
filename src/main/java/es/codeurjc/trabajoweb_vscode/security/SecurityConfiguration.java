@@ -45,15 +45,17 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/**").permitAll()
+                .requestMatchers("/adminLoggedIn/**").hasRole("ADMIN")
+                .anyRequest().permitAll()
                 )
                 .formLogin(form -> form
                 .loginPage("/login")
                 .successHandler((request, response, authentication) -> {
                     String username = authentication.getName();
                     if ("admin".equals(username)) {
-                        response.sendRedirect("/adminLoggedIn"); 
+                        response.sendRedirect("/adminLoggedIn");
                     } else {
-                        response.sendRedirect("/"); 
+                        response.sendRedirect("/");
                     }
                 })
                 .permitAll()
@@ -63,6 +65,7 @@ public class SecurityConfiguration {
                 .logoutSuccessUrl("/")
                 .permitAll()
                 );
+               
 
         return http.build();
     }

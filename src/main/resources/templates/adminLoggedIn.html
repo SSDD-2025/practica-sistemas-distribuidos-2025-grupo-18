@@ -11,8 +11,13 @@
             <h2>📚 Libros populares de esta semana</h2>
             <div class="libros-container">
                 {{#books}}
-                <a href="/books/{{id}}" class="libro-card">
-                    <img src="data:image/jpeg;base64,{{#imageBase64}}{{imageBase64}}{{/imageBase64}}" alt="{{name}}">
+                <a href="/book/{{id}}" class="libro-card">
+                    {{#imageBase64}}
+                        <img src="data:image/jpeg;base64,{{imageBase64}}" alt="{{name}}">
+                    {{/imageBase64}}
+                    {{^imageBase64}}
+                        <img src="/images/default.jpg" alt="{{name}} (Sin imagen)">
+                    {{/imageBase64}}
                     <h3>{{name}}</h3>
                 </a>
                 {{/books}}

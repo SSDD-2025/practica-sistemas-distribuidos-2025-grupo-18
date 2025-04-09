@@ -9,8 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import es.codeurjc.trabajoweb_vscode.model.Author;
 import es.codeurjc.trabajoweb_vscode.model.Book;
 import es.codeurjc.trabajoweb_vscode.model.User;
 import es.codeurjc.trabajoweb_vscode.service.AuthorService;
@@ -18,8 +21,6 @@ import es.codeurjc.trabajoweb_vscode.service.BookService;
 import es.codeurjc.trabajoweb_vscode.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 
-
-//NO HE HECHO CAMBIOS
 @Controller
 @RequestMapping("/book")
 public class BookController {
@@ -51,7 +52,6 @@ public class BookController {
 
         model.addAttribute("book", book);
 
-        // Verifica si el usuario tiene el rol USER
         boolean isUser = false;
         if (principal != null) {
             User user = userService.findByName(principal.getName());
@@ -59,13 +59,52 @@ public class BookController {
         }
         model.addAttribute("isUser", isUser);
 
-        CsrfToken csrfToken = (CsrfToken)request.getAttribute("_csrf");
+        CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
         if (csrfToken != null) {
             model.addAttribute("_csrf", csrfToken);
         }
 
         return "book-details";
     }
+
+    /*@GetMapping("/edit-book/{id}")
+    public String showEditBookForm(@PathVariable("id") Long id, Model model) {
+        Book book = service.findById(id);
+        if (book == null) {
+            return "redirect:/";
+        }
+
+        model.addAttribute("book", book);
+        model.addAttribute("authors", authorService.findAll());
+        return "edit-book";
+    }*/
+    @PostMapping("/edit-book/{id}")
+    public String editBook(@PathVariable Long id, @RequestParam String name, @RequestParam int yearPub,
+            @RequestParam Long authorId) {
+        Book book = service.findById(id);
+        if (book == null) {
+            return "redirect:/error";
+        }
+
+        Author author = authorService.findById(authorId);
+        if (author == null) {
+            return "redirect:/error";
+        }
+
+        book.setName(name);
+        book.setYearPub(yearPub);
+        book.setAuthor(author);
+
+        service.save(book);
+        return "redirect:/adminLoggedIn";
+    }
+
+    @PostMapping("/delete-book/{id}")
+    public String delete(@PathVariable Long id) {
+        service.delete(id);
+        return "redirect:/adminLoggedIn";
+    }
+
 
     /* @PostMapping("/adminLoggedIn/book-manager/add-book")
     public String saveBook(

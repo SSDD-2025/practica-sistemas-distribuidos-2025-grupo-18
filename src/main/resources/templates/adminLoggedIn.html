@@ -1,25 +1,28 @@
 {{>header}}
-        <div class="toolbar-right">
-            <input type="text" placeholder="Buscar libros..." class="search-bar">
-            <a href="/adminLoggedIn/book-manager">Gestionar libros</a>
-            <a href="/adminLoggedIn/author-manager">Gestionar autores</a>
-            <a href="/">Cerrar sesión</a>
+<div class="toolbar-right">
+    <input type="text" placeholder="Buscar libros..." class="search-bar">
+    <a href="/adminLoggedIn/book-manager">Gestionar libros</a>
+    <a href="/author-manager">Gestionar autores</a>
+    <a href="/">Cerrar sesión</a>
+</div>
+</header>
+<main>
+    <section class="top-libros">
+        <h2>📚 Libros populares de esta semana</h2>
+        <div class="libros-container">
+            {{#books}}
+            <a href="/book/{{id}}" class="libro-card">
+                {{#imageBase64}}
+                <img src="data:image/jpeg;base64,{{imageBase64}}" alt="{{name}}">
+                {{/imageBase64}}
+                {{^imageBase64}}
+                <img src="/images/default.jpg" alt="{{name}} (Sin imagen)">
+                {{/imageBase64}}
+                <h3>{{name}}</h3>
+                <a2 href="/adminLoggedIn/edit-book/{{id}}" class="boton modificar">Modificar libro</a>
+                <a2 href="/adminLoggedIn/delete-book/{{id}}" class="boton eliminar">Eliminar libro</a>
+            </a>
+
+            {{/books}}
         </div>
-    </header>
-    <main>
-        <section class="top-libros">
-            <h2>📚 Libros populares de esta semana</h2>
-            <div class="libros-container">
-                {{#books}}
-                <a href="/book/{{id}}" class="libro-card">
-                    {{#imageBase64}}
-                        <img src="data:image/jpeg;base64,{{imageBase64}}" alt="{{name}}">
-                    {{/imageBase64}}
-                    {{^imageBase64}}
-                        <img src="/images/default.jpg" alt="{{name}} (Sin imagen)">
-                    {{/imageBase64}}
-                    <h3>{{name}}</h3>
-                </a>
-                {{/books}}
-            </div>
-{{>footer}}
+        {{>footer}}

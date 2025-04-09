@@ -5,6 +5,7 @@ import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,15 +29,18 @@ public class DefaultController {
 
     @Autowired
     private AuthorService authorService;
+
     @Autowired
     private BookService bookService;
 
     @Autowired
     private BookRepository bookRepository;
+
     @Autowired
     private UserRepository userRepository;
     // @Autowired
     // private ReviewService reviewService;
+
     @Autowired
     private UserService userService;
     // Los comentados todavía no se usan, pero supongo que los tendremos que acabar
@@ -121,7 +125,6 @@ public class DefaultController {
 
     @GetMapping("/adminLoggedIn/book-manager")
     public String gestionLibros() {
-
         return "book-manager";
     }
 
@@ -136,22 +139,31 @@ public class DefaultController {
     }
 
     @GetMapping("/adminLoggedIn/edit-book/{id}")
-    public String modificarLibro(@PathVariable Long id, Model model) {
+    public String modificarLibro(@PathVariable Long id, Model model, HttpServletRequest request) {
         Book book = bookService.findById(id);
         if (book == null) {
             return "redirect:/error";
         }
         model.addAttribute("book", book);
+
+        CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("_csrf", csrfToken);
+
         return "edit-book";
     }
 
     @GetMapping("/adminLoggedIn/delete-book/{id}")
-    public String eliminarLibro(@PathVariable Long id, Model model) {
+    public String eliminarLibro(@PathVariable Long id, Model model, HttpServletRequest request) {
         Book book = bookService.findById(id);
         if (book == null) {
             return "redirect:/error";
         }
         model.addAttribute("book", book);
+
+     
+        CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("_csrf", csrfToken);
+
         return "delete-book";
     }
 

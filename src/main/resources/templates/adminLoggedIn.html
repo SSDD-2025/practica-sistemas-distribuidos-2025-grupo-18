@@ -3,7 +3,12 @@
     <input type="text" placeholder="Buscar libros..." class="search-bar">
     <a href="/adminLoggedIn/book-manager">Gestionar libros</a>
     <a href="/author-manager">Gestionar autores</a>
-    <a href="/">Cerrar sesión</a>
+    {{#logged}}
+    <form action="/logout" method="post">
+        <button class="btn btn-primary navbar-btn" type="submit">Cerrar sesión</button>
+        <input type="hidden" name="_csrf" value="{{token}}"/>
+    </form>
+    {{/logged}}
 </div>
 </header>
 <main>

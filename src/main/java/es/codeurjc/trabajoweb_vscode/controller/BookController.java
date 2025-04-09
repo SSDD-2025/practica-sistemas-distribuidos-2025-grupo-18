@@ -78,15 +78,16 @@ public class BookController {
         model.addAttribute("authors", authorService.findAll());
         return "edit-book";
     }*/
+
     @PostMapping("/edit-book/{id}")
     public String editBook(@PathVariable Long id, @RequestParam String name, @RequestParam int yearPub,
-            @RequestParam Long authorId) {
+            @RequestParam String authorName) {
         Book book = service.findById(id);
         if (book == null) {
             return "redirect:/error";
         }
 
-        Author author = authorService.findById(authorId);
+        Author author = authorService.findByName(authorName);
         if (author == null) {
             return "redirect:/error";
         }

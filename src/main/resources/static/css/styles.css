@@ -414,3 +414,162 @@ labelPassword{
     border-bottom: 1px solid #ddd;
     padding: 10px 0;
 }
+
+/* Estilos para la página de eliminación */
+body {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    min-height: 100vh; /* Asegura que el contenedor ocupe toda la altura de la pantalla */
+    margin: 10px; /* Elimina márgenes del body */
+    background-color: #f8f8f8; /* Opcional: color de fondo */
+}
+
+.eliminar-libro {
+    max-width: 600px;
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Centra el contenido dentro del contenedor */
+}
+.eliminar-libro {
+    max-width: 600px;
+    margin-top: 350px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.eliminar-libro h2 {
+    color: #d32f2f;
+    margin-bottom: 1.5rem;
+}
+
+.eliminar-libro p {
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.eliminar-libro form {
+    display: flex;
+    gap: 1rem;
+}
+
+.eliminar-libro button {
+    background-color: #f44336;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.eliminar-libro a {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #e0e0e0;
+    color: #333;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+
+/* EDIT - BOOK */
+
+.modificar-libro {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 2rem;
+    margin-top: 1rem;
+}
+
+.modificar-libro h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #2c3e50;
+    font-size: 1.8rem;
+}
+
+.modificar-libro form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.modificar-libro label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.modificar-libro input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.modificar-libro input:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(52,152,219,0.2);
+}
+
+.modificar-libro button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 1rem;
+}
+
+.modificar-libro button:hover {
+    background-color: #2980b9;
+}
+
+/* Botón logout */
+
+/* Estilos específicos para el formulario de logout */
+.toolbar-right form {
+    display: inline-block; /* Para que se comporte como los otros elementos del toolbar */
+    margin-left: 60px; /* Mantener el espaciado consistente */
+    margin-top: 20px;
+}
+
+.toolbar-right form button {
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    color: #333 !important; /* Mismo color que los otros enlaces */
+    font-weight: bold !important;
+    cursor: pointer;
+    font-size: inherit !important;
+    text-decoration: none !important;
+    margin-top: 0;
+    margin-left: 20px; /* Espacio entre el botón y el resto de los elementos */
+    display: inline-block; /* Para que se comporte como los otros elementos del toolbar */
+}
+
+.toolbar-right form button:hover {
+    text-decoration: none !important;
+    background: none !important;
+}
+
+/* Eliminar cualquier estilo de formulario que pueda estar aplicándose */
+.toolbar-right form {
+    all: unset;
+    display: inline;
+}

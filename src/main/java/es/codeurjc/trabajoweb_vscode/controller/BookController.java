@@ -81,20 +81,21 @@ public class BookController {
 
     @PostMapping("/edit-book/{id}")
     public String editBook(@PathVariable Long id, @RequestParam String name, @RequestParam int yearPub,
-            @RequestParam String authorName) {
+            @RequestParam Author authorName) {
         Book book = service.findById(id);
         if (book == null) {
             return "redirect:/error";
         }
 
-        Author author = authorService.findByName(authorName);
-        if (author == null) {
+        //Author author = authorService.findByName(authorName);
+        //System.out.println("Author: " + author);
+        /*if (author == null) {
             return "redirect:/error";
-        }
+        }*/
 
         book.setName(name);
         book.setYearPub(yearPub);
-        book.setAuthor(author);
+        book.setAuthor(authorName);
 
         service.save(book);
         return "redirect:/adminLoggedIn";

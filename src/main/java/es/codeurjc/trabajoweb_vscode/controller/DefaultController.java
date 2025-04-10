@@ -134,7 +134,12 @@ public class DefaultController {
     }
 
     @GetMapping("/adminLoggedIn/add-book")
-    public String añadirLibro() {
+    public String añadirLibro(Model model, HttpServletRequest request) {
+        model.addAttribute("authors", authorService.findAll());
+
+        CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("token", csrfToken.getToken());
+
         return "add-book";
     }
 
@@ -144,10 +149,14 @@ public class DefaultController {
         if (book == null) {
             return "redirect:/error";
         }
-        model.addAttribute("book", book);
 
         CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
-        model.addAttribute("_csrf", csrfToken);
+        if (csrfToken != null) {
+            model.addAttribute("_csrf", csrfToken);
+        }
+
+        model.addAttribute("authors", authorService.findAll());
+        model.addAttribute("book", book);
 
         return "edit-book";
     }
@@ -160,7 +169,6 @@ public class DefaultController {
         }
         model.addAttribute("book", book);
 
-     
         CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
         model.addAttribute("_csrf", csrfToken);
 
@@ -207,11 +215,11 @@ public class DefaultController {
         System.out.println("Descripción: " + descripcion);
 
         Author author = authorService.findByName(autor);
-        if (author == null) {
+        /*if (author == null) {
             author = new Author();
             author.setName(autor);
             authorService.save(author);
-        }
+        }*/
 
         Book book = new Book();
         book.setName(nombre);
@@ -221,7 +229,7 @@ public class DefaultController {
         bookService.save(book);
 
         System.out.println("Libro guardado correctamente.\n");
-        return "redirect:/adminLoggedIn/book-manager";
+        return "redirect:/adminLoggedIn";
     }
 
 

@@ -1,7 +1,7 @@
 {{>header}}
 
         <div class="toolbar-right">
-            <a href="/book-manager">Volver</a>
+            <a href="/adminLoggedIn">Volver</a>
         </div>
     </header>
     <main>
@@ -13,7 +13,11 @@
                 <input type="text" id="nombre" name="nombre" required>
             
                 <label for="autor">Autor:</label>
-                <input type="text" id="autor" name="autor" required>
+                <select id="autor" name="autor" required>
+                    {{#authors}}
+                        <option value="{{name}}">{{name}}</option>
+                    {{/authors}}
+                </select>
             
                 <label for="año">Año de publicación:</label>
                 <input type="number" id="año" name="año" required>

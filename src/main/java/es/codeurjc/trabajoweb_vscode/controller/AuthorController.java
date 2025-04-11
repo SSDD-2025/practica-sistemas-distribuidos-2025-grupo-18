@@ -44,6 +44,12 @@ public class AuthorController {
         return "redirect:/author-manager";
     }
 
+    @PostMapping("/delete-author/{id}")
+    public String delete(@PathVariable Long id) {
+        authorService.delete(id);
+        return "redirect:/adminLoggedIn";
+    }
+
     /*
      * @GetMapping("/edit-author/{id}")
      * public String editAuthor(@PathVariable Long id, Model model) {

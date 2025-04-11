@@ -1,15 +1,37 @@
-{{>header}}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookNest - Detalles del autor</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <header class="toolbar">
+        <div class="logo">
+            <a href="/">
+                <img src="/images/logo.png" alt="BookNest Logo">
+                <h1>BOOKNEST</h1>
+            </a>
+        </div>
         <div class="toolbar-right">
-            <a href="/adminLoggedIn/author-manager">Volver</a>
+            <a href="/adminLoggedIn">Volver</a>
         </div>
     </header>
     <main>
-        <section class="eliminar-autor">
+        <section class="eliminar-libro">
             <h2>Eliminar Autor</h2>
-            <p>¿Estás seguro de que deseas eliminar al autor "{{author.name}}"?</p>
-            <form action="/eliminar-autor" method="post">
-                <input type="hidden" name="id" value="{{author.id}}"> <!-- Campo oculto para el ID del autor -->
+            <p>¿Estás seguro de que deseas eliminar el autor "{{author.name}}"?</p>
+            <form action="/author/delete-author/{{id}}" method="post">
+                <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+                <input type="hidden" name="id" value="{{author.id}}">
                 <button type="submit">Eliminar</button>
-                <a href="/author-manager">Cancelar</a>
+                <a href="/adminLoggedIn">Cancelar</a>
             </form>
-{{>footer}}
+        </section>
+    </main>
+</body>
+
+</html>

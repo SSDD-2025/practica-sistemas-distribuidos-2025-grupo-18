@@ -177,7 +177,6 @@ public class DefaultController {
 
 
 
-
     @GetMapping("/adminLoggedIn/add-book")
     public String añadirLibro(Model model, HttpServletRequest request) {
         model.addAttribute("authors", authorService.findAll());
@@ -236,12 +235,16 @@ public class DefaultController {
     }
 
     @GetMapping("/adminLoggedIn/delete-author/{id}")
-    public String eliminarAutor(@PathVariable Long id, Model model) {
+    public String eliminarAutor(@PathVariable Long id, Model model, HttpServletRequest request) {
         Author author = authorService.findById(id);
         if (author == null) {
             return "redirect:/error";
         }
         model.addAttribute("author", author);
+
+        CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("_csrf", csrfToken);
+
         return "delete-author";
     }
 

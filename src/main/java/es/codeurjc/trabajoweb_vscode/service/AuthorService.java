@@ -1,50 +1,59 @@
 package es.codeurjc.trabajoweb_vscode.service;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jakarta.transaction.Transactional;
-
 import es.codeurjc.trabajoweb_vscode.model.Author;
 import es.codeurjc.trabajoweb_vscode.repository.AuthorRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class AuthorService {
-    @Autowired
-    private AuthorRepository repository;
 
+    @Autowired
+    private AuthorRepository authorRepository;
 
     public List<Author> findAll() {
-        return repository.findAll();
+        return authorRepository.findAll();
     }
 
     public void save(Author author) {
-        repository.save(author);
-    }
-    public void delete(Long id) {
-        repository.deleteById(id); 
-    }
-    public Author findById(Long id) {
-        return repository.findById(id).orElse(null);
+        authorRepository.save(author);
     }
 
+    public void delete(Long id) {
+        authorRepository.deleteById(id);
+    }
+
+    public Author findById(Long id) {
+        return authorRepository.findById(id).orElse(null);
+    }
 
     public Author findByName(String name) {
-        return repository.findByName(name).orElse(null); 
+        return authorRepository.findByName(name).orElse(null);
     }
 
-    //MIRAR ESTAS FUNCIÓN YA QUE PUEDE SER UTIL
     @Transactional
     public boolean updateAuthor(Long id, String newName) {
-        Optional<Author> optionalAuthor = repository.findById(id);
+        Optional<Author> optionalAuthor = authorRepository.findById(id);
         if (optionalAuthor.isPresent()) {
             Author author = optionalAuthor.get();
             author.setName(newName);
-            repository.save(author);
-            return true; // Indica que se actualizó con éxito
+            authorRepository.save(author);
+            return true;
         }
-        return false; // Indica que el autor no existía
+        return false;
     }
+
+    public List<Author> findRandomAuthors(int size) {
+        List<Author> authors = authorRepository.findAll();
+        Collections.shuffle(authors);
+        return authors.stream().limit(size).collect(Collectors.toList());
+    }
+
 }

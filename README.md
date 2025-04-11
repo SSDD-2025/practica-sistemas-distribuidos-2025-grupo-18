@@ -1,4 +1,19 @@
-23/03 --> Marta
+11/04
+Cosas que faltan por hacer:
+
+-Gestionar autores
+-Añadir imagenes en modificar imagenes y en añadir libro
+-Limpiar codigo y poner las restricciones necesarias en los controladores y no en los html
+-Poder modificar tus datos
+
+
+
+
+
+
+
+
+
 
 **COSAS QUE HE HECHO:**
 

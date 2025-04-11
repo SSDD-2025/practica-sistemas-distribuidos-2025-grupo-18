@@ -78,8 +78,10 @@ public class SampleData {
             reviewRepository.save(review1);
 
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (java.io.IOException e) {
+            org.slf4j.LoggerFactory.getLogger(SampleData.class).error("IO error occurred while initializing sample data", e);
+        } catch (RuntimeException e) {
+            org.slf4j.LoggerFactory.getLogger(SampleData.class).error("Unexpected runtime error occurred while initializing sample data", e);
         }
     }
 }

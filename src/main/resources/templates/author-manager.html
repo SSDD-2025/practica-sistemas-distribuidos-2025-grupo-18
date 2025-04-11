@@ -1,14 +1,30 @@
 {{>header}}
-        <div class="toolbar-right">
-            <a href="/adminLoggedIn">Volver</a>
-        </div>
-    </header>
-    <main>
-        <section class="gestion-autores">
-            <h2>Gestionar Autores</h2>
-            <div class="botones-gestion">
-                <a href="/add-author" class="boton">Añadir autor</a>
-                <a href="/edit-author" class="boton">Modificar autor</a>
-                <a href="/delete-author" class="boton">Eliminar autor</a>
+<div class="toolbar-right">
+    <input type="text" placeholder="Buscar libros..." class="search-bar">
+    <a href="/adminLoggedIn/add-author" class="boton">Añadir autor</a>
+    <a href="/adminLoggedIn">Gestionar libros</a>
+    {{#logged}}
+    <form action="/logout" method="post">
+        <button class="btn btn-primary navbar-btn" type="submit">Cerrar sesión</button>
+        <input type="hidden" name="_csrf" value="{{token}}"/>
+    </form>
+    {{/logged}}
+</div>
+</header>
+<main>
+    <section class="top-libros">
+        <h2>Algunos autores</h2>
+        <div class="libros-container">
+            {{#authors}}
+            <div class="libro">
+                <div class="libro-titulo">{{name}}</div>
+                <div class="libro-botones">
+                    <a href="/adminLoggedIn/edit-author/{{id}}" class="boton boton-modificar">Modificar</a>
+                    <a href="/adminLoggedIn/delete-author/{{id}}" class="boton boton-eliminar">Eliminar</a>
+                </div>
             </div>
-{{>footer}}
+            {{/authors}}
+        </div>
+        {{>footer}}
+    </section>
+</main>

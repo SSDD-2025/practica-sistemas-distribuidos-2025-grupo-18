@@ -87,6 +87,25 @@ public class DefaultController {
         return "log_in";
     }
 
+    @GetMapping("/signUp")
+    public String signUp() {
+        return "sign_up";
+    }
+
+    @PostMapping("/signUp")
+    public String processSignUp(@RequestParam String username,
+            @RequestParam String password,
+            Model model) {
+        if (userService.existsByName(username)) {
+            model.addAttribute("error", "Username already exists.");
+            return "sign_up";
+        }
+
+        String encodedPassword = passwordEncoder.encode(password);
+        userService.save(new User(username, encodedPassword, "USER"));
+        return "redirect:/login";
+    }
+
     // @GetMapping("/login")
     // public String login(Model model) {
     //     List<Book> books = bookService.findRandomBooks(4);
@@ -98,10 +117,10 @@ public class DefaultController {
     //     model.addAttribute("books", books);
     //     return "index";
     // }
-    @GetMapping("/log-in-admin")
-    public String loginFalso() {
-        return "log-in-admin";
-    }
+    // @GetMapping("/log-in-admin")
+    // public String loginFalso() {
+    //     return "log-in-admin";
+    // }
 
     @GetMapping("/adminLoggedIn")
     public String mainLoggedIn(Model model) {
@@ -115,15 +134,49 @@ public class DefaultController {
         return "adminLoggedIn";
     }
 
-    @GetMapping("/adminLoggedIn/book-manager")
-    public String gestionLibros() {
-        return "book-manager";
-    }
 
+
+
+
+
+
+
+
+
+
+
+    
     @GetMapping("/adminLoggedIn/author-manager")
-    public String gestionAutores() {
+    public String gestionLibros(Model model) {
+        List<Author> authors = authorService.findRandomAuthors(4);
+        model.addAttribute("authors", authors);
+        
         return "author-manager";
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @GetMapping("/adminLoggedIn/add-book")
     public String añadirLibro(Model model, HttpServletRequest request) {
@@ -223,29 +276,6 @@ public class DefaultController {
         System.out.println("Libro guardado correctamente.\n");
         return "redirect:/adminLoggedIn";
     }
-
-    @GetMapping("/signUp")
-    public String signUp() {
-        return "sign_up";
-    }
-    
-
-
-@PostMapping("/signUp")
-public String processSignUp(@RequestParam String username,
-                             @RequestParam String password,
-                             Model model) {
-    if (userService.existsByName(username)) {
-        model.addAttribute("error", "Username already exists.");
-        return "sign_up";
-    }
-
-    String encodedPassword = passwordEncoder.encode(password);
-    userService.save(new User(username, encodedPassword,"USER"));
-    return "redirect:/login";
-}
-
-
 
     /*
      * @GetMapping

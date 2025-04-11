@@ -1,12 +1,12 @@
 package es.codeurjc.trabajoweb_vscode.service;
 
-import es.codeurjc.trabajoweb_vscode.model.User;
-import es.codeurjc.trabajoweb_vscode.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import es.codeurjc.trabajoweb_vscode.model.User;
+import es.codeurjc.trabajoweb_vscode.repository.UserRepository;
 
 @Service
 public class UserService {
@@ -32,5 +32,13 @@ public class UserService {
     
     public User findByName(String name) {
         return userRepository.findByName(name);
+    }
+
+    public List<User> findByNameContainingIgnoreCase(String name){
+        return userRepository.findByNameContainingIgnoreCase(name);
+    }
+
+    public boolean existsByName(String name){
+        return userRepository.existsByName(name);
     }
 }

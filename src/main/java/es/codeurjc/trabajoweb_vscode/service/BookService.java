@@ -15,34 +15,36 @@ import es.codeurjc.trabajoweb_vscode.repository.BookRepository;
 public class BookService {
 
     @Autowired
-    private BookRepository repository;
+    private final BookRepository bookRepository;
 
     public BookService(BookRepository repository) {
-        this.repository = repository;
+        this.bookRepository = repository;
     }
 
     public List<Book> findAll() {
-        return repository.findAll();
+        return bookRepository.findAll();
     }
 
     public void save(Book book) {
-        repository.save(book);
+        bookRepository.save(book);
     }
 
     public void delete(Long id) {
-        repository.deleteById(id);
+        bookRepository.deleteById(id);
     }
 
     public Book findById(Long id) {
-        return repository.findById(id).orElse(null);
+        return bookRepository.findById(id).orElse(null);
     }
 
-    // FUNCIÓN CREADA PARA MOSTRAR EN "/" LIBROS ALEATORIOS
     public List<Book> findRandomBooks(int size) {
-        List<Book> books = repository.findAll();
+        List<Book> books = bookRepository.findAll();
         Collections.shuffle(books);
         return books.stream().limit(size).collect(Collectors.toList());
+    }
 
+    public List<Book> findByNameContainingIgnoreCase(String name){
+        return bookRepository.findByNameContainingIgnoreCase(name);
     }
 
 

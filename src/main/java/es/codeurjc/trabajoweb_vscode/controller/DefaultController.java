@@ -5,6 +5,7 @@ import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import es.codeurjc.trabajoweb_vscode.model.Author;
 import es.codeurjc.trabajoweb_vscode.model.Book;
 import es.codeurjc.trabajoweb_vscode.model.User;
-import es.codeurjc.trabajoweb_vscode.repository.BookRepository;
-import es.codeurjc.trabajoweb_vscode.repository.UserRepository;
 import es.codeurjc.trabajoweb_vscode.service.AuthorService;
 import es.codeurjc.trabajoweb_vscode.service.BookService;
 import es.codeurjc.trabajoweb_vscode.service.UserService;
@@ -28,23 +27,16 @@ import jakarta.servlet.http.HttpServletRequest;
 public class DefaultController {
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     private AuthorService authorService;
 
     @Autowired
     private BookService bookService;
 
     @Autowired
-    private BookRepository bookRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-    // @Autowired
-    // private ReviewService reviewService;
-
-    @Autowired
     private UserService userService;
-    // Los comentados todavía no se usan, pero supongo que los tendremos que acabar
-    // usando
 
     @ModelAttribute
     public void addAttributes(Model model, HttpServletRequest request) {
@@ -80,8 +72,8 @@ public class DefaultController {
 
     @GetMapping("/search")
     public String buscar(@RequestParam String query, Model model) {
-        List<User> usuarios = userRepository.findByNameContainingIgnoreCase(query);
-        List<Book> libros = bookRepository.findByNameContainingIgnoreCase(query);
+        List<User> usuarios = userService.findByNameContainingIgnoreCase(query);
+        List<Book> libros = bookService.findByNameContainingIgnoreCase(query);
 
         model.addAttribute("usuarios", usuarios);
         model.addAttribute("libros", libros);
@@ -231,6 +223,28 @@ public class DefaultController {
         System.out.println("Libro guardado correctamente.\n");
         return "redirect:/adminLoggedIn";
     }
+
+    @GetMapping("/signUp")
+    public String signUp() {
+        return "sign_up";
+    }
+    
+
+
+@PostMapping("/signUp")
+public String processSignUp(@RequestParam String username,
+                             @RequestParam String password,
+                             Model model) {
+    if (userService.existsByName(username)) {
+        model.addAttribute("error", "Username already exists.");
+        return "sign_up";
+    }
+
+    String encodedPassword = passwordEncoder.encode(password);
+    userService.save(new User(username, encodedPassword,"USER"));
+    return "redirect:/login";
+}
+
 
 
     /*

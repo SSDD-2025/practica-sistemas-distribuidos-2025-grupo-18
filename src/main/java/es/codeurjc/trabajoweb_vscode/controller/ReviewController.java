@@ -12,20 +12,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import es.codeurjc.trabajoweb_vscode.model.Book;
 import es.codeurjc.trabajoweb_vscode.model.Review;
 import es.codeurjc.trabajoweb_vscode.model.User;
-import es.codeurjc.trabajoweb_vscode.repository.BookRepository;
 import es.codeurjc.trabajoweb_vscode.service.BookService;
 import es.codeurjc.trabajoweb_vscode.service.ReviewService;
 import es.codeurjc.trabajoweb_vscode.service.UserService;
 
-//NO HE HECHO CAMBIOS
 @Controller
 @RequestMapping("/book/{bookId}/reviews")
 public class ReviewController {
 
     @Autowired
-    private ReviewService service;
-    @Autowired
-    private BookRepository bookRepository;
+    private ReviewService reviewService;
     @Autowired
     private BookService bookService;
     @Autowired
@@ -45,7 +41,7 @@ public class ReviewController {
 
         if (book != null && user != null) {
             Review review = new Review(rate, textReview, book, user);
-            service.save(review);
+            reviewService.save(review);
         } else {
             System.out.println("Failed to save review");
         }

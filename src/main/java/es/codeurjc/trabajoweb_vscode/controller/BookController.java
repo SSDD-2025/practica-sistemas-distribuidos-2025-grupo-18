@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import es.codeurjc.trabajoweb_vscode.model.Author;
 import es.codeurjc.trabajoweb_vscode.model.Book;
 import es.codeurjc.trabajoweb_vscode.model.User;
-import es.codeurjc.trabajoweb_vscode.service.AuthorService;
 import es.codeurjc.trabajoweb_vscode.service.BookService;
 import es.codeurjc.trabajoweb_vscode.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,20 +25,14 @@ import jakarta.servlet.http.HttpServletRequest;
 public class BookController {
 
     @Autowired
-    private BookService service;
-    @Autowired
-    private AuthorService authorService;
+    private BookService bookService;
+
     @Autowired
     private UserService userService;
 
-    public BookController(BookService service, AuthorService authorService) {
-        this.service = service;
-        this.authorService = authorService;
-    }
-
     @GetMapping("/{id}")
     public String getBookDetails(@PathVariable Long id, Model model, Principal principal, HttpServletRequest request) {
-        Book book = service.findById(id);
+        Book book = bookService.findById(id);
 
         if (book == null) {
             return "redirect:/error";
@@ -82,7 +75,7 @@ public class BookController {
     @PostMapping("/edit-book/{id}")
     public String editBook(@PathVariable Long id, @RequestParam String name, @RequestParam int yearPub,
             @RequestParam Author authorName) {
-        Book book = service.findById(id);
+        Book book = bookService.findById(id);
         if (book == null) {
             return "redirect:/error";
         }
@@ -97,13 +90,13 @@ public class BookController {
         book.setYearPub(yearPub);
         book.setAuthor(authorName);
 
-        service.save(book);
+        bookService.save(book);
         return "redirect:/adminLoggedIn";
     }
 
     @PostMapping("/delete-book/{id}")
     public String delete(@PathVariable Long id) {
-        service.delete(id);
+        bookService.delete(id);
         return "redirect:/adminLoggedIn";
     }
 

@@ -9,5 +9,5 @@ import es.codeurjc.trabajoweb_vscode.model.User;
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByName(String name);
     List<User> findByNameContainingIgnoreCase(String name);
-
+    boolean existsByName(String name);
 }

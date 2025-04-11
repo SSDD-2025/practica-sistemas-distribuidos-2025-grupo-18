@@ -1,31 +1,27 @@
-
 package es.codeurjc.trabajoweb_vscode.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import es.codeurjc.trabajoweb_vscode.model.*;
-import es.codeurjc.trabajoweb_vscode.service.*;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-//NO HE HECHO CAMBIOS
+import es.codeurjc.trabajoweb_vscode.model.Author;
+import es.codeurjc.trabajoweb_vscode.service.AuthorService;
 
 @Controller
-@RequestMapping("/authors/")
+@RequestMapping("/author")
 public class AuthorController {
-    @Autowired
-    private AuthorService service;
 
-    @GetMapping("{id}")
+    @Autowired
+    private AuthorService authorService;
+
+    @GetMapping("/{id}")
     public String getAuthorDetails(@PathVariable Long id, Model model) {
-        Author author = service.findById(id);
+        Author author = authorService.findById(id);
         if (author == null) {
             return "redirect:/error";
         }
@@ -36,19 +32,16 @@ public class AuthorController {
 
     @PostMapping("/add")
     public String saveAuthor(
-            @RequestParam String nombre, 
-            @RequestParam String bio, 
+            @RequestParam String nombre,
+            @RequestParam String bio,
             Model model) {
 
-        // Crear el autor
         Author author = new Author();
         author.setName(nombre);
         author.setBio(bio);
+        authorService.save(author);
 
-        // Guardar el autor
-        service.save(author);
-
-        return "redirect:/author-manager"; 
+        return "redirect:/author-manager";
     }
 
     /*

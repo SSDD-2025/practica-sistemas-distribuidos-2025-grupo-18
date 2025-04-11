@@ -6,33 +6,28 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import es.codeurjc.trabajoweb_vscode.model.*;
-import es.codeurjc.trabajoweb_vscode.repository.*;
+import es.codeurjc.trabajoweb_vscode.model.Review;
+import es.codeurjc.trabajoweb_vscode.repository.ReviewRepository;
 
 @Service
 public class ReviewService {
     @Autowired
-    private  ReviewRepository repository;
+    private final  ReviewRepository reviewRepository;
 
     public ReviewService(ReviewRepository repository) {
-        this.repository = repository;
+        this.reviewRepository = repository;
     }
     public List<Review> findAll() {
-        return repository.findAll();
+        return reviewRepository.findAll();
     }
     public void save(Review review) {
-        repository.save(review);
+        reviewRepository.save(review);
     }
     public void delete(Long id) {
-        repository.deleteById(id);
+        reviewRepository.deleteById(id);
     }
     public Review findById(Long id) {
-        return repository.findById(id).orElse(null);
+        return reviewRepository.findById(id).orElse(null);
     }
 
-
-
-
-
-    
 }

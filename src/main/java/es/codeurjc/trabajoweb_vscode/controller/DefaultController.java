@@ -156,7 +156,19 @@ public class DefaultController {
 
 
 
+    @PostMapping("/adminLoggedIn/book-manager/add-author")
+    public String saveaAuthor(
+            @RequestParam String nombre,
+            @RequestParam String bio,
+            Model model) {
 
+        Author author = new Author();
+        author.setName(nombre);
+        author.setBio(bio);        
+        authorService.save(author);
+        System.out.println("Libro guardado correctamente.\n");
+        return "redirect:/adminLoggedIn";
+    }
 
 
 
@@ -225,11 +237,16 @@ public class DefaultController {
     }
 
     @GetMapping("/adminLoggedIn/edit-author/{id}")
-    public String modificarAutor(@PathVariable Long id, Model model) {
+    public String modificarAutor(@PathVariable Long id, Model model, HttpServletRequest request) {
         Author author = authorService.findById(id);
         if (author == null) {
             return "redirect:/error";
         }
+        CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
+        if (csrfToken != null) {
+            model.addAttribute("_csrf", csrfToken);
+        }
+
         model.addAttribute("author", author);
         return "edit-author";
     }

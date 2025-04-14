@@ -39,14 +39,30 @@ public class ReviewController {
         User user = userId != null ? userService.findById(userId)
                 : userService.findByName(principal.getName());
 
-        if (book != null && user != null) {
+        if (book != null && user != null && !userService.alreadyExitsAReview(bookId, user.getId()) && rate > 0 && rate <= 5) {
             Review review = new Review(rate, textReview, book, user);
             reviewService.save(review);
+        } else if (book != null && user != null && userService.alreadyExitsAReview(bookId, user.getId())) {
+            reviewService.updateReview( user.getId(),bookId, rate, textReview);
         } else {
             System.out.println("Failed to save review");
         }
 
         return "redirect:/book/" + bookId;
+    }
+
+    @PostMapping("/delete")
+    public String delete(@PathVariable Long bookId,
+            @RequestParam(required = false) Long userId, Principal principal) {
+        Book book = bookService.findById(bookId);
+        User user = userId != null ? userService.findById(userId)
+                : userService.findByName(principal.getName());
+
+        if (book != null && user != null) {
+            reviewService.deleteReviewByUserIdAndBookId(user.getId(), bookId);
+        }
+        return "redirect:/book/" + bookId;
+
     }
     /*@GetMapping("/edit-review/{id}")
     public String showEditReviewForm(@PathVariable("id") Long id, Model model) {
@@ -102,10 +118,6 @@ public class ReviewController {
         service.save(review);
         return "redirect:/";}
 
-    
-    @PostMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) {
-        service.delete(id);
-        return "redirect:/";
-    }*/
+     */
+
 }

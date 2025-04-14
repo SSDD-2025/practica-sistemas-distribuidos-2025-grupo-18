@@ -45,6 +45,15 @@ public class BookController {
 
         model.addAttribute("book", book);
 
+        
+        boolean alreadyExitsAReview = false;
+        if (principal != null) {
+            User user = userService.findByName(principal.getName());
+            alreadyExitsAReview = userService.alreadyExitsAReview(book.getId(), user.getId());
+        }
+        model.addAttribute("alreadyExitsAReview", alreadyExitsAReview);
+
+
         boolean isUser = false;
         if (principal != null) {
             User user = userService.findByName(principal.getName());
@@ -80,11 +89,7 @@ public class BookController {
             return "redirect:/error";
         }
 
-        //Author author = authorService.findByName(authorName);
-        //System.out.println("Author: " + author);
-        /*if (author == null) {
-            return "redirect:/error";
-        }*/
+
 
         book.setName(name);
         book.setYearPub(yearPub);

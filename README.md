@@ -1,10 +1,9 @@
 11/04
 Cosas que faltan por hacer:
 
--Gestionar autores
+-Poder modificar tus datos, añadir listas de libros
 -Añadir imagenes en modificar imagenes y en añadir libro
 -Limpiar codigo y poner las restricciones necesarias en los controladores y no en los html
--Poder modificar tus datos
 
 
 

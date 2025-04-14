@@ -41,8 +41,19 @@
                         </select>
                         <input type="hidden" name="bookId" value="{{book.id}}">
                         <input type="hidden" name="userId" value="{{#loggedUser}}{{loggedUser.id}}{{/loggedUser}}">
+                        {{#alreadyExitsAReview}}
+                        <button type="submit">Actualizar reseña</button>
+                        {{/alreadyExitsAReview}}
+                        {{^alreadyExitsAReview}}
                         <button type="submit">Publicar reseña</button>
+                        {{/alreadyExitsAReview}}
                     </form>
+                    {{#alreadyExitsAReview}}
+                    <form action="/book/{{book.id}}/reviews/delete" method="post" style="display:inline;">
+                        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+                        <button type="submit" class="delete-button">Eliminar reseña</button>
+                    </form>
+                    {{/alreadyExitsAReview}}
                 </div>
                 {{/isUser}}
             </div>

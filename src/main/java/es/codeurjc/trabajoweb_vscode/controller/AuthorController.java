@@ -50,6 +50,19 @@ public class AuthorController {
         return "redirect:/adminLoggedIn";
     }
 
+    @PostMapping("/edit-author/{id}")
+    public String editBook(@PathVariable Long id, @RequestParam String name, @RequestParam String bio
+    ) {
+        Author author = authorService.findById(id);
+        if (author == null) {
+            return "redirect:/error";
+        }
+        author.setName(name);
+        author.setBio(bio);
+
+        authorService.save(author);
+        return "redirect:/adminLoggedIn";
+    }
     /*
      * @GetMapping("/edit-author/{id}")
      * public String editAuthor(@PathVariable Long id, Model model) {

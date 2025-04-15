@@ -59,7 +59,7 @@ public class DefaultController {
     }
 
     @GetMapping("/")
-    public String home(Model model) {
+    public String home(Model model, Principal principal) {
         List<Book> books = bookService.findRandomBooks(4);
         books.forEach(book -> {
             if (book.getImage() != null) {

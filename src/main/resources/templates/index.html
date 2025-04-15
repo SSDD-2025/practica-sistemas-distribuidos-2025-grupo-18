@@ -1,38 +1,42 @@
 {{>header}}
-        <div class="toolbar-right">
-            <form action="/search" method="get">
-                <input type="text" name = "query"placeholder="¿Que quieres buscar?" required>
-                <button type="submit">Buscar</button>
-            </form>
+<div class="toolbar-right">
+    <form action="/search" method="get">
+        <input type="text" name="query" placeholder="¿Que quieres buscar?" required>
+        <button type="submit">Buscar</button>
+    </form>
 
-            {{#logged}}
-            <form action="/logout" method="post">
-                <button class="btn btn-primary navbar-btn" type="submit">Log
-                    Out</button>
-                <input type="hidden" name="_csrf" value="{{token}}" />
-            </form>    
-            {{/logged}}
-        {{^logged}}
-        <a href="/login">Log in</a>
-        <a href="/signUp">Sign up</a>        
-        {{/logged}}
+    {{#logged}}
+    <form action="/logout" method="post">
+        <button class="btn btn-primary navbar-btn" type="submit">Log
+            Out</button>
+        <input type="hidden" name="_csrf" value="{{token}}" />
+    </form>
+    <form action="/user" method="get">
+        <button class="btn btn-primary navbar-btn" type="submit">{{userName}}</button>
+        <input type="hidden" name="_csrf" value="{{token}}" />
+    </form>
+    {{/logged}}
+    {{^logged}}
+    <a href="/login">Log in</a>
+    <a href="/signUp">Sign up</a>
+    {{/logged}}
 
+</div>
+</header>
+<main>
+    <section class="top-libros">
+        <h2>📚 Libros populares de esta semana</h2>
+        <div class="libros-container">
+            {{#books}}
+            <a href="/book/{{id}}" class="libro-card">
+                {{#imageBase64}}
+                <img src="data:image/jpeg;base64,{{imageBase64}}" alt="{{name}}">
+                {{/imageBase64}}
+                {{^imageBase64}}
+                <img src="/images/default.jpg" alt="{{name}} (Sin imagen)">
+                {{/imageBase64}}
+                <h3>{{name}}</h3>
+            </a>
+            {{/books}}
         </div>
-    </header>
-    <main>
-        <section class="top-libros">
-            <h2>📚 Libros populares de esta semana</h2>
-            <div class="libros-container">
-                {{#books}}
-                <a href="/book/{{id}}" class="libro-card">
-                    {{#imageBase64}}
-                        <img src="data:image/jpeg;base64,{{imageBase64}}" alt="{{name}}">
-                    {{/imageBase64}}
-                    {{^imageBase64}}
-                        <img src="/images/default.jpg" alt="{{name}} (Sin imagen)">
-                    {{/imageBase64}}
-                    <h3>{{name}}</h3>
-                </a>
-                {{/books}}
-            </div>
-{{>footer}}
+        {{>footer}}

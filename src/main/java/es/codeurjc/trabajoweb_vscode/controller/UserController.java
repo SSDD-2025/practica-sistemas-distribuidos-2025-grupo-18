@@ -1,6 +1,9 @@
 package es.codeurjc.trabajoweb_vscode.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,12 +16,63 @@ import org.springframework.web.bind.annotation.RequestParam;
 import es.codeurjc.trabajoweb_vscode.model.User;
 import es.codeurjc.trabajoweb_vscode.service.UserService;
 
+
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
+    @GetMapping("")
+    public String showInfo(Model model,Principal principal) {
+        User user = userService.findByName(principal.getName());
+        model.addAttribute("user", user);
+
+
+    return "user-info"; 
+    }
+    
+    @PostMapping("/change-name")
+    public String changeName(@RequestParam String username, Principal principal) {
+        User user = userService.findByName(principal.getName());
+        user.setName(username);
+        userService.save(user);
+        return "redirect:/user"; // Redirige a la página de información del usuario después de cambiar el nombre
+    }
+
+
+    @PostMapping("/change-password")
+    public String changePassword(@RequestParam String password, Principal principal) {
+        User user = userService.findByName(principal.getName());
+        
+        user.setEncodedPassword(passwordEncoder.encode(password)); // Cambia la contraseña
+        userService.save(user);
+        return "redirect:/user"; // Redirige a la página de información del usuario
+    }
+
+    @PostMapping("/delete")
+    public String deleteUser(Principal principal) {
+        User user = userService.findByName(principal.getName());
+        if (user != null) {
+
+            userService.delete(user.getId()); 
+
+        }
+        return "redirect:/user"; 
+    }
+
+    
+
+
+
+
+
+    
 
     @GetMapping("/{id}")
     public String getBookDetails(@PathVariable Long id, Model model) {

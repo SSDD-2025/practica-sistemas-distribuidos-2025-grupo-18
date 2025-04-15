@@ -42,7 +42,7 @@ public class UserController {
         User user = userService.findByName(principal.getName());
         user.setName(username);
         userService.save(user);
-        return "redirect:/user"; // Redirige a la página de información del usuario después de cambiar el nombre
+        return "redirect:/user"; 
     }
 
 
@@ -50,9 +50,9 @@ public class UserController {
     public String changePassword(@RequestParam String password, Principal principal) {
         User user = userService.findByName(principal.getName());
         
-        user.setEncodedPassword(passwordEncoder.encode(password)); // Cambia la contraseña
+        user.setEncodedPassword(passwordEncoder.encode(password)); 
         userService.save(user);
-        return "redirect:/user"; // Redirige a la página de información del usuario
+        return "redirect:/user"; 
     }
 
     @PostMapping("/delete")
@@ -69,8 +69,12 @@ public class UserController {
     
 
 
-
-
+    @GetMapping("/book-lists")
+    public String getBookLists(Model model, Principal principal) {
+        User user = userService.findByName(principal.getName());
+        model.addAttribute("user", user);
+        return "user-lists"; 
+    }
 
     
 

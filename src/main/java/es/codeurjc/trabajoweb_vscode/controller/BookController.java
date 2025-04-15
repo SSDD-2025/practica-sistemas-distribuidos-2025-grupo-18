@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import es.codeurjc.trabajoweb_vscode.model.Author;
 import es.codeurjc.trabajoweb_vscode.model.Book;
 import es.codeurjc.trabajoweb_vscode.model.User;
+import es.codeurjc.trabajoweb_vscode.service.BookListService;
 import es.codeurjc.trabajoweb_vscode.service.BookService;
 import es.codeurjc.trabajoweb_vscode.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+
 
 @Controller
 @RequestMapping("/book")
@@ -29,6 +31,9 @@ public class BookController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private BookListService bookListService;
 
     @GetMapping("/{id}")
     public String getBookDetails(@PathVariable Long id, Model model, Principal principal, HttpServletRequest request) {
@@ -64,6 +69,10 @@ public class BookController {
         CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
         if (csrfToken != null) {
             model.addAttribute("_csrf", csrfToken);
+        }
+        if (principal != null) {
+            model.addAttribute("user", userService.findByName(principal.getName()));
+
         }
 
         return "book-details";
@@ -105,7 +114,21 @@ public class BookController {
         return "redirect:/adminLoggedIn";
     }
 
+    @PostMapping("/{id}/add-to-list")
+    public String addToList(@PathVariable Long id, @RequestParam Long listId, Principal principal) {
+        Book book = bookService.findById(id);
+        if (book == null) {
+            return "redirect:/error";
+        }
+        User user = userService.findByName(principal.getName());
+        if (!userService.userHasList(user.getId(), listId)) {
+            return "redirect:/error";
+        }
+        bookListService.addBookToList(book, listId);
+        return "redirect:/book/" + id;
+    }
 
+    
     /* @PostMapping("/adminLoggedIn/book-manager/add-book")
     public String saveBook(
             @RequestParam String nombre,

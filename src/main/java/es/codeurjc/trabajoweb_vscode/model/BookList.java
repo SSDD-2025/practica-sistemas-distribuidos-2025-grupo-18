@@ -1,7 +1,14 @@
 package es.codeurjc.trabajoweb_vscode.model;
 import java.util.List;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class BookList {
@@ -26,7 +33,11 @@ public class BookList {
 
     public BookList(){}
 
-
+    public BookList(User user, String name) {
+        this.user = user;
+        this.name = name;
+        this.books = List.of();
+    }
     ///////////GET AND SET////////////
 
     public Long getId() {

@@ -22,7 +22,7 @@
                     <h3>Listas de Libros</h3>
                     <ul>
                         {{#user.bookLists}}
-                        <li>{{name}}</li>
+                        <li><a href="/book-list/{{id}}">{{name}}</a></li>
                         {{/user.bookLists}}
                         {{^user.bookLists}}
                         <li>No hay listas de libros disponibles.</li>

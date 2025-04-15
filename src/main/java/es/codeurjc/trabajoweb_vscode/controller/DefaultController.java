@@ -48,6 +48,7 @@ public class DefaultController {
             model.addAttribute("logged", true);
             model.addAttribute("userName", principal.getName());
             model.addAttribute("admin", request.isUserInRole("ADMIN"));
+            model.addAttribute("user", userService.findByName(principal.getName()));
 
         } else {
             model.addAttribute("logged", false);

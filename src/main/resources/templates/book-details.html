@@ -54,6 +54,22 @@
                         <button type="submit" class="delete-button">Eliminar reseña</button>
                     </form>
                     {{/alreadyExitsAReview}}
+                    <div class="add-to-list-form">
+                        <h2>Añadir a una lista</h2>
+                        <form action="/book/{{book.id}}/add-to-list" method="post">
+                            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+                            <label for="userLists">Selecciona una lista:</label>
+                            <select name="listId" id="userLists" required>
+                                {{#user.bookLists}}
+                                <option value="{{id}}">{{name}}</option>
+                                {{/user.bookLists}}
+                                {{^user.bookLists}}
+                                <option value="" disabled>No tienes listas disponibles</option>
+                                {{/user.bookLists}}
+                            </select>
+                            <button type="submit">Añadir a la lista</button>
+                        </form>
+                    </div>
                 </div>
                 {{/isUser}}
             </div>

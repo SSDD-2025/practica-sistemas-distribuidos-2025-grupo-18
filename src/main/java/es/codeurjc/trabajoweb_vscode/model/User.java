@@ -54,6 +54,8 @@ public class User {
 		this.name = name;
 		this.encodedPassword = encodedPassword;
 		this.roles = List.of(roles);
+        BookList bookList = new BookList(this, "Mis libros favoritos");
+        bookLists.add(bookList);
 	}
 
 

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.codeurjc.trabajoweb_vscode.model.Book;
+import es.codeurjc.trabajoweb_vscode.model.BookList;
 import es.codeurjc.trabajoweb_vscode.model.Review;
 import es.codeurjc.trabajoweb_vscode.model.User;
 import es.codeurjc.trabajoweb_vscode.repository.UserRepository;
@@ -16,8 +17,10 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private BookService bookService;
+
 
     public User save(User user) {
         return userRepository.save(user);
@@ -62,4 +65,19 @@ public class UserService {
         return false;
 
     }
+
+    public boolean userHasList(Long id, Long listId) {
+        User user = findById(id);
+        if (user == null) {
+            return false;
+        }
+        for (BookList bookList : user.getBookLists()) {
+            if (Objects.equals(bookList.getId(), listId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 }

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List Details</title>
+</head>
+<body>
+    <h1>Book List: {{bookList.name}}</h1>
+    <ul>
+        {{#bookList.books}}
+        <li>
+            <strong>Title:</strong> {{name}} <br>
+            <strong>Author:</strong> {{author.name}} <br>
+            <strong>Year:</strong> {{yearPub}}
+        </li>
+        {{/bookList.books}}
+    </ul>
+</body>
+</html></html>

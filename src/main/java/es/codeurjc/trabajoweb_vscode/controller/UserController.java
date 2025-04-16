@@ -30,6 +30,25 @@ public class UserController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+    @ModelAttribute
+    public void addAttributes(Model model, HttpServletRequest request) {
+
+        Principal principal = request.getUserPrincipal();
+
+        if (principal != null) {
+            
+
+            model.addAttribute("logged", true);
+            model.addAttribute("userName", principal.getName());
+            model.addAttribute("admin", request.isUserInRole("ADMIN"));
+            model.addAttribute("user", userService.findByName(principal.getName()));
+
+        } else {
+            model.addAttribute("logged", false);
+            model.addAttribute("admin", false);
+        }
+    }
+
     @GetMapping("")
     public String showInfo( Model model, Principal principal, HttpServletRequest request) {
         User user = userService.findByName(principal.getName());

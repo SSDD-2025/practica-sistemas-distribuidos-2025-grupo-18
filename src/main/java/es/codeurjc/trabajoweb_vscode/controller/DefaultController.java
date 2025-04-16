@@ -44,6 +44,7 @@ public class DefaultController {
         Principal principal = request.getUserPrincipal();
 
         if (principal != null) {
+            
 
             model.addAttribute("logged", true);
             model.addAttribute("userName", principal.getName());
@@ -52,6 +53,7 @@ public class DefaultController {
 
         } else {
             model.addAttribute("logged", false);
+            model.addAttribute("admin", false);
         }
     }
 
@@ -172,7 +174,20 @@ public class DefaultController {
     }
 
 
+    @GetMapping("/adminLoggedIn/search")
+    public String buscarAdmin(@RequestParam String query, Model model) {
+        List<Book> libros = bookService.findByNameContainingIgnoreCase(query);
+        libros.forEach(book -> {
+            if (book.getImage() != null) {
+                book.setImageBase64(convertImageToBase64(book.getImage()));
+            }
+        });
+        model.addAttribute("books", libros);
+        model.addAttribute("query", query);
 
+        return "search-admin";
+    }
+    
 
 
 

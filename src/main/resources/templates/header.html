@@ -11,7 +11,14 @@
 <body>
     <header class="toolbar">
         <div class="logo">
+            {{#admin}}
+            <a href="/adminLoggedIn">
+
+            {{/admin}}
+            {{^admin}}  
             <a href="/">
+
+            {{/admin}}
             <img src="../images/logo.png" alt="BookNest Logo" >
             <h1>BOOKNEST</h1>
             </a>

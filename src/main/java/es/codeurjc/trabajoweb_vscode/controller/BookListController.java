@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,24 @@ public class BookListController {
     @Autowired
     private UserService userService; 
 
+      @ModelAttribute
+    public void addAttributes(Model model, HttpServletRequest request) {
+
+        Principal principal = request.getUserPrincipal();
+
+        if (principal != null) {
+            
+
+            model.addAttribute("logged", true);
+            model.addAttribute("userName", principal.getName());
+            model.addAttribute("admin", request.isUserInRole("ADMIN"));
+            model.addAttribute("user", userService.findByName(principal.getName()));
+
+        } else {
+            model.addAttribute("logged", false);
+            model.addAttribute("admin", false);
+        }
+    }
 
     @GetMapping("/{id}")
     public String getBookListById(@PathVariable Long id, Model model, Principal principal) {

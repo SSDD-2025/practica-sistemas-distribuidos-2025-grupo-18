@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import es.codeurjc.trabajoweb_vscode.model.User;
 import es.codeurjc.trabajoweb_vscode.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 
 
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
+
 
     @Autowired
     private UserService userService;
@@ -29,7 +31,7 @@ public class UserController {
 	private PasswordEncoder passwordEncoder;
 
     @GetMapping("")
-    public String showInfo(Model model,Principal principal) {
+    public String showInfo( Model model, Principal principal, HttpServletRequest request) {
         User user = userService.findByName(principal.getName());
         model.addAttribute("user", user);
 
@@ -56,7 +58,7 @@ public class UserController {
     }
 
     @PostMapping("/delete")
-    public String deleteUser(Principal principal) {
+    public String deleteUser(Model model,Principal principal) {
         User user = userService.findByName(principal.getName());
         if (user != null) {
 
@@ -70,7 +72,7 @@ public class UserController {
 
 
     @GetMapping("/book-lists")
-    public String getBookLists(Model model, Principal principal) {
+    public String getBookLists(Model model, Principal principal, HttpServletRequest request) {
         User user = userService.findByName(principal.getName());
         model.addAttribute("user", user);
         return "user-lists"; 

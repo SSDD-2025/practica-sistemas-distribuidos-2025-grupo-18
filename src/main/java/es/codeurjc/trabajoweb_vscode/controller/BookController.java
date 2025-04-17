@@ -1,5 +1,9 @@
 package es.codeurjc.trabajoweb_vscode.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.Base64;
 
@@ -112,7 +116,8 @@ public class BookController {
 
     @PostMapping("/edit-book/{id}")
     public String editBook(@PathVariable Long id, @RequestParam String name, @RequestParam int yearPub,
-            @RequestParam Author authorName) {
+            @RequestParam Author authorName, @RequestParam String description, @RequestParam String file) throws IOException {
+
         Book book = bookService.findById(id);
         if (book == null) {
             return "redirect:/error";
@@ -123,7 +128,12 @@ public class BookController {
         book.setName(name);
         book.setYearPub(yearPub);
         book.setAuthor(authorName);
-
+        book.setDescription(description);
+        if (file != null && !file.isEmpty()) {
+            Path imagePath1 = Paths.get("src/main/resources/static/images/" + file); 
+            byte[] imageBytes1 = Files.readAllBytes(imagePath1);
+            book.setImage(imageBytes1); 
+        } 
         bookService.save(book);
         return "redirect:/adminLoggedIn";
     }

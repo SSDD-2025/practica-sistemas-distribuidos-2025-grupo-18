@@ -1,5 +1,9 @@
 package es.codeurjc.trabajoweb_vscode.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.Base64;
 import java.util.List;
@@ -287,7 +291,8 @@ public class DefaultController {
             @RequestParam String autor,
             @RequestParam int año,
             @RequestParam String descripcion,
-            Model model) {
+            @RequestParam String file,
+            Model model) throws IOException {
 
         System.out.println("Entro en el método saveBook() del BookController.\n");
         System.out.println("Nombre: " + nombre);
@@ -307,6 +312,11 @@ public class DefaultController {
         book.setYearPub(año);
         book.setDescription(descripcion);
         book.setAuthor(author);
+        if (file != null && !file.isEmpty()) {
+            Path imagePath1 = Paths.get("src/main/resources/static/images/" + file); 
+            byte[] imageBytes1 = Files.readAllBytes(imagePath1);
+            book.setImage(imageBytes1); 
+        } 
         bookService.save(book);
 
         System.out.println("Libro guardado correctamente.\n");

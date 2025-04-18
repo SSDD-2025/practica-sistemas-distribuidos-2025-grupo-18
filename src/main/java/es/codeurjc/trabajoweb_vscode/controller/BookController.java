@@ -26,7 +26,6 @@ import es.codeurjc.trabajoweb_vscode.service.BookService;
 import es.codeurjc.trabajoweb_vscode.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 
-
 @Controller
 @RequestMapping("/book")
 public class BookController {
@@ -40,13 +39,12 @@ public class BookController {
     @Autowired
     private BookListService bookListService;
 
-          @ModelAttribute
+    @ModelAttribute
     public void addAttributes(Model model, HttpServletRequest request) {
 
         Principal principal = request.getUserPrincipal();
 
         if (principal != null) {
-            
 
             model.addAttribute("logged", true);
             model.addAttribute("userName", principal.getName());
@@ -74,14 +72,12 @@ public class BookController {
 
         model.addAttribute("book", book);
 
-        
         boolean alreadyExitsAReview = false;
         if (principal != null) {
             User user = userService.findByName(principal.getName());
             alreadyExitsAReview = userService.alreadyExitsAReview(book.getId(), user.getId());
         }
         model.addAttribute("alreadyExitsAReview", alreadyExitsAReview);
-
 
         boolean isUser = false;
         if (principal != null) {
@@ -113,27 +109,38 @@ public class BookController {
         model.addAttribute("authors", authorService.findAll());
         return "edit-book";
     }*/
-
     @PostMapping("/edit-book/{id}")
-    public String editBook(@PathVariable Long id, @RequestParam String name, @RequestParam int yearPub,
-            @RequestParam Author authorName, @RequestParam String description, @RequestParam String file) throws IOException {
+    public String editBook(@PathVariable Long id,
+            @RequestParam String name,
+            @RequestParam int yearPub,
+            @RequestParam Author authorName,
+            @RequestParam String description,
+            @RequestParam(required = false) String file, // Para BLOB
+            @RequestParam(required = false) String imageUrl, // Para URL
+            Model model) throws IOException {
 
         Book book = bookService.findById(id);
         if (book == null) {
             return "redirect:/error";
         }
 
-
-
         book.setName(name);
         book.setYearPub(yearPub);
         book.setAuthor(authorName);
         book.setDescription(description);
+
+
         if (file != null && !file.isEmpty()) {
-            Path imagePath1 = Paths.get("src/main/resources/static/images/" + file); 
-            byte[] imageBytes1 = Files.readAllBytes(imagePath1);
-            book.setImage(imageBytes1); 
-        } 
+            Path imagePath = Paths.get("src/main/resources/static/images/" + file);
+            byte[] imageBytes = Files.readAllBytes(imagePath);
+            book.setImage(imageBytes);
+            book.setImageUrl(null); 
+        } // Manejar imagen URL
+        else if (imageUrl != null && !imageUrl.isEmpty()) {
+            book.setImageUrl(imageUrl);
+            book.setImage(null);
+        }
+
         bookService.save(book);
         return "redirect:/adminLoggedIn";
     }
@@ -158,7 +165,6 @@ public class BookController {
         return "redirect:/book/" + id;
     }
 
-    
     /* @PostMapping("/adminLoggedIn/book-manager/add-book")
     public String saveBook(
             @RequestParam String nombre,

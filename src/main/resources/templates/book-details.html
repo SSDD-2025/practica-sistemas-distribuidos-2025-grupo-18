@@ -9,13 +9,27 @@
             <h1>{{book.name}}</h1>
             <p><a href="/author/{{book.author.id}}">{{book.author.name}}</a> ({{book.yearPub}})</p>
         </div>
-        <div class="book-content">
+        <!--<div class="book-content">
             {{#book.imageBase64}}
             <img src="data:image/jpeg;base64,{{book.imageBase64}}" alt="{{book.name}}">
             {{/book.imageBase64}}
             {{^book.imageBase64}}
             <img src="/images/default.jpg" alt="{{book.name}} (Sin imagen)">
-            {{/book.imageBase64}}
+            {{/book.imageBase64}}-->
+            <div class="book-content">
+                {{#book.imageBase64}}
+                    <img src="data:image/jpeg;base64,{{book.imageBase64}}" alt="{{book.name}}">
+                {{/book.imageBase64}}
+                {{^book.imageBase64}}
+                    {{#book.imageUrl}}
+                        <img src="{{book.imageUrl}}" alt="{{book.name}}">
+                    {{/book.imageUrl}}
+                    {{^book.imageUrl}}
+                        <img src="/images/default.jpg" alt="{{book.name}} (Sin imagen)">
+                    {{/book.imageUrl}}
+                {{/book.imageBase64}}
+
+          
 
             <div class="book-info">
                 <h2>Descripción</h2>

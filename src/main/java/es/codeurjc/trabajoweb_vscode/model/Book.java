@@ -20,12 +20,16 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Lob
+    private byte[] image; 
+
+    private String imageUrl; 
+
+    private String imageBase64;
+
     private String name;
 
     private int yearPub;
-
-    @Lob
-    private byte[] image;
 
     @ManyToOne
     private Author author;
@@ -34,8 +38,6 @@ public class Book {
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;
-
-    private String imageBase64;
 
 
     ////////////// CONSRTUCTORS///////////////
@@ -119,4 +121,22 @@ public class Book {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public boolean hasImageBlob() {
+        return image != null && image.length > 0;
+    }
+
+    public boolean hasImageUrl() {
+        return imageUrl != null && !imageUrl.isEmpty();
+    }
 }
+

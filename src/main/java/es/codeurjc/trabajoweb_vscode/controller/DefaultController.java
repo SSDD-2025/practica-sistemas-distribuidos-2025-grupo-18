@@ -1,9 +1,6 @@
 package es.codeurjc.trabajoweb_vscode.controller;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.Base64;
 import java.util.List;
@@ -18,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import es.codeurjc.trabajoweb_vscode.model.Author;
 import es.codeurjc.trabajoweb_vscode.model.Book;
@@ -48,7 +46,6 @@ public class DefaultController {
         Principal principal = request.getUserPrincipal();
 
         if (principal != null) {
-            
 
             model.addAttribute("logged", true);
             model.addAttribute("userName", principal.getName());
@@ -128,7 +125,6 @@ public class DefaultController {
     // public String loginFalso() {
     //     return "log-in-admin";
     // }
-
     @GetMapping("/adminLoggedIn")
     public String mainLoggedIn(Model model) {
         List<Book> books = bookService.findRandomBooks(4);
@@ -141,27 +137,13 @@ public class DefaultController {
         return "adminLoggedIn";
     }
 
-
-
-
-
-
-
-
-
-
-
-
-    
     @GetMapping("/adminLoggedIn/author-manager")
     public String gestionLibros(Model model) {
         List<Author> authors = authorService.findRandomAuthors(4);
         model.addAttribute("authors", authors);
-        
+
         return "author-manager";
     }
-
-
 
     @PostMapping("/adminLoggedIn/book-manager/add-author")
     public String saveaAuthor(
@@ -171,12 +153,11 @@ public class DefaultController {
 
         Author author = new Author();
         author.setName(nombre);
-        author.setBio(bio);        
+        author.setBio(bio);
         authorService.save(author);
         System.out.println("Libro guardado correctamente.\n");
         return "redirect:/adminLoggedIn";
     }
-
 
     @GetMapping("/adminLoggedIn/search")
     public String buscarAdmin(@RequestParam String query, Model model) {
@@ -191,23 +172,6 @@ public class DefaultController {
 
         return "search-admin";
     }
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     @GetMapping("/adminLoggedIn/add-book")
     public String añadirLibro(Model model, HttpServletRequest request) {
@@ -233,6 +197,8 @@ public class DefaultController {
 
         model.addAttribute("authors", authorService.findAll());
         model.addAttribute("book", book);
+        model.addAttribute("imageUrl", book.getImageUrl());
+        model.addAttribute("hasImageBlob", book.getImage() != null && book.getImage().length > 0);
 
         return "edit-book";
     }
@@ -291,35 +257,26 @@ public class DefaultController {
             @RequestParam String autor,
             @RequestParam int año,
             @RequestParam String descripcion,
-            @RequestParam String file,
+            @RequestParam(required = false) MultipartFile file,
+            @RequestParam(required = false) String imageUrl,
             Model model) throws IOException {
 
-        System.out.println("Entro en el método saveBook() del BookController.\n");
-        System.out.println("Nombre: " + nombre);
-        System.out.println("Autor: " + autor);
-        System.out.println("Año: " + año);
-        System.out.println("Descripción: " + descripcion);
-
         Author author = authorService.findByName(autor);
-        /*if (author == null) {
-            author = new Author();
-            author.setName(autor);
-            authorService.save(author);
-        }*/
-
         Book book = new Book();
         book.setName(nombre);
         book.setYearPub(año);
         book.setDescription(descripcion);
         book.setAuthor(author);
-        if (file != null && !file.isEmpty()) {
-            Path imagePath1 = Paths.get("src/main/resources/static/images/" + file); 
-            byte[] imageBytes1 = Files.readAllBytes(imagePath1);
-            book.setImage(imageBytes1); 
-        } 
-        bookService.save(book);
 
-        System.out.println("Libro guardado correctamente.\n");
+        if (file != null && !file.isEmpty()) {
+            book.setImage(file.getBytes());
+            book.setImageUrl(null);
+        } else if (imageUrl != null && !imageUrl.isEmpty()) {
+            book.setImageUrl(imageUrl);
+            book.setImage(null);
+        }
+
+        bookService.save(book);
         return "redirect:/adminLoggedIn";
     }
 

@@ -1,11 +1,14 @@
 package es.codeurjc.trabajoweb_vscode.service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.codeurjc.trabajoweb_vscode.DTO.UserDTO;
+import es.codeurjc.trabajoweb_vscode.DTO.UserMapper;
 import es.codeurjc.trabajoweb_vscode.model.Book;
 import es.codeurjc.trabajoweb_vscode.model.BookList;
 import es.codeurjc.trabajoweb_vscode.model.Review;
@@ -79,5 +82,34 @@ public class UserService {
         return false;
     }
 
+    // LO NUEVO DE LUCI
+
+    @Autowired
+    UserMapper mapper;
+
+    private UserDTO toDTO(User user) {
+		return mapper.toDTO(user);
+	}
+
+	private User toDomain(UserDTO userDTO) {
+		return mapper.toDomain(userDTO);
+	}
+
+	private Collection<UserDTO> toDTOs(Collection<User> users) {
+		return mapper.toDTOs(users);
+    }
+
+    public UserDTO replaceUser(Long id, UserDTO userDTO) {
+
+        User existingUser = userRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+
+        existingUser.setName(userDTO.name());
+        existingUser.setRoles(userDTO.roles());
+
+        User updatedUser = userRepository.save(existingUser);
+
+        return new UserDTO(updatedUser.getId(), updatedUser.getName(), updatedUser.getRoles());
+    }
 
 }

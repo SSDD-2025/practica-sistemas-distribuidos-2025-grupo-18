@@ -27,36 +27,38 @@
                 </ul>
                 {{#isUser}}
                 <div class="review-form">
-                    <h2>Escribe una reseña</h2>
-                    <form action="/book/{{book.id}}/reviews/add" method="post">
-                        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
-                        <textarea name="textReview" placeholder="Escribe tu reseña aquí..." required></textarea>
-                        <label for="rate">Calificación:</label>
-                        <select name="rate" id="rate" required>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                        <input type="hidden" name="bookId" value="{{book.id}}">
-                        <input type="hidden" name="userId" value="{{#loggedUser}}{{loggedUser.id}}{{/loggedUser}}">
+                    <div class="form-row">
+                        <form action="/book/{{book.id}}/reviews/add" method="post" class="inline-form">
+                            <h2>Escribe una reseña</h2>
+                            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+                            <textarea name="textReview" placeholder="Escribe tu reseña aquí..." required></textarea>
+                            <label for="rate">Calificación:</label>
+                            <select name="rate" id="rate" required>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <input type="hidden" name="bookId" value="{{book.id}}">
+                            <input type="hidden" name="userId" value="{{#loggedUser}}{{loggedUser.id}}{{/loggedUser}}">
+                            {{#alreadyExitsAReview}}
+                            <button type="submit">Actualizar reseña</button>
+                            {{/alreadyExitsAReview}}
+                            {{^alreadyExitsAReview}}
+                            <button type="submit">Publicar reseña</button>
+                            {{/alreadyExitsAReview}}
+                        </form>
                         {{#alreadyExitsAReview}}
-                        <button type="submit">Actualizar reseña</button>
+                        <form action="/book/{{book.id}}/reviews/delete" method="post" class="inline-form"
+                            style="text-align: center;">
+                            <h2>Eliminar reseña</h2>
+                            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+                            <button type="submit" class="delete-button">Eliminar reseña</button>
+                        </form>
                         {{/alreadyExitsAReview}}
-                        {{^alreadyExitsAReview}}
-                        <button type="submit">Publicar reseña</button>
-                        {{/alreadyExitsAReview}}
-                    </form>
-                    {{#alreadyExitsAReview}}
-                    <form action="/book/{{book.id}}/reviews/delete" method="post" style="display:inline;">
-                        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
-                        <button type="submit" class="delete-button">Eliminar reseña</button>
-                    </form>
-                    {{/alreadyExitsAReview}}
-                    <div class="add-to-list-form">
-                        <h2>Añadir a una lista</h2>
-                        <form action="/book/{{book.id}}/add-to-list" method="post">
+                        <form action="/book/{{book.id}}/add-to-list" method="post" class="inline-form">
+                            <h2>Añadir a lista</h2>
                             <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
                             <label for="userLists">Selecciona una lista:</label>
                             <select name="listId" id="userLists" required>

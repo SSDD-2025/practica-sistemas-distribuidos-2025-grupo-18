@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import es.codeurjc.trabajoweb_vscode.model.User;
 import es.codeurjc.trabajoweb_vscode.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 
 
 
@@ -22,14 +23,34 @@ import es.codeurjc.trabajoweb_vscode.service.UserService;
 @RequestMapping("/user")
 public class UserController {
 
+
     @Autowired
     private UserService userService;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+    @ModelAttribute
+    public void addAttributes(Model model, HttpServletRequest request) {
+
+        Principal principal = request.getUserPrincipal();
+
+        if (principal != null) {
+            
+
+            model.addAttribute("logged", true);
+            model.addAttribute("userName", principal.getName());
+            model.addAttribute("admin", request.isUserInRole("ADMIN"));
+            model.addAttribute("user", userService.findByName(principal.getName()));
+
+        } else {
+            model.addAttribute("logged", false);
+            model.addAttribute("admin", false);
+        }
+    }
+
     @GetMapping("")
-    public String showInfo(Model model,Principal principal) {
+    public String showInfo( Model model, Principal principal, HttpServletRequest request) {
         User user = userService.findByName(principal.getName());
         model.addAttribute("user", user);
 
@@ -56,7 +77,7 @@ public class UserController {
     }
 
     @PostMapping("/delete")
-    public String deleteUser(Principal principal) {
+    public String deleteUser(Model model,Principal principal) {
         User user = userService.findByName(principal.getName());
         if (user != null) {
 
@@ -70,7 +91,7 @@ public class UserController {
 
 
     @GetMapping("/book-lists")
-    public String getBookLists(Model model, Principal principal) {
+    public String getBookLists(Model model, Principal principal, HttpServletRequest request) {
         User user = userService.findByName(principal.getName());
         model.addAttribute("user", user);
         return "user-lists"; 

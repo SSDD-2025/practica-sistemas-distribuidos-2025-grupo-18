@@ -581,3 +581,13 @@ body {
     all: unset;
     display: inline;
 }
+
+.form-row {
+    display: grid; /* Activa CSS Grid */
+    grid-template-columns: repeat(4, 1fr); 
+    justify-content: start; /* Alinea los elementos al inicio (izquierda) */
+    gap: 20px; /* Espacio entre libros */
+    max-width: 1800px; /* Ajusta este valor según el ancho total que necesites */
+    margin: 0 auto; /* Centrar el contenedor horizontalmente */
+    padding: 20px;
+}

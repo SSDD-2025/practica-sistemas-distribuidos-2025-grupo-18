@@ -1,5 +1,9 @@
 package es.codeurjc.trabajoweb_vscode.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.Base64;
 
@@ -8,6 +12,7 @@ import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +39,25 @@ public class BookController {
 
     @Autowired
     private BookListService bookListService;
+
+          @ModelAttribute
+    public void addAttributes(Model model, HttpServletRequest request) {
+
+        Principal principal = request.getUserPrincipal();
+
+        if (principal != null) {
+            
+
+            model.addAttribute("logged", true);
+            model.addAttribute("userName", principal.getName());
+            model.addAttribute("admin", request.isUserInRole("ADMIN"));
+            model.addAttribute("user", userService.findByName(principal.getName()));
+
+        } else {
+            model.addAttribute("logged", false);
+            model.addAttribute("admin", false);
+        }
+    }
 
     @GetMapping("/{id}")
     public String getBookDetails(@PathVariable Long id, Model model, Principal principal, HttpServletRequest request) {
@@ -92,7 +116,8 @@ public class BookController {
 
     @PostMapping("/edit-book/{id}")
     public String editBook(@PathVariable Long id, @RequestParam String name, @RequestParam int yearPub,
-            @RequestParam Author authorName) {
+            @RequestParam Author authorName, @RequestParam String description, @RequestParam String file) throws IOException {
+
         Book book = bookService.findById(id);
         if (book == null) {
             return "redirect:/error";
@@ -103,7 +128,12 @@ public class BookController {
         book.setName(name);
         book.setYearPub(yearPub);
         book.setAuthor(authorName);
-
+        book.setDescription(description);
+        if (file != null && !file.isEmpty()) {
+            Path imagePath1 = Paths.get("src/main/resources/static/images/" + file); 
+            byte[] imageBytes1 = Files.readAllBytes(imagePath1);
+            book.setImage(imageBytes1); 
+        } 
         bookService.save(book);
         return "redirect:/adminLoggedIn";
     }

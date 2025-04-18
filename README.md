@@ -3,8 +3,8 @@ Cosas que faltan por hacer:
 
 
 
-
--Poder modificar tus datos, añadir listas de libros
+-Mejorar interfaces 
+-Poder quitar libros de las listas
 -Añadir imagenes en modificar imagenes y en añadir libro
 -Limpiar codigo y poner las restricciones necesarias en los controladores y no en los html
 

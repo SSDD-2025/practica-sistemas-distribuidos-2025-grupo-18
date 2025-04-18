@@ -24,7 +24,9 @@
             
                 <label for="descripcion">Descripción:</label>
                 <textarea id="descripcion" name="descripcion" rows="4" required></textarea>
-            
+                <label for="archivo">Seleccionar archivo:</label>
+                <input type="file" id="archivo" name="file" accept=".pdf,.png" onchange="obtenerDireccionArchivo(this)">
+
                 <button type="submit">Guardar</button>
             </form>
 {{>footer}}

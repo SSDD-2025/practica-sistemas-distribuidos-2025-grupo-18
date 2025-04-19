@@ -184,7 +184,7 @@ public class DefaultController {
     }
 
     @GetMapping("/adminLoggedIn/edit-book/{id}")
-    public String modificarLibro(@PathVariable Long id, Model model, HttpServletRequest request) {
+    public String editBook(@PathVariable Long id, Model model, HttpServletRequest request) {
         Book book = bookService.findById(id);
         if (book == null) {
             return "redirect:/error";

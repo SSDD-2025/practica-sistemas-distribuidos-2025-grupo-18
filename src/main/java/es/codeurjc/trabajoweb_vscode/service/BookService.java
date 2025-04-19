@@ -1,5 +1,6 @@
 package es.codeurjc.trabajoweb_vscode.service;
 
+import java.util.Base64;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -69,7 +70,7 @@ public class BookService {
     }
 
      // LO NUEVO DE LUCI
-     
+
     @Autowired
     BookMapper mapper;
     
@@ -80,10 +81,6 @@ public class BookService {
 	private Book toDomain(BookDTO bookDTO) {
 		return mapper.toDomain(bookDTO);
 	}
-
-	private Collection<BookDTO> toDTOs(Collection<Book> books) {
-		return mapper.toDTOs(books);
-    }
     
 public BookSimpleDTO replaceBook(long id, BookSimpleDTO updatedDTO) {
     Book oldBook = bookRepository.findById(id).orElseThrow();
@@ -102,6 +99,14 @@ public BookSimpleDTO replaceBook(long id, BookSimpleDTO updatedDTO) {
     bookRepository.save(updatedBook);
 
     return updatedDTO;
+}
+
+public void updateBookImage(Long id, String base64Image) {
+    Book book = bookRepository.findById(id).orElseThrow();
+    byte[] imageBytes = Base64.getDecoder().decode(base64Image);
+    book.setImage(imageBytes);
+    book.setImageBase64(base64Image);
+    bookRepository.save(book);
 }
 
 

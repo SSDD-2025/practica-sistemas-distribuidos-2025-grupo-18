@@ -123,5 +123,9 @@ public class Book {
         return image != null && image.length > 0;
     }
 
+    public Book orElseThrow(Object object) {
+        throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
+    }
+
 }
 

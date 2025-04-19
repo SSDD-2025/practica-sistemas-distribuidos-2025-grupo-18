@@ -4,6 +4,15 @@ import java.net.URI;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Base64;
+import org.springframework.http.MediaType;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatusCode;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -75,5 +84,51 @@ public class BookRestController {
 
 		return bookService.replaceBook(id, updatedBookDTO);
 	}
+
+@GetMapping("/{id}/image")
+public ResponseEntity<byte[]> getBookImage(@PathVariable Long id) {
+    Book book = bookRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Book not found"));
+
+    if (book.getImage() != null && book.getImage().length > 0) {
+        return ResponseEntity.ok()
+                             .contentType(MediaType.IMAGE_JPEG)
+                             .body(book.getImage());
+    } else {
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+}
+    
+
+    @PutMapping("/{id}/image")
+    public ResponseEntity<Void> updateBookImage(@PathVariable Long id, @RequestBody String base64Image) {
+        Book book = bookRepository.findById(id).orElseThrow();
+
+    try {
+        byte[] imageBytes = Base64.getDecoder().decode(base64Image);
+        book.setImage(imageBytes);
+        book.setImageBase64(base64Image);
+        bookRepository.save(book);
+        return ResponseEntity.ok().build();
+    } catch (IllegalArgumentException e) {
+        return ResponseEntity.badRequest().build();
+    }
+}
+
+
+@DeleteMapping("/{id}/image")
+public ResponseEntity<Void> deleteBookImage(@PathVariable Long id) {
+    Book book = bookRepository.findById(id).orElse(null);
+
+    if (book != null && book.getImage() != null && book.getImage().length > 0) {
+        book.setImage(null);
+        bookRepository.save(book);  
+
+        return ResponseEntity.noContent().build();  
+    } else {
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();  
+    }
+}
+
+
 
 }

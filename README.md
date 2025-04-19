@@ -1,6 +1,6 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/D1C1HU9V)
 
-Grupo: 18 (Ariabod Fatehi, Marta Sancristán, GUillermo Lara y Pablo León) 
+Grupo: 18 (Ariabod Fatehi, Marta Sacristán, Guillermo Lara y Pablo León) 
 Nota:
 1.	Se ha rellenado la rúbrica antes de la defensa
 Si | No (-1)

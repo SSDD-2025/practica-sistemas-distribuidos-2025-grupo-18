@@ -1,6 +1,7 @@
 package es.codeurjc.trabajoweb_vscode.controller;
 
 import java.security.Principal;
+import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,8 +52,17 @@ public class BookListController {
         if (bookList == null) {
             return "error";
         }
-        model.addAttribute("bookList", bookList);
+        if (!bookList.getUser().getName().equals(principal.getName())) {
+            model.addAttribute("error", "No tienes permiso para ver esta lista");
+            return "error";
+        }
+        bookList.getBooks().forEach(book -> {
+            if (book.getImage() != null) {
+                book.setImageBase64(Base64.getEncoder().encodeToString(book.getImage()));
+            }
+        });
 
+        model.addAttribute("bookList", bookList);
         return "bookList-details";
     }
 
@@ -72,9 +82,21 @@ public class BookListController {
 
     @PostMapping("/{listId}/remove-book")
     public String removeBookFromList(@PathVariable Long listId,
-            @RequestParam Long bookId) {
-        bookListService.removeBookFromList(listId, bookId);
-        return "redirect:/book-list/" + listId;
+            @RequestParam Long bookId,
+            Principal principal,
+            Model model) {
+        try {
+            BookList bookList = bookListService.findById(listId);
+            if (bookList == null || !bookList.getUser().getName().equals(principal.getName())) {
+                model.addAttribute("error", "No tienes permiso para modificar esta lista");
+                return "error";
+            }
+            bookListService.removeBookFromList(listId, bookId);
+            return "redirect:/book-list/" + listId;
+        } catch (Exception e) {
+            model.addAttribute("error", "Error al eliminar el libro: " + e.getMessage());
+            return "error";
+        }
     }
 
 }

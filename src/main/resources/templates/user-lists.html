@@ -12,16 +12,10 @@
         {{#user.bookLists}}
         <form action="/book-list/delete" method="POST">
             <div class="book-list">
-                <a href="/book-list/{{id}}">{{name}}</a>
+                <a href="/book-list/{{id}}" class="list-link">{{name}}</a>
                 <input type="hidden" name="listId" value="{{id}}">
                 <input type="hidden" name="_csrf" value="{{token}}" />
                 <button type="submit" class="delete-list-btn">Eliminar lista</button>
-
-                <ul>
-                    {{#books}}
-                    <li class="book-item">{{name}}</li>
-                    {{/books}}
-                </ul>
             </div>
         </form>
         {{/user.bookLists}}
@@ -35,4 +29,4 @@
 
     </div>
 
-    {{>footer}}
+{{>footer}}

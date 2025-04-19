@@ -715,7 +715,7 @@ input[type="file"] {
     background-color: #f8f8f8;
 }
 
-.user-info a {
+.list-link {
     text-decoration: none;
     color: #333;
     font-size: 24px;

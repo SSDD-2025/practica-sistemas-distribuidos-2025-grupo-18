@@ -43,10 +43,13 @@ public class BookListService {
     }
 
     public void removeBookFromList(Long listId, Long bookId) {
-        BookList bookList = bookListRepository.findById(listId).orElseThrow();
-        Book book = bookRepository.findById(bookId).orElseThrow();
+        BookList bookList = bookListRepository.findById(listId)
+            .orElseThrow(() -> new RuntimeException("Lista no encontrada"));
         
-        bookList.getBooks().remove(book);
+        Book book = bookRepository.findById(bookId)
+            .orElseThrow(() -> new RuntimeException("Libro no encontrado"));
+        
+        bookList.getBooks().removeIf(b -> b.getId().equals(bookId));
         bookListRepository.save(bookList);
     }
 

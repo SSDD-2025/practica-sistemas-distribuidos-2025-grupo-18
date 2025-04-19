@@ -13,11 +13,13 @@ import es.codeurjc.trabajoweb_vscode.repository.BookRepository;
 
 @Service
 public class BookListService {
+
     @Autowired
     private BookListRepository bookListRepository;
 
+    @Autowired
     private BookRepository bookRepository;
-    
+     
     public List<BookList> findAll() {
         return bookListRepository.findAll();
     }
@@ -43,14 +45,15 @@ public class BookListService {
     }
 
     public void removeBookFromList(Long listId, Long bookId) {
-        BookList bookList = bookListRepository.findById(listId)
-            .orElseThrow(() -> new RuntimeException("Lista no encontrada"));
-        
-        Book book = bookRepository.findById(bookId)
-            .orElseThrow(() -> new RuntimeException("Libro no encontrado"));
-        
-        bookList.getBooks().removeIf(b -> b.getId().equals(bookId));
-        bookListRepository.save(bookList);
+        BookList bookList = bookListRepository.findById(listId).orElseThrow(() -> new RuntimeException("Lista no encontrada"));
+        Book book = bookRepository.findById(bookId).orElseThrow(() -> new RuntimeException("Libro no encontrado"));
+    
+        if (bookList.getBooks().contains(book)) {
+            bookList.getBooks().remove(book);
+            bookListRepository.save(bookList);
+        } else {
+            throw new RuntimeException("El libro no pertenece a esta lista");
+        }
     }
 
 }

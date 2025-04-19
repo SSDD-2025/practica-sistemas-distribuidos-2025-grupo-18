@@ -5,16 +5,6 @@
 </header>
 <main>
     <h1>{{bookList.name}}</h1>
-    <!--<ul>
-        {{#bookList.books}}
-        <li>
-            <strong>Title:</strong> {{name}} <br>
-            <strong>Author:</strong> {{author.name}} <br>
-            <strong>Year:</strong> {{yearPub}}
-        </li>
-        {{/bookList.books}}
-    </ul>-->
-
     <div class="libros-container">
         {{#bookList.books}}
         <div class="libro">
@@ -25,10 +15,9 @@
             </a>
             <div class="libro-titulo">{{name}}</div>
             <div class="libro-botones">
-                <a href="/adminLoggedIn/delete-book/{{id}}" class="boton boton-eliminar">Eliminar</a>
+                <a href="/book-list/{{bookList.id}}/remove-book/{{id}}" class="delete-from-list">Eliminar de la lista</a>
             </div>
         </div>
         {{/bookList.books}}
     </div>
 {{>footer}}
-

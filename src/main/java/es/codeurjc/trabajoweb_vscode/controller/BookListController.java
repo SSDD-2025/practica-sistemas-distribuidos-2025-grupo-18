@@ -80,20 +80,28 @@ public class BookListController {
         return "redirect:/";
     }
 
-    @PostMapping("/{listId}/remove-book")
+    @GetMapping("/{listId}/remove-book/{bookId}")
     public String removeBookFromList(@PathVariable Long listId,
-            @RequestParam Long bookId,
+            @PathVariable Long bookId,
             Principal principal,
             Model model) {
         try {
             BookList bookList = bookListService.findById(listId);
+            System.out.println("Removing book with ID: " + bookId + " from list with ID: " + listId);
+
             if (bookList == null || !bookList.getUser().getName().equals(principal.getName())) {
                 model.addAttribute("error", "No tienes permiso para modificar esta lista");
+
+                System.out.println("User " + principal.getName() + " does not have permission to modify the list.");
                 return "error";
             }
+            System.out.println("User " + principal.getName() + " has permission to modify the list.");
             bookListService.removeBookFromList(listId, bookId);
-            return "redirect:/book-list/" + listId;
+            return "redirect:/";
+
         } catch (Exception e) {
+
+            System.out.println("Error removing book from list: " + e.getMessage());
             model.addAttribute("error", "Error al eliminar el libro: " + e.getMessage());
             return "error";
         }

@@ -3,10 +3,10 @@ Cosas que faltan por hacer:
 
 
 
--Mejorar interfaces 
--Poder quitar libros de las listas
+-Mejorar interfaces (eliminar reseñas).
+✅-Poder quitar libros de las listas
 ✅-Añadir imagenes en modificar imagenes y en añadir libro
--Limpiar codigo y poner las restricciones necesarias en los controladores y no en los html
+-Limpiar codigo (quitar comentarios) y poner las restricciones necesarias en los controladores y no en los html (como en bookListController, para ver si el user tiene permisos).
 
 
 

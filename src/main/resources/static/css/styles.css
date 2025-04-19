@@ -757,3 +757,68 @@ input[type="file"] {
 .create-list-btn:hover {
     background-color: #45a049; /* Verde más oscuro al pasar el cursor */
 }
+
+
+/* BOOK LIST DETAILS */
+
+/* Estilos generales para centrar el título */
+h1 {
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Contenedor de libros: se expande dinámicamente y centra los elementos */
+.libros-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centra los libros horizontalmente */
+    gap: 20px; /* Espacio entre libros */
+    padding: 20px;
+    max-width: 1200px; /* Ancho máximo para evitar que se extienda demasiado */
+    margin: 0 auto; /* Centra el contenedor en la página */
+}
+
+/* Estilo para cada libro */
+.libro {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el contenido del libro (imagen, título, botón) */
+    width: 400px; /* Ancho fijo para cada libro (ajusta según necesites) */
+}
+
+/* Estilo para la imagen del libro */
+.libro-imagen {
+    width: 150px; /* Ancho fijo para la imagen (ajusta según necesites) */
+    height: auto; /* Altura automática para mantener la proporción */
+    margin-bottom: 10px; /* Espacio entre la imagen y el título */
+}
+
+/* Estilo para el título del libro */
+.libro-titulo {
+    text-align: center;
+    margin-bottom: 10px; /* Espacio entre el título y el botón */
+    font-weight: bold;
+}
+
+/* Estilo para el contenedor del botón */
+.libro-botones {
+    display: flex;
+    justify-content: center; /* Centra el botón horizontalmente */
+    width: 100%;
+}
+
+/* Estilo para el botón de eliminar */
+.delete-from-list {
+    padding: 8px 12px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+}
+
+.delete-from-list:hover {
+    background-color: #ff1a1a;
+}

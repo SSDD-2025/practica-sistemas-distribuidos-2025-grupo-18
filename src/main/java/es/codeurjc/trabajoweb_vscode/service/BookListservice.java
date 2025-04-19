@@ -8,14 +8,15 @@ import org.springframework.stereotype.Service;
 import es.codeurjc.trabajoweb_vscode.model.Book;
 import es.codeurjc.trabajoweb_vscode.model.BookList;
 import es.codeurjc.trabajoweb_vscode.repository.BookListRepository;
+import es.codeurjc.trabajoweb_vscode.repository.BookRepository;
 
 
 @Service
 public class BookListService {
     @Autowired
     private BookListRepository bookListRepository;
- 
 
+    private BookRepository bookRepository;
     
     public List<BookList> findAll() {
         return bookListRepository.findAll();
@@ -39,6 +40,14 @@ public class BookListService {
             bookList.getBooks().add(book);
             save(bookList);
         }
+    }
+
+    public void removeBookFromList(Long listId, Long bookId) {
+        BookList bookList = bookListRepository.findById(listId).orElseThrow();
+        Book book = bookRepository.findById(bookId).orElseThrow();
+        
+        bookList.getBooks().remove(book);
+        bookListRepository.save(bookList);
     }
 
 }

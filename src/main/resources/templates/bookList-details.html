@@ -3,18 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book List Details</title>
+    <title>Book List: {{bookList.name}}</title>
+    <style>
+        .book-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .book-info {
+            flex-grow: 1;
+        }
+        .remove-btn {
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <h1>Book List: {{bookList.name}}</h1>
-    <ul>
+    <div class="books-container">
         {{#bookList.books}}
-        <li>
-            <strong>Title:</strong> {{name}} <br>
-            <strong>Author:</strong> {{author.name}} <br>
-            <strong>Year:</strong> {{yearPub}}
-        </li>
+        <div class="book-card">
+            <div class="book-info">
+                <strong>{{name}}</strong> by {{author.name}} ({{yearPub}})
+            </div>
+            <form action="/book-list/{{../bookList.id}}/remove-book" method="POST">
+                <input type="hidden" name="bookId" value="{{id}}">
+                <input type="hidden" name="_csrf" value="{{token}}" />
+                <button type="submit" class="remove-btn">Eliminar</button>
+            </form>
+        </div>
         {{/bookList.books}}
-    </ul>
+        {{^bookList.books}}
+        <p>No hay libros en esta lista.</p>
+        {{/bookList.books}}
+    </div>
+    <a href="/">Volver a mis listas</a>
 </body>
-</html></html>
+</html>

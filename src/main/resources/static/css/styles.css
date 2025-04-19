@@ -692,3 +692,68 @@ input[type="file"] {
     /* Centrar el contenedor horizontalmente */
     padding: 20px;
 }
+
+
+/* BOOK LISTS */
+
+.user-info h1{
+    margin-top: 120px;
+    text-align: center;
+    color: #000000;
+    font-family: Arial, sans-serif;
+    font-style: bold;
+}
+
+.user-info form {
+    display: flex;
+    flex-direction: row;
+    /*margin-top: 20px;*/
+    width: 1000px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+}
+
+.user-info a {
+    text-decoration: none;
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Estilos para el botón "Eliminar lista" */
+.delete-list-btn {
+    background-color: #f44336; /* Rojo */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin-left: 800px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.delete-list-btn:hover {
+    background-color: #d32f2f; /* Rojo más oscuro al pasar el cursor */
+}
+
+/* Estilos para el botón "Crear lista nueva" */
+.create-list-btn {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 600px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.create-list-btn:hover {
+    background-color: #45a049; /* Verde más oscuro al pasar el cursor */
+}

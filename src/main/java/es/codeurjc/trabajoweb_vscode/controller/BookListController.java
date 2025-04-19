@@ -17,27 +17,22 @@ import es.codeurjc.trabajoweb_vscode.service.BookListService;
 import es.codeurjc.trabajoweb_vscode.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 
-
-
-
 @Controller
 @RequestMapping("/book-list")
 public class BookListController {
-
 
     @Autowired
     private BookListService bookListService;
 
     @Autowired
-    private UserService userService; 
+    private UserService userService;
 
-      @ModelAttribute
+    @ModelAttribute
     public void addAttributes(Model model, HttpServletRequest request) {
 
         Principal principal = request.getUserPrincipal();
 
         if (principal != null) {
-            
 
             model.addAttribute("logged", true);
             model.addAttribute("userName", principal.getName());
@@ -54,16 +49,15 @@ public class BookListController {
     public String getBookListById(@PathVariable Long id, Model model, Principal principal) {
         BookList bookList = bookListService.findById(id);
         if (bookList == null) {
-            return "error"; 
+            return "error";
         }
         model.addAttribute("bookList", bookList);
 
-
-        return "bookList-details"; 
+        return "bookList-details";
     }
 
     @PostMapping("/add")
-    public String addBookList(@RequestParam String listName, Principal principal,  HttpServletRequest request) {
+    public String addBookList(@RequestParam String listName, Principal principal, HttpServletRequest request) {
         BookList bookList = new BookList(userService.findByName(principal.getName()), listName);
         bookListService.save(bookList);
         return "redirect:/";
@@ -75,6 +69,12 @@ public class BookListController {
         bookListService.delete(listId);
         return "redirect:/";
     }
-    
-    
+
+    @PostMapping("/{listId}/remove-book")
+    public String removeBookFromList(@PathVariable Long listId,
+            @RequestParam Long bookId) {
+        bookListService.removeBookFromList(listId, bookId);
+        return "redirect:/book-list/" + listId;
+    }
+
 }

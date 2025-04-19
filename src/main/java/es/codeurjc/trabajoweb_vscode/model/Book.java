@@ -23,8 +23,6 @@ public class Book {
     @Lob
     private byte[] image; 
 
-    private String imageUrl; 
-
     private String imageBase64;
 
     private String name;
@@ -53,8 +51,6 @@ public class Book {
     }
 
     /////////// GET AND SET////////////
-
-
 
 
 
@@ -123,20 +119,9 @@ public class Book {
     }
 
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
     public boolean hasImageBlob() {
         return image != null && image.length > 0;
     }
 
-    public boolean hasImageUrl() {
-        return imageUrl != null && !imageUrl.isEmpty();
-    }
 }
 

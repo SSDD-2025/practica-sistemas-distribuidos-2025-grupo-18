@@ -190,6 +190,11 @@ public class DefaultController {
             return "redirect:/error";
         }
 
+        if (book.getImage() != null && book.getImage().length > 0) {
+            String imageBase64 = Base64.getEncoder().encodeToString(book.getImage());
+            book.setImageBase64(imageBase64); // Asegúrate de que Book.java tenga este setter
+        }
+
         CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
         if (csrfToken != null) {
             model.addAttribute("_csrf", csrfToken);
@@ -197,7 +202,6 @@ public class DefaultController {
 
         model.addAttribute("authors", authorService.findAll());
         model.addAttribute("book", book);
-        model.addAttribute("imageUrl", book.getImageUrl());
         model.addAttribute("hasImageBlob", book.getImage() != null && book.getImage().length > 0);
 
         return "edit-book";
@@ -258,7 +262,6 @@ public class DefaultController {
             @RequestParam int año,
             @RequestParam String descripcion,
             @RequestParam(required = false) MultipartFile file,
-            @RequestParam(required = false) String imageUrl,
             Model model) throws IOException {
 
         Author author = authorService.findByName(autor);
@@ -270,10 +273,6 @@ public class DefaultController {
 
         if (file != null && !file.isEmpty()) {
             book.setImage(file.getBytes());
-            book.setImageUrl(null);
-        } else if (imageUrl != null && !imageUrl.isEmpty()) {
-            book.setImageUrl(imageUrl);
-            book.setImage(null);
         }
 
         bookService.save(book);

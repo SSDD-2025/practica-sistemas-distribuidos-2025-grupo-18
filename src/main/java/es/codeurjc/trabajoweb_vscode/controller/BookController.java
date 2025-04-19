@@ -1,9 +1,6 @@
 package es.codeurjc.trabajoweb_vscode.controller;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.Base64;
 
@@ -17,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import es.codeurjc.trabajoweb_vscode.model.Author;
 import es.codeurjc.trabajoweb_vscode.model.Book;
@@ -115,8 +113,7 @@ public class BookController {
             @RequestParam int yearPub,
             @RequestParam Author authorName,
             @RequestParam String description,
-            @RequestParam(required = false) String file, // Para BLOB
-            @RequestParam(required = false) String imageUrl, // Para URL
+            @RequestParam(required = false) MultipartFile file,
             Model model) throws IOException {
 
         Book book = bookService.findById(id);
@@ -129,16 +126,8 @@ public class BookController {
         book.setAuthor(authorName);
         book.setDescription(description);
 
-
         if (file != null && !file.isEmpty()) {
-            Path imagePath = Paths.get("src/main/resources/static/images/" + file);
-            byte[] imageBytes = Files.readAllBytes(imagePath);
-            book.setImage(imageBytes);
-            book.setImageUrl(null); 
-        } // Manejar imagen URL
-        else if (imageUrl != null && !imageUrl.isEmpty()) {
-            book.setImageUrl(imageUrl);
-            book.setImage(null);
+            book.setImage(file.getBytes());
         }
 
         bookService.save(book);

@@ -4,14 +4,15 @@ body {
     font-family: Arial, sans-serif;
 }
 
-.book-manager .botones-gestion{
+.book-manager .botones-gestion {
     display: flex;
     flex-direction: column;
-    align-items: center; 
-    justify-content: center; 
-    height: 100vh; 
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
     gap: 20px;
 }
+
 .book-manager .boton {
     display: inline-block;
     padding: 20px 40px;
@@ -28,10 +29,12 @@ body {
 .boton:hover {
     background-color: #0056b3;
 }
+
 /* ESTO ES PARA EL MAIN */
 
 .top-libros h2 {
-    margin-top: 120px; /* Ajusta este valor según sea necesario */
+    margin-top: 120px;
+    /* Ajusta este valor según sea necesario */
 }
 
 
@@ -41,8 +44,8 @@ body {
 .centered-content {
     text-align: center;
     font-family: 'Times New Roman', Times, serif;
-    font-size: 150%; 
-    margin-top: 20px; 
+    font-size: 150%;
+    margin-top: 20px;
 }
 
 .centered-content nav ul {
@@ -52,54 +55,64 @@ body {
 
 .centered-content nav ul li {
     display: inline;
-    margin: 40px; 
+    margin: 40px;
 }
 
 .centered-content nav ul li a {
     display: list-item;
     text-decoration: none;
     font-weight: bold;
-    color: #333; 
+    color: #333;
 }
 
 .centered-content p {
-    margin-top: 80px; /* Ajusta el margen superior según sea necesario */
+    margin-top: 80px;
+    /* Ajusta el margen superior según sea necesario */
 }
+
 .centered-content p2 {
-    margin-top: 0px; /* Ajusta el margen superior según sea necesario */
+    margin-top: 0px;
+    /* Ajusta el margen superior según sea necesario */
 }
 
 .centered-content p3 {
-    margin-top: 20px; /* Ajusta el margen superior según sea necesario */
+    margin-top: 20px;
+    /* Ajusta el margen superior según sea necesario */
 }
 
 /* ESTO ES PARA LOS LIBROS EN EL INDEX */
 .libro {
     background-color: white;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    width: 220px; /* Ancho fijo para cada libro (ajusta según necesidades) */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 220px;
+    /* Ancho fijo para cada libro (ajusta según necesidades) */
     padding: 15px;
     transition: transform 0.3s ease;
-    flex: 0 0 calc(25% - 20px); /* 4 libros por fila (25% del ancho menos el gap) */
-    box-sizing: border-box; /* Incluye padding en el ancho total */
+    flex: 0 0 calc(25% - 20px);
+    /* 4 libros por fila (25% del ancho menos el gap) */
+    box-sizing: border-box;
+    /* Incluye padding en el ancho total */
 }
 
 .libro:hover {
     transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 /* Imagen del libro (asumiendo que habrá imágenes) */
 .libro {
     background-color: white;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    width: 220px; /* Ancho fijo para cada libro (ajusta según necesidades) */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 220px;
+    /* Ancho fijo para cada libro (ajusta según necesidades) */
     padding: 15px;
     transition: transform 0.3s ease;
-    flex: 0 0 calc(25% - 20px); /* 4 libros por fila (25% del ancho menos el gap) */
-    box-sizing: border-box; /* Incluye padding en el ancho total */
+    flex: 0 0 calc(25% - 20px);
+    /* 4 libros por fila (25% del ancho menos el gap) */
+    box-sizing: border-box;
+    /* Incluye padding en el ancho total */
 }
 
 /* Título del libro */
@@ -188,10 +201,10 @@ form {
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f8f8f8;
-    
+
 }
 
-pForm{
+pForm {
     margin-top: 0px;
     margin-bottom: 10px;
     font-weight: bold;
@@ -219,13 +232,13 @@ form button {
     background-color: #f8f8f8;
 }*/
 
-labelUser{
+labelUser {
     display: block;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-labelPassword{
+labelPassword {
     display: block;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -274,7 +287,8 @@ labelPassword{
 
 /* Para los enlaces "a"*/
 .toolbar-right a {
-    margin-left: 20px; /* Ajusta el valor según sea necesario */
+    margin-left: 20px;
+    /* Ajusta el valor según sea necesario */
     font-weight: bold;
     color: #333;
     text-decoration: none;
@@ -317,13 +331,17 @@ labelPassword{
 }
 
 .libros-container {
-    display: grid; /* Activa CSS Grid */
-    grid-template-columns: repeat(4, 1fr); 
+    display: grid;
+    /* Activa CSS Grid */
+    grid-template-columns: repeat(4, 1fr);
     justify-content: center;
-    gap: 20px; /* Espacio entre libros */
+    gap: 20px;
+    /* Espacio entre libros */
     /*flex-wrap: wrap;*/
-    max-width: 1800px; /* Ajusta este valor según el ancho total que necesites */
-    margin: 0 auto; /* Centrar el contenedor */
+    max-width: 1800px;
+    /* Ajusta este valor según el ancho total que necesites */
+    margin: 0 auto;
+    /* Centrar el contenedor */
     padding: 20px;
 }
 
@@ -388,11 +406,13 @@ labelPassword{
     gap: 20px;
 }
 
-.author-info, .author-books {
+.author-info,
+.author-books {
     flex: 1;
 }
 
-.author-info h2, .author-books h2 {
+.author-info h2,
+.author-books h2 {
     margin-top: 20px;
     color: #333;
 }
@@ -426,11 +446,16 @@ labelPassword{
 /* Estilos para la página de eliminación */
 body {
     display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-    min-height: 100vh; /* Asegura que el contenedor ocupe toda la altura de la pantalla */
-    margin: 10px; /* Elimina márgenes del body */
-    background-color: #f8f8f8; /* Opcional: color de fondo */
+    justify-content: center;
+    /* Centra horizontalmente */
+    align-items: center;
+    /* Centra verticalmente */
+    min-height: 100vh;
+    /* Asegura que el contenedor ocupe toda la altura de la pantalla */
+    margin: 10px;
+    /* Elimina márgenes del body */
+    background-color: #f8f8f8;
+    /* Opcional: color de fondo */
 }
 
 .eliminar-libro {
@@ -439,8 +464,10 @@ body {
     background: white;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    text-align: center; /* Centra el contenido dentro del contenedor */
+    text-align: center;
+    /* Centra el contenido dentro del contenedor */
 }
+
 .eliminar-libro {
     max-width: 600px;
     margin-top: 350px;
@@ -448,7 +475,7 @@ body {
     padding: 2rem;
     background: white;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .eliminar-libro h2 {
@@ -487,73 +514,105 @@ body {
 
 /* EDIT - BOOK */
 
-.modificar-libro {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    padding: 2rem;
-    margin-top: 1rem;
+/*.modificar-libro {
+    max-width: 1200px;
+    margin: 0 auto;
+}*/
+
+/*.edit-form {
+    margin-top: 20px;
+}*/
+
+.form-container {
+    display: flex;
+    gap: 30px;
 }
 
-.modificar-libro h2 {
-    text-align: center;
-    margin-bottom: 2rem;
-    color: #2c3e50;
-    font-size: 1.8rem;
-}
-
-.modificar-libro form {
+.image-column {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    max-width: 600px;
-    margin: 0 auto;
+    gap: 15px;
 }
 
-.modificar-libro label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    color: #2c3e50;
+.current-image {
+    width: 80%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 4px;
+    overflow: hidden;
 }
 
-.modificar-libro input {
-    width: 100%;
-    padding: 0.8rem;
+.current-image img {
+    width: 80%;
+    height: auto;
+    object-fit: cover;
+}
+
+
+.form-column {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-left: 40px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #333;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 8px 12px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    font-size: 1rem;
-    transition: border-color 0.3s;
+    font-size: 16px;
 }
 
-.modificar-libro input:focus {
-    border-color: #3498db;
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(52,152,219,0.2);
+.form-group textarea {
+    min-height: 100px;
+    min-width: 100px;
+    resize: vertical;
 }
 
-.modificar-libro button {
-    background-color: #3498db;
+.submit-btn {
+    align-self: flex-start;
+    padding: 10px 20px;
+    background-color: #4CAF50;
     color: white;
     border: none;
-    padding: 1rem;
     border-radius: 4px;
-    font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 1rem;
+    font-size: 16px;
+    margin-top: 10px;
 }
 
-.modificar-libro button:hover {
-    background-color: #2980b9;
+.submit-btn:hover {
+    background-color: #45a049;
+}
+
+
+input[type="file"] {
+    padding: 5px;
 }
 
 /* Botón logout */
 
 /* Estilos específicos para el formulario de logout */
 .toolbar-right form {
-    display: inline-block; /* Para que se comporte como los otros elementos del toolbar */
-    margin-left: 60px; /* Mantener el espaciado consistente */
+    display: inline-block;
+    /* Para que se comporte como los otros elementos del toolbar */
+    margin-left: 60px;
+    /* Mantener el espaciado consistente */
     margin-top: 20px;
 }
 
@@ -561,14 +620,17 @@ body {
     background: none !important;
     border: none !important;
     padding: 0 !important;
-    color: #333 !important; /* Mismo color que los otros enlaces */
+    color: #333 !important;
+    /* Mismo color que los otros enlaces */
     font-weight: bold !important;
     cursor: pointer;
     font-size: inherit !important;
     text-decoration: none !important;
     margin-top: 0;
-    margin-left: 20px; /* Espacio entre el botón y el resto de los elementos */
-    display: inline-block; /* Para que se comporte como los otros elementos del toolbar */
+    margin-left: 20px;
+    /* Espacio entre el botón y el resto de los elementos */
+    display: inline-block;
+    /* Para que se comporte como los otros elementos del toolbar */
 }
 
 .toolbar-right form button:hover {
@@ -583,11 +645,16 @@ body {
 }
 
 .form-row {
-    display: grid; /* Activa CSS Grid */
-    grid-template-columns: repeat(4, 1fr); 
-    justify-content: start; /* Alinea los elementos al inicio (izquierda) */
-    gap: 20px; /* Espacio entre libros */
-    max-width: 1800px; /* Ajusta este valor según el ancho total que necesites */
-    margin: 0 auto; /* Centrar el contenedor horizontalmente */
+    display: grid;
+    /* Activa CSS Grid */
+    grid-template-columns: repeat(4, 1fr);
+    justify-content: start;
+    /* Alinea los elementos al inicio (izquierda) */
+    gap: 20px;
+    /* Espacio entre libros */
+    max-width: 1800px;
+    /* Ajusta este valor según el ancho total que necesites */
+    margin: 0 auto;
+    /* Centrar el contenedor horizontalmente */
     padding: 20px;
 }

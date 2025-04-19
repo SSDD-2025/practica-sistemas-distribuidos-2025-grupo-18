@@ -23,76 +23,52 @@
     <main>
         <section class="modificar-libro">
             <h2>Modificar Libro</h2>
-            <!--<form action="/book/edit-book/{{book.id}}" method="post">
+            <form action="/book/edit-book/{{book.id}}" method="post" enctype="multipart/form-data" class="edit-form">
                 <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
                 <input type="hidden" name="id" value="{{book.id}}">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="name" value="{{book.name}}" required>
-
-                <label for="authorName">Autor:</label>
-                <select id="authorName" name="authorName" required>
-                    {{#authors}}
-                    <option value="{{id}}" {{#selected}}selected{{/selected}}>{{name}}</option>
-                    {{/authors}}
-                </select>
-
-                <label for="año">Año de publicación:</label>
-                <input type="number" id="año" name="yearPub" value="{{book.yearPub}}" required>
-
-                <label for="descripcion">Descripción:</label>
-                <input type="text" id="descripcion" name="description" value="{{book.description}}" required>
-
-                <label for="archivo">Seleccionar archivo:</label>
-                <input type="file" id="archivo" name="file" accept=".pdf,.png" onchange="obtenerDireccionArchivo(this)">
-
-
-                <button type="submit">Guardar cambios</button>
-            </form>-->
-
-            <div class="current-image">
-                {{#hasImageBlob}}
-                <img src="data:image/jpeg;base64,{{book.imageBase64}}" alt="Imagen actual">
-                {{/hasImageBlob}}
-                {{^hasImageBlob}}
-                {{#imageUrl}}
-                <img src="{{imageUrl}}" alt="Imagen actual">
-                {{/imageUrl}}
-                {{^imageUrl}}
-                <p>No hay imagen asociada</p>
-                {{/imageUrl}}
-                {{/hasImageBlob}}
-            </div>
-
-            <label for="imageUrl">URL de la imagen:</label>
-            <input type="url" id="imageUrl" name="imageUrl" value="{{#imageUrl}}{{imageUrl}}{{/imageUrl}}">
-            <form action="/book/edit-book/{{book.id}}" method="post">
-                <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
-                <input type="hidden" name="id" value="{{book.id}}">
-
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="name" value="{{book.name}}" required>
-
-                <label for="authorName">Autor:</label>
-                <select id="authorName" name="authorName" required>
-                    {{#authors}}
-                    <option value="{{id}}" {{#selected}}selected{{/selected}}>{{name}}</option>
-                    {{/authors}}
-                </select>
-
-                <label for="año">Año de publicación:</label>
-                <input type="number" id="año" name="yearPub" value="{{book.yearPub}}" required>
-
-                <label for="descripcion">Descripción:</label>
-                <input type="text" id="descripcion" name="description" value="{{book.description}}" required>
-
-                <label for="archivo">Subir imagen:</label>
-                <input type="file" id="archivo" name="file" accept=".jpg,.jpeg,.png">
-
-                <label for="imageUrl">O introducir URL de la imagen:</label>
-                <input type="url" id="imageUrl" name="imageUrl" value="{{book.imageUrl}}"
-                    placeholder="https://ejemplo.com/imagen.jpg">
-
-                <button type="submit">Guardar cambios</button>
+        
+                <div class="form-container">
+                    <div class="image-column">
+                        <div class="current-image">
+                            {{#book.imageBase64}}
+                            <img src="data:image/jpeg;base64,{{book.imageBase64}}" alt="Imagen actual">
+                            {{/book.imageBase64}}
+                            {{^book.imageBase64}}
+                            <p>No hay imagen asociada</p>
+                            {{/book.imageBase64}}
+                        </div>
+                        <label for="archivo">Subir nueva imagen:</label>
+                        <input type="file" id="archivo" name="file" accept=".jpg,.jpeg,.png">
+                    </div>
+        
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" id="nombre" name="name" value="{{book.name}}" required>
+                        </div>
+        
+                        <div class="form-group">
+                            <label for="authorName">Autor:</label>
+                            <select id="authorName" name="authorName" required>
+                                {{#authors}}
+                                <option value="{{id}}" {{#selected}}selected{{/selected}}>{{name}}</option>
+                                {{/authors}}
+                            </select>
+                        </div>
+        
+                        <div class="form-group">
+                            <label for="año">Año de publicación:</label>
+                            <input type="number" id="año" name="yearPub" value="{{book.yearPub}}" required>
+                        </div>
+        
+                        <div class="form-group">
+                            <label for="descripcion">Descripción:</label>
+                            <textarea id="descripcion" name="description" required>{{book.description}}</textarea>
+                        </div>
+        
+                        <button type="submit" class="submit-btn">Guardar cambios</button>
+                    </div>
+                </div>
             </form>
         </section>
     </main>

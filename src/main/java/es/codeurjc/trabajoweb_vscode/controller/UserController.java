@@ -17,18 +17,15 @@ import es.codeurjc.trabajoweb_vscode.model.User;
 import es.codeurjc.trabajoweb_vscode.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 
-
-
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
-
     @Autowired
     private UserService userService;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @ModelAttribute
     public void addAttributes(Model model, HttpServletRequest request) {
@@ -36,7 +33,6 @@ public class UserController {
         Principal principal = request.getUserPrincipal();
 
         if (principal != null) {
-            
 
             model.addAttribute("logged", true);
             model.addAttribute("userName", principal.getName());
@@ -50,54 +46,58 @@ public class UserController {
     }
 
     @GetMapping("")
-    public String showInfo( Model model, Principal principal, HttpServletRequest request) {
+    public String showInfo(Model model, Principal principal, HttpServletRequest request) {
         User user = userService.findByName(principal.getName());
         model.addAttribute("user", user);
 
-
-    return "user-info"; 
+        return "user-info";
     }
-    
+
     @PostMapping("/change-name")
-    public String changeName(@RequestParam String username, Principal principal) {
+    public String changeName(@RequestParam String username, Principal principal, Model model) {
         User user = userService.findByName(principal.getName());
+
+        if (username.isEmpty()) {
+            model.addAttribute("error", "El nombre de usuario no puede estar vacío");
+            return "user-info";
+        }
+
+        if (userService.existsByName(username) && !user.getName().equals(username)) {
+            model.addAttribute("error", "Este nombre de usuario no está disponible");
+            return "user-info";
+        }
+
         user.setName(username);
         userService.save(user);
-        return "redirect:/user"; 
+        return "redirect:/user";
     }
-
 
     @PostMapping("/change-password")
     public String changePassword(@RequestParam String password, Principal principal) {
         User user = userService.findByName(principal.getName());
-        
-        user.setEncodedPassword(passwordEncoder.encode(password)); 
+
+        user.setEncodedPassword(passwordEncoder.encode(password));
         userService.save(user);
-        return "redirect:/user"; 
+        return "redirect:/user";
     }
 
     @PostMapping("/delete")
-    public String deleteUser(Model model,Principal principal) {
+    public String deleteUser(Model model, Principal principal) {
         User user = userService.findByName(principal.getName());
         if (user != null) {
 
-            userService.delete(user.getId()); 
+            userService.delete(user.getId());
 
         }
-        return "redirect:/user"; 
+        return "redirect:/user";
     }
-
-    
-
 
     @GetMapping("/book-lists")
     public String getBookLists(Model model, Principal principal, HttpServletRequest request) {
         User user = userService.findByName(principal.getName());
         model.addAttribute("user", user);
-        return "user-lists"; 
+        return "user-lists";
     }
-
-    
 
     @GetMapping("/{id}")
     public String getBookDetails(@PathVariable Long id, Model model) {
@@ -131,9 +131,9 @@ public class UserController {
             model.addAttribute("user", user); 
             return "redirect:/user/edit-user/" + id;  
         }*/
-        user.setName(name);  
-        userService.save(user);  
-        return "redirect:/";  
+        user.setName(name);
+        userService.save(user);
+        return "redirect:/";
     }
 
     // Mostrar formulario de creación de usuario

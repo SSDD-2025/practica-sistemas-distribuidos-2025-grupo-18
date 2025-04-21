@@ -1,8 +1,7 @@
 {{>header}}
 <div class="toolbar-right">
     <form action="/logout" method="post">
-        <button class="btn btn-primary navbar-btn" type="submit">Log
-            Out</button>
+        <button class="btn btn-primary navbar-btn" type="submit">Log Out</button>
         <input type="hidden" name="_csrf" value="{{token}}" />
     </form>
 </div>
@@ -10,9 +9,20 @@
 <main>
 <div class="user-info">
     <h2>Información del Usuario</h2>
-    <form action="/user/change-name" method="POST">
+    {{#error}}
+        <div id="error-message" style="display: none;">{{error}}</div>
+        <script>
+            window.onload = function() {
+                const errorMessage = document.getElementById('error-message').textContent;
+                if (errorMessage) {
+                    alert(errorMessage);
+                }
+            };
+        </script>
+    {{/error}}
+    <form action="/user/change-name" method="POST" onsubmit="return validateUsername()">
         <label for="username">Nombre de Usuario:</label>
-        <input type="text" id="username" name="username"  placeholder="Nombre de usuario" required>
+        <input type="text" id="username" name="username" value="{{user.name}}" placeholder="Nombre de usuario" required>
         <input type="hidden" name="_csrf" value="{{token}}" />
         <button type="submit">Actualizar Información</button>
     </form>
@@ -21,12 +31,10 @@
         <input type="hidden" name="_csrf" value="{{token}}" />
         <input type="password" id="password" name="password" required>
         <button type="submit">Cambiar Contraseña</button>
-
     </form>
 
-    <form action="/user/delete" method="POST" >
+    <form action="/user/delete" method="POST">
         <input type="hidden" name="_csrf" value="{{token}}" />
-
         <button type="submit" class="delete-button">Eliminar Usuario</button>
     </form>
 </div>

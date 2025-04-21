@@ -14,9 +14,12 @@
                 {{/imageBase64}}
             </a>
             <div class="libro-titulo">{{name}}</div>
+            {{#isTheUser}}
             <div class="libro-botones">
                 <a href="/book-list/{{bookList.id}}/remove-book/{{id}}" class="delete-from-list">Eliminar de la lista</a>
             </div>
+            {{/isTheUser}}
+
         </div>
         {{/bookList.books}}
     </div>

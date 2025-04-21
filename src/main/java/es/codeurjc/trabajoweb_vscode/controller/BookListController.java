@@ -52,10 +52,14 @@ public class BookListController {
         if (bookList == null) {
             return "error";
         }
-        if (!bookList.getUser().getName().equals(principal.getName())) {
-            model.addAttribute("error", "No tienes permiso para ver esta lista");
-            return "error";
+        if (principal == null) {
+            model.addAttribute("isTheUser", false);
+        }else if(!bookList.getUser().getName().equals(principal.getName())) {
+            model.addAttribute("isTheUser", false);
+        }else {
+            model.addAttribute("isTheUser", true);
         }
+
         bookList.getBooks().forEach(book -> {
             if (book.getImage() != null) {
                 book.setImageBase64(Base64.getEncoder().encodeToString(book.getImage()));

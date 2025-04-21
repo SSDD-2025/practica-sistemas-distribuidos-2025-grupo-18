@@ -1,4 +1,4 @@
-package es.codeurjc.daw.library.security.jwt;
+package es.codeurjc.trabajoweb_vscode.security.jwt;
 
 public class AuthResponse {
 

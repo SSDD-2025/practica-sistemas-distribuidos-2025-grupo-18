@@ -5,7 +5,7 @@
 
     <div class="centered-content">
         <main>
-            <tform action="/login" method="post" class="login-form">
+            <form action="/login" method="post" class="login-form">
                 <pForm>LOG IN</pForm>
                 <labelUser for="user">User:</labelUser>
                 <input type="text" id="username" name="username" required>
@@ -16,7 +16,7 @@
 
                 <button type="submit" class="btn btn-primary">Enter</button>
                 <p th:if="${error}" class="text-danger mt-3" th:text="${error}"></p>
-            </tform>
+            </form>
             <p class="sign-up-link">¿Don't have an account? <a href="/signUp">Click here to sign up</a></p>
         </main>
 </body>

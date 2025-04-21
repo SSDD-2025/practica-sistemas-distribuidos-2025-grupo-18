@@ -125,9 +125,15 @@ public class UserController {
     @PostMapping("/edit-user/{id}")
     public String editUser(@PathVariable Long id, @RequestParam String name) {
         User user = userService.findById(id);
-        user.setName(name);  // Actualiza el nombre
-        userService.save(user);  // Guarda los cambios
-        return "redirect:/";  // Redirige de vuelta a la lista de usuarios
+
+        /*if(userService.findByName(name) != null) {
+            model.addAttribute("errorMessage", "El nombre ya está en uso.");
+            model.addAttribute("user", user); 
+            return "redirect:/user/edit-user/" + id;  
+        }*/
+        user.setName(name);  
+        userService.save(user);  
+        return "redirect:/";  
     }
 
     // Mostrar formulario de creación de usuario

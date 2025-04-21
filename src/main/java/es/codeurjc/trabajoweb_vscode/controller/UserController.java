@@ -125,35 +125,15 @@ public class UserController {
     @PostMapping("/edit-user/{id}")
     public String editUser(@PathVariable Long id, @RequestParam String name) {
         User user = userService.findById(id);
-
-        /*if(userService.findByName(name) != null) {
-            model.addAttribute("errorMessage", "El nombre ya está en uso.");
-            model.addAttribute("user", user); 
-            return "redirect:/user/edit-user/" + id;  
-        }*/
         user.setName(name);
         userService.save(user);
         return "redirect:/";
     }
 
-    // Mostrar formulario de creación de usuario
+   
     @GetMapping("/add")
     public String showAddUserForm() {
         return "add-user";
     }
 
-    /*  Guardar el nuevo usuario
-    @PostMapping("/add")
-    public String addUser(@RequestParam String name) {
-        User user = new User(name);
-        userService.save(user);
-        return "redirect:/users";
-    }
-*
-    // Eliminar un usuario
-    @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable Long id) {
-        userService.delete(id);
-        return "redirect:/users";
-    }*/
 }

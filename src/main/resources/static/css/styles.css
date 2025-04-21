@@ -224,6 +224,39 @@ pForm {
     font-size: 150%;
 }
 
+tform {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 120px;
+    /*margin: 30px auto;*/
+    width: 300px;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+
+.btn-primary {
+    text-align: center;
+    display: block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: 0;
+    background-color: #4CAF50;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.p{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 150%;
+}
+
 form button {
     text-align: center;
     display: block;
@@ -277,7 +310,7 @@ labelPassword {
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: #f8f8f8;
+    background-color: #dbd2c3;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 

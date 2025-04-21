@@ -1,7 +1,6 @@
 package es.codeurjc.trabajoweb_vscode.service;
 
 import java.util.Base64;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,13 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.codeurjc.trabajoweb_vscode.DTO.BookDTO;
-
 import es.codeurjc.trabajoweb_vscode.DTO.BookMapper;
 import es.codeurjc.trabajoweb_vscode.DTO.BookSimpleDTO;
 import es.codeurjc.trabajoweb_vscode.model.Book;
 import es.codeurjc.trabajoweb_vscode.repository.BookRepository;
-
-
 
 @Service
 public class BookService {
@@ -50,7 +46,7 @@ public class BookService {
         return books.stream().limit(size).collect(Collectors.toList());
     }
 
-    public List<Book> findByNameContainingIgnoreCase(String name){
+    public List<Book> findByNameContainingIgnoreCase(String name) {
         return bookRepository.findByNameContainingIgnoreCase(name);
     }
 
@@ -61,7 +57,7 @@ public class BookService {
             existing.setDescription(updatedBook.getDescription());
             existing.setImage(updatedBook.getImage());
             existing.setImageBase64(updatedBook.getImageBase64());
-            
+
             if (updatedBook.getAuthor() != null) {
                 existing.setAuthor(updatedBook.getAuthor());
             }
@@ -69,45 +65,42 @@ public class BookService {
         }).orElseThrow(() -> new RuntimeException("Book not found"));
     }
 
-     // LO NUEVO DE LUCI
-
     @Autowired
     BookMapper mapper;
-    
+
     private BookDTO toDTO(Book book) {
-		return mapper.toDTO(book);
-	}
+        return mapper.toDTO(book);
+    }
 
-	private Book toDomain(BookDTO bookDTO) {
-		return mapper.toDomain(bookDTO);
-	}
-    
-public BookSimpleDTO replaceBook(long id, BookSimpleDTO updatedDTO) {
-    Book oldBook = bookRepository.findById(id).orElseThrow();
+    private Book toDomain(BookDTO bookDTO) {
+        return mapper.toDomain(bookDTO);
+    }
 
-    Book updatedBook = new Book();
-    updatedBook.setId(id);
-    updatedBook.setName(updatedDTO.name());
+    public BookSimpleDTO replaceBook(long id, BookSimpleDTO updatedDTO) {
+        Book oldBook = bookRepository.findById(id).orElseThrow();
 
-    updatedBook.setAuthor(oldBook.getAuthor());
-    updatedBook.setYearPub(oldBook.getYearPub());
-    updatedBook.setImage(oldBook.getImage());
-    updatedBook.setImageBase64(oldBook.getImageBase64());
-    updatedBook.setDescription(oldBook.getDescription());
-    updatedBook.setReviews(oldBook.getReviews());
+        Book updatedBook = new Book();
+        updatedBook.setId(id);
+        updatedBook.setName(updatedDTO.name());
 
-    bookRepository.save(updatedBook);
+        updatedBook.setAuthor(oldBook.getAuthor());
+        updatedBook.setYearPub(oldBook.getYearPub());
+        updatedBook.setImage(oldBook.getImage());
+        updatedBook.setImageBase64(oldBook.getImageBase64());
+        updatedBook.setDescription(oldBook.getDescription());
+        updatedBook.setReviews(oldBook.getReviews());
 
-    return updatedDTO;
-}
+        bookRepository.save(updatedBook);
 
-public void updateBookImage(Long id, String base64Image) {
-    Book book = bookRepository.findById(id).orElseThrow();
-    byte[] imageBytes = Base64.getDecoder().decode(base64Image);
-    book.setImage(imageBytes);
-    book.setImageBase64(base64Image);
-    bookRepository.save(book);
-}
+        return updatedDTO;
+    }
 
+    public void updateBookImage(Long id, String base64Image) {
+        Book book = bookRepository.findById(id).orElseThrow();
+        byte[] imageBytes = Base64.getDecoder().decode(base64Image);
+        book.setImage(imageBytes);
+        book.setImageBase64(base64Image);
+        bookRepository.save(book);
+    }
 
 }

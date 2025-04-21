@@ -12,10 +12,7 @@ import org.springframework.stereotype.Service;
 import es.codeurjc.trabajoweb_vscode.DTO.AuthorDTO;
 import es.codeurjc.trabajoweb_vscode.DTO.AuthorMapper;
 import es.codeurjc.trabajoweb_vscode.DTO.AuthorSimpleDTO;
-import es.codeurjc.trabajoweb_vscode.DTO.BookDTO;
-import es.codeurjc.trabajoweb_vscode.DTO.UserDTO;
 import es.codeurjc.trabajoweb_vscode.model.Author;
-import es.codeurjc.trabajoweb_vscode.model.User;
 import es.codeurjc.trabajoweb_vscode.repository.AuthorRepository;
 import jakarta.transaction.Transactional;
 
@@ -71,7 +68,6 @@ public class AuthorService {
         }).orElseThrow(() -> new RuntimeException("Author not found"));
     }
 
-     // LO NUEVO DE LUCI
 
     @Autowired
     AuthorMapper mapper;

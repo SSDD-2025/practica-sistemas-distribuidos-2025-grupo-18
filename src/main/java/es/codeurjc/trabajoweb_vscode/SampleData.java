@@ -71,6 +71,9 @@ public class SampleData {
             User user1 = new User("user", passwordEncoder.encode("pass"), "USER");
             userRepository.save(user1);
 
+            User user2 = new User("user2", passwordEncoder.encode("pass2"), "USER");
+            userRepository.save(user2);
+
             User admin = new User("admin", passwordEncoder.encode("admin"), "ADMIN");
             userRepository.save(admin);
 

@@ -89,38 +89,5 @@ public class AuthorController {
         authorService.save(author);
         return "redirect:/adminLoggedIn";
     }
-    /*
-     * @GetMapping("/edit-author/{id}")
-     * public String editAuthor(@PathVariable Long id, Model model) {
-     * Author author = service.findById(id);
-     * model.addAttribute("id", author.getId());
-     * model.addAttribute("name", author.getName());
-     * return "edit-author";
-     * 
-     * }
-     * 
-     * @PostMapping("/update/{id}")
-     * public String updateAuthor(@PathVariable Long id, @RequestParam String name)
-     * {
-     * Author author = service.findById(id);
-     * if (author != null) {
-     * author.setName(name);
-     * service.save(author);
-     * }
-     * return "redirect:/";
-     * }
-     * 
-     * 
-     * @PostMapping("/save")
-     * public String save(@ModelAttribute Author author) {
-     * service.save(author);
-     * return "redirect:/";
-     * }
-     * 
-     * @PostMapping("/delete/{id}")
-     * public String delete(@PathVariable Long id) {
-     * service.delete(id);
-     * return "redirect:/authors";
-     * }
-     */
+
 }

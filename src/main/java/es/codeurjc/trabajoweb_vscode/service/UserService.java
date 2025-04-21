@@ -82,7 +82,6 @@ public class UserService {
         return false;
     }
 
-    // LO NUEVO DE LUCI
 
     @Autowired
     UserMapper mapper;

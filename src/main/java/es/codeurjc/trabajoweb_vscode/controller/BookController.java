@@ -96,17 +96,6 @@ public class BookController {
         return "book-details";
     }
 
-    /*@GetMapping("/edit-book/{id}")
-    public String showEditBookForm(@PathVariable("id") Long id, Model model) {
-        Book book = service.findById(id);
-        if (book == null) {
-            return "redirect:/";
-        }
-
-        model.addAttribute("book", book);
-        model.addAttribute("authors", authorService.findAll());
-        return "edit-book";
-    }*/
     @PostMapping("/edit-book/{id}")
     public String editBook(@PathVariable Long id,
             @RequestParam String name,
@@ -154,98 +143,4 @@ public class BookController {
         return "redirect:/book/" + id;
     }
 
-    /* @PostMapping("/adminLoggedIn/book-manager/add-book")
-    public String saveBook(
-            @RequestParam String nombre,
-            @RequestParam String autor,
-            @RequestParam int año,
-            @RequestParam String descripcion,
-            Model model) {
-
-        System.out.println("Entro en el método saveBook() del BookController.\n");
-        System.out.println("Nombre: " + nombre);
-        System.out.println("Autor: " + autor);
-        System.out.println("Año: " + año);
-        System.out.println("Descripción: " + descripcion);
-
-        Author author = authorService.findByName(autor);
-        if (author == null) {
-            author = new Author();
-            author.setName(autor);
-            authorService.save(author);
-        }
-
-        Book book = new Book();
-        book.setName(nombre);
-        book.setYearPub(año);
-        book.setDescription(descripcion);
-        book.setAuthor(author);
-        service.save(book);
-        return "redirect:/adminLoggedIn";
-    }*/
- /*
-     * @GetMapping("/edit-book/{id}")
-     * public String showEditBookForm(@PathVariable("id") Long id, Model model) {
-     * Book book = service.findById(id);
-     * if (book == null) {
-     * return "redirect:/";
-     * }
-     * 
-     * model.addAttribute("book", book);
-     * model.addAttribute("authors", authorService.findAll());
-     * return "edit-book";
-     * }
-     * 
-     * @PostMapping("/edit")
-     * public String efditBook(@RequestParam Long id, @RequestParam String
-     * name, @RequestParam int yearPub,
-     * 
-     * @RequestParam Long authorId) {
-     * Book book = service.findById(id);
-     * if (book == null) {
-     * return "redirect:/";
-     * }
-     * 
-     * Author author = authorService.findById(authorId);
-     * if (author == null) {
-     * return "redirect:/";
-     * }
-     * 
-     * book.setName(name);
-     * book.setYearPub(yearPub);
-     * book.setAuthor(author);
-     * 
-     * service.save(book);
-     * return "redirect:/";
-     * }
-     * 
-     * @PostMapping("/update/{id}")
-     * public String editBook(@RequestParam Long id, @RequestParam String
-     * name, @RequestParam int yearPub,
-     * 
-     * @RequestParam Long authorId) {
-     * Book book = service.findById(id);
-     * if (book == null) {
-     * return "redirect:/";
-     * }
-     * 
-     * Author author = authorService.findById(authorId);
-     * if (author == null) {
-     * return "redirect:/";
-     * }
-     * 
-     * book.setName(name);
-     * book.setYearPub(yearPub);
-     * book.setAuthor(author);
-     * 
-     * service.save(book);
-     * return "redirect:/";
-     * }
-     * 
-     * @PostMapping("/delete/{id}")
-     * public String delete(@PathVariable Long id) {
-     * service.delete(id);
-     * return "redirect:/";
-     * }
-     */
 }

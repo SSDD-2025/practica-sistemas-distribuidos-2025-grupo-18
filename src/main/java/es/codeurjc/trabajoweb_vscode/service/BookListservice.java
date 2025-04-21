@@ -10,7 +10,6 @@ import es.codeurjc.trabajoweb_vscode.model.BookList;
 import es.codeurjc.trabajoweb_vscode.repository.BookListRepository;
 import es.codeurjc.trabajoweb_vscode.repository.BookRepository;
 
-
 @Service
 public class BookListService {
 
@@ -19,7 +18,7 @@ public class BookListService {
 
     @Autowired
     private BookRepository bookRepository;
-     
+
     public List<BookList> findAll() {
         return bookListRepository.findAll();
     }
@@ -29,9 +28,9 @@ public class BookListService {
     }
 
     public void delete(Long id) {
-        bookListRepository.deleteById(id); 
+        bookListRepository.deleteById(id);
     }
-    
+
     public BookList findById(Long id) {
         return bookListRepository.findById(id).orElse(null);
     }
@@ -47,7 +46,7 @@ public class BookListService {
     public void removeBookFromList(Long listId, Long bookId) {
         BookList bookList = bookListRepository.findById(listId).orElseThrow(() -> new RuntimeException("Lista no encontrada"));
         Book book = bookRepository.findById(bookId).orElseThrow(() -> new RuntimeException("Libro no encontrado"));
-    
+
         if (bookList.getBooks().contains(book)) {
             bookList.getBooks().remove(book);
             bookListRepository.save(bookList);

@@ -87,60 +87,6 @@ public class ReviewController {
         return "redirect:/book/" + bookId;
 
     }
-    /*@GetMapping("/edit-review/{id}")
-    public String showEditReviewForm(@PathVariable("id") Long id, Model model) {
-        Review review = service.findById(id);
-        if (review == null) {
-            return "redirect:/";
-        }
 
-        model.addAttribute("review", review);
-        model.addAttribute("book", review.getBook());
-        return "edit-review";
-    }
-
-
-    @PostMapping("/edit")
-    public String efditReview(@RequestParam Long id, @RequestParam int rate, @RequestParam String textReview, @RequestParam Long bookId) {
-        Review review = service.findById(id);
-        if (review == null) {
-            return "redirect:/";
-        }
-
-        Book book = bookService.findById(bookId);
-        if (book == null) {
-            return "redirect:/";
-        }
-
-        review.setRate(rate);
-        review.setTextReview(textReview);
-        review.setBook(book);
-
-        service.save(review);
-        return "redirect:/";
-}
-
-
-
-    @PostMapping("/update/{id}")
-    public String editReview(@RequestParam Long id, @RequestParam int rate, @RequestParam String textReview, @RequestParam Long bookId) {
-        Review review = service.findById(id);
-        if (review == null) {
-            return "redirect:/";
-        }
-
-        Book book = bookService.findById(bookId);
-        if (book == null) {
-            return "redirect:/";
-        }
-
-        review.setRate(rate);
-        review.setTextReview(textReview);
-        review.setBook(book);
-
-        service.save(review);
-        return "redirect:/";}
-
-     */
 
 }

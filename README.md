@@ -53,7 +53,98 @@ Si | No (-0.5)
 Si | No (-0.5)
 20.	La documentación contiene información sobre la participación de cada miembro del equipo
 Si | No (-1)
-21.	Uso de GitHub
+22.	Uso de GitHub
 Completo | Poco uso (-1) | Solo una subida (-2) 
 
 Participación de cada miembro del equipo:
+
+
+
+
+
+
+Diagramas:
+
+Diagrama de Entidad-Relación
+
+![image](https://github.com/user-attachments/assets/15535b36-3c5b-454b-8c40-ab7c76438149)
+
+
+Este diagrama muestra las relaciones entre las entidades principales del sistema.
+
+Diagrama de Navegación y Páginas principales:
+
+
+
+
+
+
+
+
+
+Diagrama de Clases
+
+![image](https://github.com/user-attachments/assets/b709809d-1f3a-47ae-acfa-22e3b60e3d42)
+
+
+
+
+
+
+
+
+Instrucciones de Ejecución
+    Descarga el repositorio y descomprímelo.
+    Ejecuta el proyecto en tu IDE de preferencia. Recomendamos VS Code.
+    Una vez que la aplicación esté en ejecución, abre tu navegador y ve a https://localhost:8080/.
+Requisitos
+Java: JDK 21
+En caso de que no tengas el JDK instalado en tu ordenador, aquí te mostramos cómo obtenerlo:
+Para Windows: Descargar JDK 21.
+Para Linux, ejecuta el siguiente comando en la terminal:
+sudo apt install openjdk-21
+
+Maven v0.44.0
+Si estás usando VS Code, puedes obtenerlo con la extensión Maven for Java.
+En otros casos, puedes descargarlo aquí.
+
+Spring Boot 3.4.2
+Si estás usando Visual Studio Code, necesitarás la extensión Spring Boot Extension Pack.
+
+Configurar la base de datos MySQL:
+Crear una base de datos en MySQL:
+CREATE DATABASE bbdd;
+Actualizar las credenciales de la base de datos en src/main/resources/application.properties:
+spring.datasource.url=jdbc:mysql://localhost:3306/bbdd
+spring.datasource.username=root
+spring.datasource.password=password
+spring.jpa.hibernate.ddl-auto=create-drop
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

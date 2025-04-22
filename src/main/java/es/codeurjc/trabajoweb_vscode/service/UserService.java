@@ -5,24 +5,17 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import es.codeurjc.trabajoweb_vscode.DTO.UserDTO;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
 import es.codeurjc.trabajoweb_vscode.DTO.UserMapper;
 import es.codeurjc.trabajoweb_vscode.model.Book;
 import es.codeurjc.trabajoweb_vscode.model.BookList;
@@ -33,11 +26,8 @@ import es.codeurjc.trabajoweb_vscode.security.jwt.AuthResponse;
 import es.codeurjc.trabajoweb_vscode.security.jwt.JwtTokenProvider;
 import es.codeurjc.trabajoweb_vscode.security.jwt.LoginRequest;
 import es.codeurjc.trabajoweb_vscode.security.jwt.TokenType;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Service
 public class UserService {
@@ -50,6 +40,9 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
@@ -157,14 +150,13 @@ public class UserService {
             Cookie refreshCookie = new Cookie(TokenType.REFRESH.cookieName, null);
             refreshCookie.setHttpOnly(true);
             refreshCookie.setPath("/");
-            refreshCookie.setMaxAge(0); 
+            refreshCookie.setMaxAge(0);
             response.addCookie(refreshCookie);
-
 
             Cookie accessCookie = new Cookie(TokenType.ACCESS.cookieName, null);
             accessCookie.setHttpOnly(true);
             accessCookie.setPath("/");
-            accessCookie.setMaxAge(0); 
+            accessCookie.setMaxAge(0);
             response.addCookie(accessCookie);
 
             SecurityContextHolder.clearContext();
@@ -176,7 +168,7 @@ public class UserService {
         }
     }
 
-    public User login(HttpServletResponse response, LoginRequest loginRequest) {
+    /*public String  login(HttpServletResponse response, LoginRequest loginRequest) {
         String username = loginRequest.getUsername();
         String password = loginRequest.getPassword();
         User user = userRepository.findByName(username);
@@ -186,6 +178,23 @@ public class UserService {
         } else {
             throw new RuntimeException("Invalid username or password");
         }
+    }*/
+    public String login(HttpServletResponse response, LoginRequest loginRequest) {
+      
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginRequest.getUsername(),
+                        loginRequest.getPassword()
+                )
+        );
+
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        String jwt = jwtTokenProvider.generateAccessToken(userDetails);
+
+        return jwt;
     }
 
     private static class jwtUtil {

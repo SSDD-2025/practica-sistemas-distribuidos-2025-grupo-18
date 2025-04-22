@@ -6,8 +6,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;  
 
 import es.codeurjc.trabajoweb_vscode.DTO.AuthorDTO;
 import es.codeurjc.trabajoweb_vscode.DTO.AuthorMapper;
@@ -21,6 +24,9 @@ public class AuthorService {
 
     @Autowired
     private AuthorRepository authorRepository;
+
+    @Autowired
+    private AuthorMapper authorMapper;
 
     public List<Author> findAll() {
         return authorRepository.findAll();
@@ -73,27 +79,52 @@ public class AuthorService {
     AuthorMapper mapper;
 
     private AuthorDTO toDTO(Author author) {
-		return mapper.toDTO(author);
-	}
-
-	private Author toDomain(AuthorDTO authorDTO) {
-		return mapper.toDomain(authorDTO);
-	}
-
-	private Collection<AuthorDTO> toDTOs(Collection<Author> authors) {
-		return mapper.toDTOs(authors);
+        return mapper.toDTO(author);
     }
 
-    public AuthorSimpleDTO replaceAuthor(long id, AuthorSimpleDTO updatedDTO) {
-    Author oldAuthor = authorRepository.findById(id).orElseThrow();
+    private Author toDomain(AuthorDTO authorDTO) {
+        return mapper.toDomain(authorDTO);
+    }
+
+    private Collection<AuthorDTO> toDTOs(Collection<Author> authors) {
+        return mapper.toDTOs(authors);
+    }
+
+
+    public AuthorDTO getAuthor(long id) {
+        Author author = authorRepository.findById(id).orElseThrow();
+        return mapper.toDTO(author);
+    }
+
+    public AuthorDTO createAuthor(AuthorSimpleDTO authorDTO) {
+        Author author = new Author(authorDTO.name(), authorDTO.bio());
+        authorRepository.save(author);
+        return mapper.toDTO(author);
+    }
     
-    Author updatedAuthor = new Author(updatedDTO.name(), updatedDTO.bio());
-    updatedAuthor.setId(id);
+    public AuthorSimpleDTO replaceAuthor(long id, AuthorSimpleDTO updatedDTO) {
+        Author oldAuthor = authorRepository.findById(id).orElseThrow();
 
-    authorRepository.save(updatedAuthor);
+        Author updatedAuthor = new Author(updatedDTO.name(), updatedDTO.bio());
+        updatedAuthor.setId(id);
 
-    return updatedDTO;
-}
+        authorRepository.save(updatedAuthor);
 
+        return updatedDTO;
+    }
+
+
+    public Page<AuthorDTO> getAllAuthors(Pageable pageable) {
+        Page<Author> authorsPage = authorRepository.findAll(pageable);
+
+ 
+        authorsPage.forEach(author -> {
+            if (Hibernate.isInitialized(author.getBooks())) {
+                author.getBooks().size(); 
+            }
+        });
+
+        return authorsPage.map(author -> authorMapper.toDTO(author));
+    }
 
 }

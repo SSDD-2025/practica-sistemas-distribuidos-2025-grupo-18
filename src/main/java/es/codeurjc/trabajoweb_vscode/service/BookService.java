@@ -76,6 +76,18 @@ public class BookService {
         return mapper.toDomain(bookDTO);
     }
 
+    public BookDTO createBook(BookDTO bookDTO) {
+
+		if(bookDTO.id() != null) {
+			throw new IllegalArgumentException();
+		}
+
+		Book book = toDomain(bookDTO);
+		bookRepository.save(book);
+
+		return toDTO(book);
+	}
+
     public BookSimpleDTO replaceBook(long id, BookSimpleDTO updatedDTO) {
         Book oldBook = bookRepository.findById(id).orElseThrow();
 

@@ -4,20 +4,14 @@ import java.net.URI;
 import java.sql.SQLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,11 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import es.codeurjc.trabajoweb_vscode.DTO.JWTResponse;
 import es.codeurjc.trabajoweb_vscode.DTO.UserDTO;
 import es.codeurjc.trabajoweb_vscode.DTO.UserMapper;
 import es.codeurjc.trabajoweb_vscode.model.User;
 import es.codeurjc.trabajoweb_vscode.repository.UserRepository;
-import es.codeurjc.trabajoweb_vscode.security.jwt.AuthResponse;
 import es.codeurjc.trabajoweb_vscode.security.jwt.LoginRequest;
 import es.codeurjc.trabajoweb_vscode.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -54,20 +48,19 @@ public class UserRestController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    
     @GetMapping("/search")
     public Page<UserDTO> searchUsers(@RequestParam String query, @RequestParam int page) {
-    return userRepository.findByNameContainingIgnoreCase(query, PageRequest.of(page, 10)).map(mapper::toDTO);
-    } 
+        return userRepository.findByNameContainingIgnoreCase(query, PageRequest.of(page, 10)).map(mapper::toDTO);
+    }
 
     @PostMapping("/login")
-    public User login(
+    public ResponseEntity<?> login(
             @RequestBody LoginRequest loginRequest,
             HttpServletResponse response) {
 
-        return userService.login(response, loginRequest);
+        String token = userService.login(response, loginRequest);
+        return ResponseEntity.ok(new JWTResponse(token));
     }
-
 
     @PostMapping("/logout")
     public ResponseEntity<Object> logOut(HttpServletResponse response) {
@@ -90,9 +83,9 @@ public class UserRestController {
         if (user.getPassword() == null || user.getPassword().isEmpty()) {
             throw new IllegalArgumentException("Password cannot be null or empty");
         }
-    
+
         user.setEncodedPassword(passwordEncoder.encode(user.getPassword()));
-   
+
         userRepository.save(user);
 
         URI location = ServletUriComponentsBuilder

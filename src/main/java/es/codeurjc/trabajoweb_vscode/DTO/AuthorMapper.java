@@ -9,7 +9,6 @@ import org.mapstruct.Mapping;
 
 import es.codeurjc.trabajoweb_vscode.model.Author;
 
-
 @Mapper(componentModel = "spring")
 public interface AuthorMapper {
 

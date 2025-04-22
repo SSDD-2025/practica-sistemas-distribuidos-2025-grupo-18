@@ -19,6 +19,7 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import es.codeurjc.trabajoweb_vscode.security.jwt.JwtRequestFilter;
 import es.codeurjc.trabajoweb_vscode.security.jwt.UnauthorizedHandlerJwt;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
@@ -57,33 +58,32 @@ public class SecurityConfiguration {
     @Bean
     @Order(1)
     public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
-
-        http.authenticationProvider(authenticationProvider());
         http
                 .securityMatcher("/api/**")
-                .exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandlerJwt));
-        http
+                .exceptionHandling(handling -> handling
+                .authenticationEntryPoint(unauthorizedHandlerJwt) 
+                .accessDeniedHandler((request, response, ex) -> { 
+                    response.sendError(HttpServletResponse.SC_FORBIDDEN, "Forbidden");
+                })
+                )
                 .authorizeHttpRequests(authorize -> authorize
-                // PUBLIC ENDPOINTS (no requieren autenticación)
                 .requestMatchers(HttpMethod.POST, "/api/users/login").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/users/register").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/users/refresh").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/users/logout").permitAll()
-                // PRIVATE ENDPOINTS
-                .requestMatchers(HttpMethod.POST, "/api/books/").hasRole("USER")
-                .requestMatchers(HttpMethod.PUT, "/api/books/**").hasRole("USER")
+                .requestMatchers(HttpMethod.POST, "/api/books/").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/api/books/**").hasRole("ADMIN") 
                 .requestMatchers(HttpMethod.DELETE, "/api/books/**").hasRole("ADMIN")
-                // Resto de endpoints públicos
-                .anyRequest().permitAll()
-                );
-
-        // Deshabilitar protecciones no necesarias para API REST
-        http.formLogin(formLogin -> formLogin.disable());
-        http.csrf(csrf -> csrf.disable());
-        http.httpBasic(httpBasic -> httpBasic.disable());
-        http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        // Añadir filtro JWT solo para endpoints privados
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+                .requestMatchers("/api/**").authenticated()
+                .anyRequest().denyAll()
+                )
+                .formLogin(formLogin -> formLogin.disable())
+                .csrf(csrf -> csrf.disable())
+                .httpBasic(httpBasic -> httpBasic.disable())
+                .sessionManagement(management -> management
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -105,7 +105,7 @@ public class SecurityConfiguration {
                 .anyRequest().permitAll()
                 )
                 .formLogin(form -> form
-                .loginPage("/api/users/login")
+                .loginPage("/login")
                 .successHandler((request, response, authentication) -> {
                     String username = authentication.getName();
                     if ("admin".equals(username)) {

@@ -35,7 +35,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         try {
-            var claims = jwtTokenProvider.validateToken(request, true);
+            var claims = jwtTokenProvider.validateToken(request, false);
 
             if (claims != null) { // Only proceed if valid token found
                 var userDetails = userDetailsService.loadUserByUsername(claims.getSubject());
@@ -47,7 +47,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception ex) {
-           // log.error("Exception processing JWT Token: ", ex);
+            // log.error("Exception processing JWT Token: ", ex);
         }
 
         filterChain.doFilter(request, response);

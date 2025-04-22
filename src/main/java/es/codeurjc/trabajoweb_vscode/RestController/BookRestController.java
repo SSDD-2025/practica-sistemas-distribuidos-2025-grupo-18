@@ -2,42 +2,32 @@ package es.codeurjc.trabajoweb_vscode.RestController;
 
 import java.net.URI;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Base64;
-import org.springframework.http.MediaType;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatusCode;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 import es.codeurjc.trabajoweb_vscode.DTO.BookDTO;
 import es.codeurjc.trabajoweb_vscode.DTO.BookMapper;
 import es.codeurjc.trabajoweb_vscode.DTO.BookSimpleDTO;
-import es.codeurjc.trabajoweb_vscode.model.Author;
 import es.codeurjc.trabajoweb_vscode.model.Book;
 import es.codeurjc.trabajoweb_vscode.repository.BookRepository;
+import es.codeurjc.trabajoweb_vscode.service.AuthorService;
 import es.codeurjc.trabajoweb_vscode.service.BookService;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/books")
@@ -52,16 +42,13 @@ public class BookRestController {
     @Autowired
     private BookMapper mapper;
 
+    @Autowired
+    private AuthorService authorService;
+
     @GetMapping("/")
     public Page<BookDTO> getBooks(Pageable pageable) {
 
         return bookRepository.findAll(pageable).map(mapper::toDTO);
-    }
-
-    
-    @GetMapping("/search")
-    public Page<BookDTO> searchBooks(@RequestParam String query, @RequestParam int page) {
-    return bookRepository.findByNameContainingIgnoreCase(query, PageRequest.of(page, 10)).map(mapper::toDTO);
     }
 
     @GetMapping("/{id}")
@@ -69,44 +56,14 @@ public class BookRestController {
         return mapper.toDTO(bookRepository.findById(id).orElseThrow());
     }
 
-    /*@PostMapping("/")
-    public ResponseEntity<?> postBook(@RequestBody BookCreateDTO bookDTO) {
+    @PostMapping("/")
+    public ResponseEntity<BookDTO> createBook(@RequestBody BookDTO bookDTO) {
 
-        Author author = authorService.findById(bookDTO.getAuthorId())
-                .orElseThrow(() -> new ResourceNotFoundException("Author not found"));
+        bookDTO = bookService.createBook(bookDTO);
+        URI location = fromCurrentRequest().path("/{id}").buildAndExpand(bookDTO.id()).toUri();
 
-
-        Book book = new Book();
-        book.setName(bookDTO.getName());
-        book.setYearPub(bookDTO.getYearPub());
-        book.setAuthor(author);
-        book.setDescription(bookDTO.getDescription());
-
-  
-        if (bookDTO.getImageBase64() != null && !bookDTO.getImageBase64().isEmpty()) {
-            byte[] imageBytes = Base64.getDecoder().decode(bookDTO.getImageBase64());
-            book.setImage(imageBytes);
-        }
-
-        Book savedBook = bookService.save(book);
-
-        BookResponseDTO responseDTO = new BookResponseDTO(
-                savedBook.getId(),
-                savedBook.getName(),
-                savedBook.getYearPub(),
-                savedBook.getAuthor().getName(),
-                savedBook.getDescription()
-   
-        );
-
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(savedBook.getId())
-                .toUri();
-
-        return ResponseEntity.created(location).body(responseDTO);
-    }*/
+        return ResponseEntity.created(location).body(bookDTO);
+    }
 
     @DeleteMapping("/{id}")
     public void deleteBook(@PathVariable long id) {
@@ -147,7 +104,7 @@ public class BookRestController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    
     @DeleteMapping("/{id}/image")
     public ResponseEntity<Void> deleteBookImage(@PathVariable Long id) {
         Book book = bookRepository.findById(id).orElse(null);

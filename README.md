@@ -95,30 +95,18 @@ Diagrama de Clases
 
 Instrucciones de Ejecución
     Descarga el repositorio y descomprímelo.
-    Ejecuta el proyecto en tu IDE de preferencia. Recomendamos VS Code.
-    Una vez que la aplicación esté en ejecución, abre tu navegador y ve a https://localhost:8080/.
-Requisitos
+    Ejecuta el proyecto en tu entorno de desarrollo de preferencia. Recomendamos VS Code.
+    Cuando la aplicación esté en ejecución, abre tu navegador y ve a https://localhost:8443
+Requisitos:
 Java: JDK 21
-En caso de que no tengas el JDK instalado en tu ordenador, aquí te mostramos cómo obtenerlo:
-Para Windows: Descargar JDK 21.
-Para Linux, ejecuta el siguiente comando en la terminal:
-sudo apt install openjdk-21
 
 Maven v0.44.0
-Si estás usando VS Code, puedes obtenerlo con la extensión Maven for Java.
-En otros casos, puedes descargarlo aquí.
+En VS Code, puedes obtenerlo con la extensión Maven for Java.
 
-Spring Boot 3.4.2
-Si estás usando Visual Studio Code, necesitarás la extensión Spring Boot Extension Pack.
+Spring Boot 3.4.4
+En VS Code, necesitarás la extensión Spring Boot Extension Pack.
 
-Configurar la base de datos MySQL:
-Crear una base de datos en MySQL:
-CREATE DATABASE bbdd;
-Actualizar las credenciales de la base de datos en src/main/resources/application.properties:
-spring.datasource.url=jdbc:mysql://localhost:3306/bbdd
-spring.datasource.username=root
-spring.datasource.password=password
-spring.jpa.hibernate.ddl-auto=create-drop
+
 
 
 

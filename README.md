@@ -93,7 +93,8 @@ Diagrama de Clases
 
 
 
-Instrucciones de Ejecución
+Instrucciones de Ejecución:
+
     Descarga el repositorio y descomprímelo.
     Ejecuta el proyecto en tu entorno de desarrollo de preferencia. Recomendamos VS Code.
     Cuando la aplicación esté en ejecución, abre tu navegador y ve a https://localhost:8443

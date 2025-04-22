@@ -74,7 +74,7 @@ Este diagrama muestra las relaciones entre las entidades principales del sistema
 
 Diagrama de Navegación y Páginas principales:
 La pagina de error(arriba izda, la unica sin conexiones visibles) es accesible desde cualquier sitio
-![image](https://github.com/user-attachments/assets/fb0b3f5c-fb56-41a6-a1ce-8c042321b80a)
+![image](https://github.com/user-attachments/assets/08079230-41ec-4317-a083-26f935b82a10)
 
 
 

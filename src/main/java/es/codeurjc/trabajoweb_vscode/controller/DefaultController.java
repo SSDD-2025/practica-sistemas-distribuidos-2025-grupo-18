@@ -76,14 +76,8 @@ public class DefaultController {
 
     @GetMapping("/search")
     public String buscar(@RequestParam String query, Model model) {
-        List<User> usuarios = userService.findByNameContainingIgnoreCase(query);
-        List<Book> libros = bookService.findByNameContainingIgnoreCase(query);
-
-        model.addAttribute("usuarios", usuarios);
-        model.addAttribute("libros", libros);
-        model.addAttribute("query", query);
-
-        return "search";
+        model.addAttribute("query", query); // Solo pasamos el texto de búsqueda
+        return "search"; // El HTML ya se encargará de llamar a la API
     }
 
     @GetMapping("/login")

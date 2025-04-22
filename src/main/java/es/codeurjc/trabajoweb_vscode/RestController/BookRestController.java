@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
-
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -56,6 +56,12 @@ public class BookRestController {
     public Page<BookDTO> getBooks(Pageable pageable) {
 
         return bookRepository.findAll(pageable).map(mapper::toDTO);
+    }
+
+    
+    @GetMapping("/search")
+    public Page<BookDTO> searchBooks(@RequestParam String query, @RequestParam int page) {
+    return bookRepository.findByNameContainingIgnoreCase(query, PageRequest.of(page, 10)).map(mapper::toDTO);
     }
 
     @GetMapping("/{id}")

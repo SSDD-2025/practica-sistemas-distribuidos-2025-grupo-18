@@ -2,6 +2,8 @@ package es.codeurjc.trabajoweb_vscode.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,6 +32,7 @@ public class Book {
     private int yearPub;
 
     @ManyToOne
+    @JsonBackReference
     private Author author;
 
     private String description;

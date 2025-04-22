@@ -3,6 +3,8 @@ package es.codeurjc.trabajoweb_vscode.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -20,6 +22,7 @@ public class Author {
     private String name;
     
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL,orphanRemoval = true)
+    @JsonBackReference
     private List<Book> books;
 
 

@@ -40,9 +40,9 @@ public class SecurityConfiguration {
     }
 
     @Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -54,6 +54,7 @@ public class SecurityConfiguration {
         return authProvider;
     }
 
+    @Bean
     @Order(1)
     public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
 
@@ -63,26 +64,28 @@ public class SecurityConfiguration {
                 .exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandlerJwt));
         http
                 .authorizeHttpRequests(authorize -> authorize
+                // PUBLIC ENDPOINTS (no requieren autenticación)
+                .requestMatchers(HttpMethod.POST, "/api/users/login").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/users/register").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/users/refresh").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/users/logout").permitAll()
                 // PRIVATE ENDPOINTS
                 .requestMatchers(HttpMethod.POST, "/api/books/").hasRole("USER")
                 .requestMatchers(HttpMethod.PUT, "/api/books/**").hasRole("USER")
                 .requestMatchers(HttpMethod.DELETE, "/api/books/**").hasRole("ADMIN")
-                // PUBLIC ENDPOINTS
+                // Resto de endpoints públicos
                 .anyRequest().permitAll()
                 );
 
-        // Disable Form login Authentication
+        // Deshabilitar protecciones no necesarias para API REST
         http.formLogin(formLogin -> formLogin.disable());
-        // Disable CSRF protection (it is difficult to implement in REST APIs)
         http.csrf(csrf -> csrf.disable());
-        // Disable Basic Authentication
         http.httpBasic(httpBasic -> httpBasic.disable());
-        // Stateless session
         http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        // Add JWT Token filter
+        // Añadir filtro JWT solo para endpoints privados
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-        return http.build();
 
+        return http.build();
     }
 
     @Bean
@@ -102,7 +105,7 @@ public class SecurityConfiguration {
                 .anyRequest().permitAll()
                 )
                 .formLogin(form -> form
-                .loginPage("/login")
+                .loginPage("/api/users/login")
                 .successHandler((request, response, authentication) -> {
                     String username = authentication.getName();
                     if ("admin".equals(username)) {

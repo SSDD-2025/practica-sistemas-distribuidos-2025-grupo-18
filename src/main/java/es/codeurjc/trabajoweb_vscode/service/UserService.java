@@ -5,6 +5,11 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import es.codeurjc.trabajoweb_vscode.DTO.UserDTO;
@@ -14,6 +19,10 @@ import es.codeurjc.trabajoweb_vscode.model.BookList;
 import es.codeurjc.trabajoweb_vscode.model.Review;
 import es.codeurjc.trabajoweb_vscode.model.User;
 import es.codeurjc.trabajoweb_vscode.repository.UserRepository;
+import es.codeurjc.trabajoweb_vscode.security.jwt.AuthResponse;
+import es.codeurjc.trabajoweb_vscode.security.jwt.JwtTokenProvider;
+import es.codeurjc.trabajoweb_vscode.security.jwt.LoginRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Service
 public class UserService {
@@ -24,6 +33,8 @@ public class UserService {
     @Autowired
     private BookService bookService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public User save(User user) {
         return userRepository.save(user);
@@ -44,22 +55,23 @@ public class UserService {
     public void delete(User user) {
         userRepository.delete(user);
     }
-    
+
     public User findByName(String name) {
         return userRepository.findByName(name);
     }
 
-    public List<User> findByNameContainingIgnoreCase(String name){
+    public List<User> findByNameContainingIgnoreCase(String name) {
         return userRepository.findByNameContainingIgnoreCase(name);
     }
 
-    public boolean existsByName(String name){
+    public boolean existsByName(String name) {
         return userRepository.existsByName(name);
     }
-    public boolean alreadyExitsAReview(Long bookId, Long userId){
+
+    public boolean alreadyExitsAReview(Long bookId, Long userId) {
         Book book = bookService.findById(bookId);
         User user = findById(userId);
-        List <Review> reviews = user.getReviews();
+        List<Review> reviews = user.getReviews();
         for (Review review : reviews) {
             if (Objects.equals(review.getBook().getId(), book.getId())) {
                 return true;
@@ -82,26 +94,25 @@ public class UserService {
         return false;
     }
 
-
     @Autowired
     UserMapper mapper;
 
     private UserDTO toDTO(User user) {
-		return mapper.toDTO(user);
-	}
+        return mapper.toDTO(user);
+    }
 
-	private User toDomain(UserDTO userDTO) {
-		return mapper.toDomain(userDTO);
-	}
+    private User toDomain(UserDTO userDTO) {
+        return mapper.toDomain(userDTO);
+    }
 
-	private Collection<UserDTO> toDTOs(Collection<User> users) {
-		return mapper.toDTOs(users);
+    private Collection<UserDTO> toDTOs(Collection<User> users) {
+        return mapper.toDTOs(users);
     }
 
     public UserDTO replaceUser(Long id, UserDTO userDTO) {
 
         User existingUser = userRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
         existingUser.setName(userDTO.name());
         existingUser.setRoles(userDTO.roles());
@@ -109,6 +120,32 @@ public class UserService {
         User updatedUser = userRepository.save(existingUser);
 
         return new UserDTO(updatedUser.getId(), updatedUser.getName(), updatedUser.getRoles());
+    }
+
+    public UserDTO updateUserById(long id, UserDTO updatedUserDTO) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Object logout(HttpServletResponse response) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'logout'");
+    }
+
+    public ResponseEntity<AuthResponse> refresh(HttpServletResponse response, String refreshToken) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'refresh'");
+    }
+
+    public User login(HttpServletResponse response, LoginRequest loginRequest) {
+        String username = loginRequest.getUsername();
+        String password = loginRequest.getPassword();
+        User user = userRepository.findByName(username);
+
+        if (user != null && passwordEncoder.matches(password, user.getEncodedPassword())) {
+            return user;
+        } else {
+            throw new RuntimeException("Invalid username or password");
+        }
     }
 
 }

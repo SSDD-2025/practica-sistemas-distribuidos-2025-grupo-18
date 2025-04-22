@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.codeurjc.trabajoweb_vscode.DTO.ReviewDTO;
 import es.codeurjc.trabajoweb_vscode.model.Review;
 import es.codeurjc.trabajoweb_vscode.repository.ReviewRepository;
 
@@ -49,6 +50,22 @@ public class ReviewService {
             System.out.println("User ID: " + review.getUser().getId() + ", Book ID: " + review.getBook().getId());
             reviewRepository.delete(review);
         }
+    }
+
+        public ReviewDTO replaceReview(long id, ReviewDTO updatedDTO) {
+        Review oldReview = reviewRepository.findById(id).orElseThrow();
+    
+        Review updatedReview = new Review();
+        updatedReview.setId(id);
+        updatedReview.setRate(updatedDTO.rate());
+        updatedReview.setTextReview(updatedDTO.textReview());
+        
+        updatedReview.setBook(oldReview.getBook());
+        updatedReview.setUser(oldReview.getUser());
+    
+        reviewRepository.save(updatedReview);
+    
+        return updatedDTO;
     }
 
 }

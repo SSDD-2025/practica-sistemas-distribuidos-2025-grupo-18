@@ -31,6 +31,8 @@ public class User {
     @Column(nullable = false)
     private String encodedPassword;
 
+    private String password; // JSON
+
     @OneToMany(mappedBy = "user", cascade =  CascadeType.ALL, orphanRemoval = true)
     private List<BookList> bookLists = new ArrayList<>();
 
@@ -107,6 +109,9 @@ public class User {
         this.roles = roles;
     }
 
+    public String getPassword() {
+        return password;
+    }
 
 
 }

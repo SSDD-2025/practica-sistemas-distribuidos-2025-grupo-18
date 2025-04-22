@@ -8,11 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import es.codeurjc.trabajoweb_vscode.DTO.UserDTO;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import es.codeurjc.trabajoweb_vscode.DTO.UserMapper;
 import es.codeurjc.trabajoweb_vscode.model.Book;
 import es.codeurjc.trabajoweb_vscode.model.BookList;
@@ -22,7 +32,12 @@ import es.codeurjc.trabajoweb_vscode.repository.UserRepository;
 import es.codeurjc.trabajoweb_vscode.security.jwt.AuthResponse;
 import es.codeurjc.trabajoweb_vscode.security.jwt.JwtTokenProvider;
 import es.codeurjc.trabajoweb_vscode.security.jwt.LoginRequest;
+import es.codeurjc.trabajoweb_vscode.security.jwt.TokenType;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Service
 public class UserService {
@@ -35,6 +50,9 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
 
     public User save(User user) {
         return userRepository.save(user);
@@ -122,18 +140,40 @@ public class UserService {
         return new UserDTO(updatedUser.getId(), updatedUser.getName(), updatedUser.getRoles());
     }
 
-    public UserDTO updateUserById(long id, UserDTO updatedUserDTO) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public User updateUserById(long id, User updatedUser) {
+
+        User user = userRepository.findById(id)
+                .orElseThrow();
+
+        user.setName(updatedUser.getName());
+        User updated = userRepository.save(user);
+
+        return updated;
     }
 
-    public Object logout(HttpServletResponse response) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'logout'");
-    }
+    public ResponseEntity<AuthResponse> logout(HttpServletResponse response) {
+        try {
 
-    public ResponseEntity<AuthResponse> refresh(HttpServletResponse response, String refreshToken) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'refresh'");
+            Cookie refreshCookie = new Cookie(TokenType.REFRESH.cookieName, null);
+            refreshCookie.setHttpOnly(true);
+            refreshCookie.setPath("/");
+            refreshCookie.setMaxAge(0); 
+            response.addCookie(refreshCookie);
+
+
+            Cookie accessCookie = new Cookie(TokenType.ACCESS.cookieName, null);
+            accessCookie.setHttpOnly(true);
+            accessCookie.setPath("/");
+            accessCookie.setMaxAge(0); 
+            response.addCookie(accessCookie);
+
+            SecurityContextHolder.clearContext();
+
+            return ResponseEntity.ok(new AuthResponse(AuthResponse.Status.SUCCESS, "Logout successful"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new AuthResponse(AuthResponse.Status.FAILURE, "Logout failed", e.getMessage()));
+        }
     }
 
     public User login(HttpServletResponse response, LoginRequest loginRequest) {
@@ -145,6 +185,12 @@ public class UserService {
             return user;
         } else {
             throw new RuntimeException("Invalid username or password");
+        }
+    }
+
+    private static class jwtUtil {
+
+        public jwtUtil() {
         }
     }
 

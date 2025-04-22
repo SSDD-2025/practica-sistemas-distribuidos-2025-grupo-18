@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,9 +28,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import es.codeurjc.trabajoweb_vscode.DTO.BookDTO;
 import es.codeurjc.trabajoweb_vscode.DTO.BookMapper;
 import es.codeurjc.trabajoweb_vscode.DTO.BookSimpleDTO;
+import es.codeurjc.trabajoweb_vscode.model.Author;
 import es.codeurjc.trabajoweb_vscode.model.Book;
 import es.codeurjc.trabajoweb_vscode.repository.BookRepository;
 import es.codeurjc.trabajoweb_vscode.service.BookService;
@@ -60,18 +63,44 @@ public class BookRestController {
         return mapper.toDTO(bookRepository.findById(id).orElseThrow());
     }
 
-    @PostMapping("/")
-    public ResponseEntity<Book> postBook(@RequestBody Book book) {
-        bookService.save(book);
+    /*@PostMapping("/")
+    public ResponseEntity<?> postBook(@RequestBody BookCreateDTO bookDTO) {
+
+        Author author = authorService.findById(bookDTO.getAuthorId())
+                .orElseThrow(() -> new ResourceNotFoundException("Author not found"));
+
+
+        Book book = new Book();
+        book.setName(bookDTO.getName());
+        book.setYearPub(bookDTO.getYearPub());
+        book.setAuthor(author);
+        book.setDescription(bookDTO.getDescription());
+
+  
+        if (bookDTO.getImageBase64() != null && !bookDTO.getImageBase64().isEmpty()) {
+            byte[] imageBytes = Base64.getDecoder().decode(bookDTO.getImageBase64());
+            book.setImage(imageBytes);
+        }
+
+        Book savedBook = bookService.save(book);
+
+        BookResponseDTO responseDTO = new BookResponseDTO(
+                savedBook.getId(),
+                savedBook.getName(),
+                savedBook.getYearPub(),
+                savedBook.getAuthor().getName(),
+                savedBook.getDescription()
+   
+        );
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(book.getId())
+                .buildAndExpand(savedBook.getId())
                 .toUri();
 
-        return ResponseEntity.created(location).body(book);
-    }
+        return ResponseEntity.created(location).body(responseDTO);
+    }*/
 
     @DeleteMapping("/{id}")
     public void deleteBook(@PathVariable long id) {
@@ -112,6 +141,7 @@ public class BookRestController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}/image")
     public ResponseEntity<Void> deleteBookImage(@PathVariable Long id) {
         Book book = bookRepository.findById(id).orElse(null);

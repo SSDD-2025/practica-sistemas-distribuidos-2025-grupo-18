@@ -60,29 +60,10 @@ public class UserRestController {
         return userService.login(response, loginRequest);
     }
 
-    @PostMapping("/refresh")
-    public ResponseEntity<AuthResponse> refreshToken(
-            @CookieValue(name = "RefreshToken", required = false) String refreshToken, HttpServletResponse response) {
-
-        return userService.refresh(response, refreshToken);
-    }
 
     @PostMapping("/logout")
     public ResponseEntity<Object> logOut(HttpServletResponse response) {
         return ResponseEntity.ok(userService.logout(response));
-    }
-
-    @PostMapping("/register")
-    public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO) {
-        if (userRepository.findByName(userDTO.name()) != null) {
-            return ResponseEntity
-                    .status(HttpStatus.CONFLICT)
-                    .body("Ya existe un usuario con ese nombre");
-        }
-
-        User user = userMapper.toDomain(userDTO);
-        User savedUser = userRepository.save(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userMapper.toDTO(savedUser));
     }
 
     @GetMapping("/")
@@ -96,9 +77,14 @@ public class UserRestController {
         return mapper.toDTO(userRepository.findById(id).orElseThrow());
     }
 
-    @PostMapping("/")
+    @PostMapping("/register")
     public ResponseEntity<User> createUser(@RequestBody User user) {
-        user.setEncodedPassword(passwordEncoder.encode(user.getEncodedPassword()));
+        if (user.getPassword() == null || user.getPassword().isEmpty()) {
+            throw new IllegalArgumentException("Password cannot be null or empty");
+        }
+    
+        user.setEncodedPassword(passwordEncoder.encode(user.getPassword()));
+   
         userRepository.save(user);
 
         URI location = ServletUriComponentsBuilder
@@ -116,9 +102,9 @@ public class UserRestController {
     }
 
     @PutMapping("/{id}")
-    public UserDTO replaceUser(@PathVariable long id, @RequestBody UserDTO updatedUserDTO) throws SQLException {
+    public User replaceUser(@PathVariable long id, @RequestBody User updatedUser) throws SQLException {
 
-        return userService.updateUserById(id, updatedUserDTO);
+        return userService.updateUserById(id, updatedUser);
     }
 
 }

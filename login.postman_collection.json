@@ -1,0 +1,41 @@
+{
+	"info": {
+		"_postman_id": "ac5c578c-73f3-4056-915b-760ad8f5a3f1",
+		"name": "login",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44288486",
+		"_collection_link": "https://marta-1849728.postman.co/workspace/Marta's-Workspace~5bf9bab1-28a1-47b9-8fdc-f568aa7dae52/collection/44288486-ac5c578c-73f3-4056-915b-760ad8f5a3f1?action=share&source=collection_link&creator=44288486"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\": \"user\", \"password\": \"pass\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8443/api/users/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -91,9 +91,21 @@ Diagrama de Clases
     Ejecuta el proyecto en tu entorno de desarrollo de preferencia. Recomendamos VS Code.
     Cuando la aplicación esté en ejecución, abre tu navegador y ve a https://localhost:8443
 
-    En lo que respecta a Postman, es necesario loggearse para algunas funcionalidad, y estas están limitadas en ocasiones a un único rol. 
+    En lo que respecta a **Postman**, es necesario loggearse para algunas funcionalidad, y estas están limitadas en ocasiones a un único rol. 
     En caso de recibir un error 401 Unauthorized, hay que introducir en Authorization -> Bearer Token el token que nos da la response cuando inicias sesión con un usuario válido. Después, volver a ejecutar la petición que deseas realizar.
     Si da error 403 Forbidden, es porque ese rol de usuario no tiene permitido ejecutar esa acción.
+
+
+**Instrucciones de Ejecución: aspectos a tener en cuenta respecto a las relaciones**
+
+    - User: tenemos dos tipos (admin y user), además de una página inicial para un usuario no registrado con funcionalidad limitada.
+
+    - Autor: se crea y puede estar asociado a libros o no.
+
+    - Libro: un libro  contiene información como título, género, y fecha de publicación. Además, tiene asociado su autor. Un libro no se puede crear sin antes haber creado el autor de este (si es que no existe ya).
+
+    - Reviews: pertenecen al tipo de usuario User (no admin). Todos pueden verlas, pero solo el propio usuario puede crear, modificar o eliminar sus propias reseñas.
+
 
 Requisitos:
 Java: JDK 21

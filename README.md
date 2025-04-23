@@ -106,10 +106,6 @@ La pagina de error(arriba izqda, la única sin conexiones visibles) es accesible
 
     - Reviews: pertenecen al tipo de usuario User (no admin). Todos pueden verlas, pero solo el propio usuario puede crear, modificar o eliminar sus propias reseñas.
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 19996809b9fc6f3bcfe164c8524d8b89e5a2b5ab
 Requisitos:
 Java: JDK 21
 

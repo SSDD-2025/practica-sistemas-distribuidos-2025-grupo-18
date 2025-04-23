@@ -69,11 +69,24 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers(HttpMethod.POST, "/api/users/login").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/users/register").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/users/refresh").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/users/logout").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/books/").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/api/books/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/api/books/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/books/**").permitAll()
+
+
+                .requestMatchers(HttpMethod.POST, "/api/authors/").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/api/authors/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/api/authors/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/authors/").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/authors/**").permitAll()
+
+
+                .requestMatchers(HttpMethod.POST, "/api/reviews/").hasRole("USER")
+                .requestMatchers(HttpMethod.PUT, "/api/reviews/**").hasRole("USER")
+                .requestMatchers(HttpMethod.DELETE, "/api/reviews/**").hasRole("USER")
+                .requestMatchers(HttpMethod.GET, "/api/reviews/**").hasRole("USER")
                 .requestMatchers("/api/**").authenticated()
                 .anyRequest().denyAll()
                 )

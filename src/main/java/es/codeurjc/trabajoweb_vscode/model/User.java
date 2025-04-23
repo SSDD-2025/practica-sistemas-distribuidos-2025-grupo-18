@@ -3,6 +3,8 @@ package es.codeurjc.trabajoweb_vscode.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -29,22 +31,24 @@ public class User {
     private String name;
     
     @Column(nullable = false)
+    @JsonIgnore
     private String encodedPassword;
 
     private String password; // JSON
 
     @OneToMany(mappedBy = "user", cascade =  CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<BookList> bookLists = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    
+    @JsonIgnore
     private List<Review> reviews = new ArrayList<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
     private List<String> roles;
-    
-    //PARA SEGURIDAD VAMOS A ASIGNAR ROLES CON UNA TABLA HASH
 
 
 

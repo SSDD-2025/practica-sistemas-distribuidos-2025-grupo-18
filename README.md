@@ -1,6 +1,6 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/D1C1HU9V)
 
-#BOOKNEST
+**BOOKNEST**
 
 Grupo 18: Guillermo Lara, Marta Sacristán, Ariabod Fatehi y Pablo León
 
@@ -9,7 +9,7 @@ El trabajo ha sido repartido entre Guillermo y Marta prácticamente a parte igua
 
 **Guillermo Lara**:
 
-    - https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/9922b908fcfb42a2ab65a37c75818161fa2c5a0a 
+    - (https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/9922b908fcfb42a2ab65a37c75818161fa2c5a0a) 
 
     - https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/ccc79b85ec9d0a54bc8f92f7289d285e86fb0f94 
 
@@ -47,7 +47,7 @@ El trabajo ha sido repartido entre Guillermo y Marta prácticamente a parte igua
 
 **Pablo León**:
 
-    - https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/363ab4caefad6bf1d10e9f31dd663df690140ace
+    - (https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/363ab4caefad6bf1d10e9f31dd663df690140ace)
 
     - https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/7ca0e55d478ff410c96870f469ede96e39d4ede3 
 
@@ -77,6 +77,7 @@ La pagina de error(arriba izqda, la única sin conexiones visibles) es accesible
 
 
 Diagrama de Clases
+![BBDD](https://github.com/user-attachments/assets/df780b3d-118d-447d-98a5-4f8b6ffb2670)
 
 ![image](https://github.com/user-attachments/assets/b709809d-1f3a-47ae-acfa-22e3b60e3d42)
 

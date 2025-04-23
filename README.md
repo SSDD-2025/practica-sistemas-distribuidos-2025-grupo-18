@@ -6,10 +6,10 @@ Grupo 18: Guillermo Lara, Marta Sacristán, Ariabod Fatehi y Pablo León
 
 **Participación de cada miembro del equipo:**
 El trabajo ha sido repartido entre Guillermo y Marta prácticamente a parte iguales. Nos organizamos de forma que cada uno trabajaba sobre la práctica 2-3 días y después continuaba el otro, y así sucesivamente,para evitar complicaciones con Github. En cuanto al resto del grupo, su participación ha sido la de sus respectivos commits, que se mostrarán a continuación.
-
+https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/fd66814c4876a22dbba7bed78f7feef429f8aee0
 **Guillermo Lara**:
 
-    - (https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/9922b908fcfb42a2ab65a37c75818161fa2c5a0a) 
+    - https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/9922b908fcfb42a2ab65a37c75818161fa2c5a0a
 
     - https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/ccc79b85ec9d0a54bc8f92f7289d285e86fb0f94 
 

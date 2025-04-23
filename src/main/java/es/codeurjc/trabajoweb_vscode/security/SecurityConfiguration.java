@@ -61,8 +61,8 @@ public class SecurityConfiguration {
         http
                 .securityMatcher("/api/**")
                 .exceptionHandling(handling -> handling
-                .authenticationEntryPoint(unauthorizedHandlerJwt) 
-                .accessDeniedHandler((request, response, ex) -> { 
+                .authenticationEntryPoint(unauthorizedHandlerJwt)
+                .accessDeniedHandler((request, response, ex) -> {
                     response.sendError(HttpServletResponse.SC_FORBIDDEN, "Forbidden");
                 })
                 )
@@ -72,7 +72,7 @@ public class SecurityConfiguration {
                 .requestMatchers(HttpMethod.POST, "/api/users/refresh").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/users/logout").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/books/").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/api/books/**").hasRole("ADMIN") 
+                .requestMatchers(HttpMethod.PUT, "/api/books/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/api/books/**").hasRole("ADMIN")
                 .requestMatchers("/api/**").authenticated()
                 .anyRequest().denyAll()
@@ -102,6 +102,9 @@ public class SecurityConfiguration {
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/**").permitAll()
                 .requestMatchers("/adminLoggedIn/**").hasRole("ADMIN")
+                .requestMatchers("/v3/api-docs*/**").permitAll()
+                .requestMatchers("/swagger-ui.html").permitAll()
+                .requestMatchers("/swagger-ui/**").permitAll()
                 .anyRequest().permitAll()
                 )
                 .formLogin(form -> form

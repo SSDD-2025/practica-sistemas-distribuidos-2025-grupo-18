@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html>
+{{>header}}
+</header>
+<main>
 
-<head>
-    <title>Resultados de Búsqueda</title>
-    <script src="https://cdn.jsdelivr.net/npm/mustache@4.2.0/mustache.min.js"></script>
-</head>
-
-<body>
     <h1>Resultados: {{query}}</h1>
 
     <div id="usuarios-section">
@@ -23,8 +18,7 @@
         <button id="nextLibros">Siguiente</button>
     </div>
 
-    <a href="/">Volver</a>
-
+</main>
 
 
     <script>
@@ -38,16 +32,14 @@
             const data = await res.json();
 
             const usuariosElement = document.getElementById('usuarios');
-
-
             if (data.content && data.content.length > 0) {
-                const contenido = data.content.map(usuario => {
-                    return `<li>${usuario.name}</li>`;
-                }).join('');
+            const contenido = data.content.map(usuario => {
+                return `<li><a href="user/${usuario.id}">${usuario.name}</a></li>`;
+            }).join('');
 
-                usuariosElement.innerHTML = `<ul>${contenido}</ul>`;
+            usuariosElement.innerHTML = `<ul>${contenido}</ul>`;
             } else {
-                usuariosElement.innerHTML = `<ul><li>No se encontraron usuarios.</li></ul>`;
+            usuariosElement.innerHTML = `<ul><li>No se encontraron usuarios.</li></ul>`;
             }
 
             document.getElementById('prevUsuarios').disabled = data.page.number <= 0;
@@ -60,17 +52,16 @@
             const data = await res.json();
 
             const librosElement = document.getElementById('libros');
-             if (data.content && data.content.length > 0) {
-                const contenido = data.content.map(libro => {
-                    return `<li>${libro.name}</li>`;
-                }).join('');
+            if (data.content && data.content.length > 0) {
+            const contenido = data.content.map(libro => {
+                return `<li><a href="book/${libro.id}">${libro.name}</a></li>`;
+            }).join('');
 
-                librosElement.innerHTML = `<ul>${contenido}</ul>`;
+            librosElement.innerHTML = `<ul>${contenido}</ul>`;
             } else {
-                librosElement.innerHTML = `<ul><li>No se encontraron libros.</li></ul>`;
+            librosElement.innerHTML = `<ul><li>No se encontraron libros.</li></ul>`;
             }
 
-  
             document.getElementById('prevLibros').disabled = data.page.number <= 0;
             document.getElementById('nextLibros').disabled = data.page.number >= data.page.totalPages - 1;
         }

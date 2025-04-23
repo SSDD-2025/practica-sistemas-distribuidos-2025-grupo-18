@@ -6,7 +6,7 @@ Grupo 18: Guillermo Lara, Marta Sacristán, Ariabod Fatehi y Pablo León
 
 **Participación de cada miembro del equipo:**
 El trabajo ha sido repartido entre Guillermo y Marta prácticamente a parte iguales. Nos organizamos de forma que cada uno trabajaba sobre la práctica 2-3 días y después continuaba el otro, y así sucesivamente,para evitar complicaciones con Github. En cuanto al resto del grupo, su participación ha sido la de sus respectivos commits, que se mostrarán a continuación.
-https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/fd66814c4876a22dbba7bed78f7feef429f8aee0
+
 **Guillermo Lara**:
 
     - https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/9922b908fcfb42a2ab65a37c75818161fa2c5a0a
@@ -21,15 +21,15 @@ https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit
 
 **Marta Sacristán**:
 
-    - https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/fd66814c4876a22dbba7bed78f7feef429f8aee0 
+https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/fd66814c4876a22dbba7bed78f7feef429f8aee0
 
-    - https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/b9386b16889e31a4b991a2c217aaa07cf965dc25
+https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/b9386b16889e31a4b991a2c217aaa07cf965dc25
 
-    - https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/6b56055a6c5a2338c09f0a743e263c1a9d98e21c
+https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/6b56055a6c5a2338c09f0a743e263c1a9d98e21c
 
-    - https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/75c8f90f8f93fed9dc99a124be32e8c74e8c3ae8
+https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/75c8f90f8f93fed9dc99a124be32e8c74e8c3ae8
 
-    - https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/a4d8100f1805e3e26f1f561b316acfaf76ff2ed1
+https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/a4d8100f1805e3e26f1f561b316acfaf76ff2ed1
 
 
 **Ariabod Fatehi**:

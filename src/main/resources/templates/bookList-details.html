@@ -1,0 +1,26 @@
+{{>header}}
+<div class="toolbar-right">
+
+</div>
+</header>
+<main>
+    <h1>{{bookList.name}}</h1>
+    <div class="libros-container">
+        {{#bookList.books}}
+        <div class="libro">
+            <a href="/book/{{id}}" class="libro-imagen-link">
+                {{#imageBase64}}
+                <img src="data:image/jpeg;base64,{{imageBase64}}" alt="{{name}}" class="libro-imagen">
+                {{/imageBase64}}
+            </a>
+            <div class="libro-titulo">{{name}}</div>
+            {{#isTheUser}}
+            <div class="libro-botones">
+                <a href="/book-list/{{bookList.id}}/remove-book/{{id}}" class="delete-from-list">Quitar de la lista</a>
+            </div>
+            {{/isTheUser}}
+
+        </div>
+        {{/bookList.books}}
+    </div>
+{{>footer}}

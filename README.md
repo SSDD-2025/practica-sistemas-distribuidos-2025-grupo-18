@@ -114,4 +114,3 @@ En VS Code, puedes obtenerlo con la extensión Maven for Java.
 
 Spring Boot 3.4.4
 En VS Code, necesitarás la extensión Spring Boot Extension Pack.
-

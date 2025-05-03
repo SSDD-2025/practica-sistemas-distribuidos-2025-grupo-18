@@ -1,0 +1,32 @@
+{{>header}}
+<div class="toolbar-right">
+
+</div>
+</header>
+<main>
+    <div class="user-info">
+
+        <h1>{{user.name}}'s Book Lists</h1>
+
+
+        {{#user.bookLists}}
+        <form action="/book-list/delete" method="POST">
+            <div class="book-list">
+                <a href="/book-list/{{id}}" class="list-link">{{name}}</a>
+                <input type="hidden" name="listId" value="{{id}}">
+                <input type="hidden" name="_csrf" value="{{token}}" />
+                <button type="submit" class="delete-list-btn">Eliminar lista</button>
+            </div>
+        </form>
+        {{/user.bookLists}}
+
+        <form action="/book-list/add" method="POST" class="create-list-form">
+            <label for="list-name">Nombre: </label>
+            <input type="hidden" name="_csrf" value="{{token}}" />
+            <input type="String" id="listName" name="listName" required>
+            <button type="submit" class="create-list-btn">Crear lista</button>
+        </form>
+
+    </div>
+
+{{>footer}}

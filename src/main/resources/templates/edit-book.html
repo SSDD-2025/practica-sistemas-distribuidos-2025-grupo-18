@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookNest - Detalles del autor</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <header class="toolbar">
+        <div class="logo">
+            <a href="/">
+                <img src="/images/logo.png" alt="BookNest Logo">
+                <h1>BOOKNEST</h1>
+            </a>
+        </div>
+        <div class="toolbar-right">
+            <a href="/adminLoggedIn">Volver</a>
+        </div>
+    </header>
+    <main>
+        <section class="modificar-libro">
+            <h2>Modificar Libro</h2>
+            <form action="/book/edit-book/{{book.id}}" method="post" enctype="multipart/form-data" class="edit-form">
+                <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+                <input type="hidden" name="id" value="{{book.id}}">
+        
+                <div class="form-container">
+                    <div class="image-column">
+                        <div class="current-image">
+                            {{#book.imageBase64}}
+                            <img src="data:image/jpeg;base64,{{book.imageBase64}}" alt="Imagen actual">
+                            {{/book.imageBase64}}
+                            {{^book.imageBase64}}
+                            <p>No hay imagen asociada</p>
+                            {{/book.imageBase64}}
+                        </div>
+                        <label for="archivo">Subir nueva imagen:</label>
+                        <input type="file" id="archivo" name="file" accept=".jpg,.jpeg,.png">
+                    </div>
+        
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" id="nombre" name="name" value="{{book.name}}" required>
+                        </div>
+        
+                        <div class="form-group">
+                            <label for="authorName">Autor:</label>
+                            <select id="authorName" name="authorName" required>
+                                {{#authors}}
+                                <option value="{{id}}" {{#selected}}selected{{/selected}}>{{name}}</option>
+                                {{/authors}}
+                            </select>
+                        </div>
+        
+                        <div class="form-group">
+                            <label for="año">Año de publicación:</label>
+                            <input type="number" id="año" name="yearPub" value="{{book.yearPub}}" required>
+                        </div>
+        
+                        <div class="form-group">
+                            <label for="descripcion">Descripción:</label>
+                            <textarea id="descripcion" name="description" required>{{book.description}}</textarea>
+                        </div>
+        
+                        <button type="submit" class="submit-btn">Guardar cambios</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </main>
+</body>
+
+</html>

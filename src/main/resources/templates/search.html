@@ -1,0 +1,99 @@
+{{>header}}
+</header>
+<main>
+
+    <h1>Resultados: {{query}}</h1>
+
+    <div id="usuarios-section">
+        <h2>Usuarios</h2>
+        <div id="usuarios"></div>
+        <button id="prevUsuarios">Anterior</button>
+        <button id="nextUsuarios">Siguiente</button>
+    </div>
+
+    <div id="libros-section">
+        <h2>Libros</h2>
+        <div id="libros"></div>
+        <button id="prevLibros">Anterior</button>
+        <button id="nextLibros">Siguiente</button>
+    </div>
+
+</main>
+
+
+    <script>
+        const searchParams = new URLSearchParams(window.location.search);
+        const query = searchParams.get('query') || '';
+        let userPage = 0;
+        let bookPage = 0;
+
+        async function cargarUsuarios(page = 0) {
+            const res = await fetch(`https://localhost:8443/api/users/search?query=${encodeURIComponent(query)}&page=${page}`);
+            const data = await res.json();
+
+            const usuariosElement = document.getElementById('usuarios');
+            if (data.content && data.content.length > 0) {
+            const contenido = data.content.map(usuario => {
+                return `<li><a href="user/${usuario.id}">${usuario.name}</a></li>`;
+            }).join('');
+
+            usuariosElement.innerHTML = `<ul>${contenido}</ul>`;
+            } else {
+            usuariosElement.innerHTML = `<ul><li>No se encontraron usuarios.</li></ul>`;
+            }
+
+            document.getElementById('prevUsuarios').disabled = data.page.number <= 0;
+            document.getElementById('nextUsuarios').disabled = data.page.number >= data.page.totalPages - 1;
+        }
+
+
+        async function cargarLibros(page = 0) {
+            const res = await fetch(`https://localhost:8443/api/books/search?query=${encodeURIComponent(query)}&page=${page}`);
+            const data = await res.json();
+
+            const librosElement = document.getElementById('libros');
+            if (data.content && data.content.length > 0) {
+            const contenido = data.content.map(libro => {
+                return `<li><a href="book/${libro.id}">${libro.name}</a></li>`;
+            }).join('');
+
+            librosElement.innerHTML = `<ul>${contenido}</ul>`;
+            } else {
+            librosElement.innerHTML = `<ul><li>No se encontraron libros.</li></ul>`;
+            }
+
+            document.getElementById('prevLibros').disabled = data.page.number <= 0;
+            document.getElementById('nextLibros').disabled = data.page.number >= data.page.totalPages - 1;
+        }
+
+        // Eventos paginación
+        document.getElementById('prevUsuarios').addEventListener('click', () => {
+            if (userPage > 0) {
+                userPage--;
+                cargarUsuarios(userPage);
+            }
+        });
+
+        document.getElementById('nextUsuarios').addEventListener('click', () => {
+            userPage++;
+            cargarUsuarios(userPage);
+        });
+
+        document.getElementById('prevLibros').addEventListener('click', () => {
+            if (bookPage > 0) {
+                bookPage--;
+                cargarLibros(bookPage);
+            }
+        });
+
+        document.getElementById('nextLibros').addEventListener('click', () => {
+            bookPage++;
+            cargarLibros(bookPage);
+        });
+
+        cargarUsuarios(userPage);
+        cargarLibros(bookPage);
+    </script>
+</body>
+
+</html>

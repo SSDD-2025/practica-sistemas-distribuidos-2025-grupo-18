@@ -1,0 +1,25 @@
+{{>header}}
+        <div class="toolbar-right">
+            <a href="/">Inicio</a>
+        </div>
+    </header>
+    <main>
+        <section class="author-details">
+            <div class="author-header">
+                <h1>{{author.name}}</h1>
+            </div>
+            <div class="author-content">
+                <div class="author-info">
+                    <h2>Información del autor</h2>
+                    <p>{{author.bio}}</p> 
+                </div>
+                <div class="author-books">
+                    <h2>Libros de {{author.name}}</h2>
+                    <ul>
+                        {{#author.books}}
+                        <li><a href="/book/{{id}}">{{name}}</a> ({{yearPub}})</li>
+                        {{/author.books}}
+                    </ul>
+                </div>
+            </div>
+{{>footer}}

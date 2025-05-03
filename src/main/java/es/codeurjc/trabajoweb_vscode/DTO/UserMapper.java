@@ -11,13 +11,12 @@ import es.codeurjc.trabajoweb_vscode.model.User;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-UserDTO toDTO(User user);
+    UserDTO toDTO(User user);
 
-@Mapping(target = "encodedPassword")
-@Mapping(target = "bookLists")
-List<UserDTO> toDTOs(Collection<User> users);
+    @Mapping(target = "encodedPassword")
+    @Mapping(target = "bookLists")
+    List<UserDTO> toDTOs(Collection<User> users);
 
-
-@Mapping(target = "encodedPassword", ignore = true)
-User toDomain(UserDTO userDTO);
+    @Mapping(target = "encodedPassword", ignore = true)
+    User toDomain(UserDTO userDTO);
 }

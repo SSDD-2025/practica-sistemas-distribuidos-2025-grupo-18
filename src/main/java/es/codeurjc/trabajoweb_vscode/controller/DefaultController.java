@@ -76,8 +76,8 @@ public class DefaultController {
 
     @GetMapping("/search")
     public String buscar(@RequestParam String query, Model model) {
-        model.addAttribute("query", query); // Solo pasamos el texto de búsqueda
-        return "search"; // El HTML ya se encargará de llamar a la API
+        model.addAttribute("query", query); 
+        return "search"; 
     }
 
     @GetMapping("/login")
@@ -171,7 +171,7 @@ public class DefaultController {
 
         if (book.getImage() != null && book.getImage().length > 0) {
             String imageBase64 = Base64.getEncoder().encodeToString(book.getImage());
-            book.setImageBase64(imageBase64); // Asegúrate de que Book.java tenga este setter
+            book.setImageBase64(imageBase64); 
         }
 
         CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");

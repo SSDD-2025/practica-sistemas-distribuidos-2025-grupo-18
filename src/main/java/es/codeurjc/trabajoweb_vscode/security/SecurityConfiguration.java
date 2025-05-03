@@ -87,6 +87,8 @@ public class SecurityConfiguration {
                 .requestMatchers(HttpMethod.PUT, "/api/reviews/**").hasRole("USER")
                 .requestMatchers(HttpMethod.DELETE, "/api/reviews/**").hasRole("USER")
                 .requestMatchers(HttpMethod.GET, "/api/reviews/**").hasRole("USER")
+                .requestMatchers(HttpMethod.GET, "/api/users/search/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/books/search/**").permitAll()
                 .requestMatchers("/api/**").authenticated()
                 .anyRequest().denyAll()
                 )

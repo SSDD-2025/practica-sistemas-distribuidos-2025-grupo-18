@@ -17,7 +17,7 @@ import jakarta.persistence.OneToMany;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Author {
 
-    //SIMPLIFICADO
+  
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

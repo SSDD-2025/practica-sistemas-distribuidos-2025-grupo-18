@@ -11,7 +11,7 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class Review {
 
-        //SIMPLIFICADO
+      
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

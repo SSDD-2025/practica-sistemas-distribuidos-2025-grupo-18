@@ -118,10 +118,9 @@ public class UserController {
     public String showEditUserForm(@PathVariable Long id, Model model) {
         User user = userService.findById(id);
         model.addAttribute("user", user);
-        return "edit-user";  // Vista para editar usuario
+        return "edit-user";  
     }
 
-    // Procesar el formulario de edición de usuario
     @PostMapping("/edit-user/{id}")
     public String editUser(@PathVariable Long id, @RequestParam String name) {
         User user = userService.findById(id);

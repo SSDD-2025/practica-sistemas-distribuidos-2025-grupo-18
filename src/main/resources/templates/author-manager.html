@@ -17,7 +17,9 @@
         <div class="libros-container">
             {{#authors}}
             <div class="libro">
-                <div class="libro-titulo">{{name}}</div>
+                <div class="libro-titulo">
+                    <a href="/author/{{id}}">{{name}}</a>
+                </div>
                 <div class="libro-botones">
                     <a href="/adminLoggedIn/edit-author/{{id}}" class="boton boton-modificar">Modificar</a>
                     <a href="/adminLoggedIn/delete-author/{{id}}" class="boton boton-eliminar">Eliminar</a>

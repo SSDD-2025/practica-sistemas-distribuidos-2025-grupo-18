@@ -48,7 +48,7 @@ public class ReviewRestController {
         return ResponseEntity.ok(new ReviewDTO(review));
     }
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<ReviewDTO> createReview(@RequestBody ReviewSimpleDTO input) {
         Book book = bookRepository.findById(input.bookId()).orElse(null);
         User user = userRepository.findById(input.userId()).orElse(null);

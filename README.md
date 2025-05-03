@@ -1,52 +1,116 @@
-11/04
-Cosas que faltan por hacer:
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/D1C1HU9V)
+
+**BOOKNEST**
+
+Grupo 18: Guillermo Lara, Marta Sacristán, Ariabod Fatehi y Pablo León
+
+**Participación de cada miembro del equipo:**
+El trabajo ha sido repartido entre Guillermo y Marta prácticamente a parte iguales. Nos organizamos de forma que cada uno trabajaba sobre la práctica 2-3 días y después continuaba el otro, y así sucesivamente,para evitar complicaciones con Github. En cuanto al resto del grupo, su participación ha sido la de sus respectivos commits, que se mostrarán a continuación.
+
+**Guillermo Lara**:
+
+https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/9922b908fcfb42a2ab65a37c75818161fa2c5a0a
+
+https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/ccc79b85ec9d0a54bc8f92f7289d285e86fb0f94 
+
+https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/cfe39ec39873293ae882dd7ad48253d6079e91ea 
+
+https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/cabab89bc0b44cf4bafd4bf569e55d9a35a3813f 
+
+https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/7933d8d1aeccb3c628edebcdca71c3db6eccb09f 
+
+**Marta Sacristán**:
+
+https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/fd66814c4876a22dbba7bed78f7feef429f8aee0
+
+https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/b9386b16889e31a4b991a2c217aaa07cf965dc25
+
+https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/6b56055a6c5a2338c09f0a743e263c1a9d98e21c
+
+https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/75c8f90f8f93fed9dc99a124be32e8c74e8c3ae8
+
+https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/a4d8100f1805e3e26f1f561b316acfaf76ff2ed1
+
+
+**Ariabod Fatehi**:
+
+https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/6ebe1c42efdecef22d2122730edf64b11d960987 
+
+https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/c1ba1bb7a486be6144a0d964cb2242daf6d798f0 
+
+https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/0e343e77268948ec28765d1a5952da04f77015ee 
+
+https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/d531a3b2a9f6cf33344a3d6a4dc1ba70ba4f2a9b 
+
+https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/14810a89c59395e7f3f012fc29cc4e5ca9c82d4a 
+
+
+**Pablo León**:
+
+https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/363ab4caefad6bf1d10e9f31dd663df690140ace
+
+https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/7ca0e55d478ff410c96870f469ede96e39d4ede3 
+
+https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/34fcd0bbde27ad8c576cff9c4d923ba831ac9c36 
+
+https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/0a533ee1e4a0ac343d7bbe5dce8f76cbd54b71b0 
+
+https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-18/commit/7be2f2a94127c912cc0a4e9f6f7f52d502404a81 
+
+**Diagramas:**
+
+**Diagrama de Entidad-Relación**
+
+![image](https://github.com/user-attachments/assets/15535b36-3c5b-454b-8c40-ab7c76438149)
 
 
 
--Mejorar interfaces (eliminar reseñas).
-✅-Poder quitar libros de las listas
-✅-Añadir imagenes en modificar imagenes y en añadir libro
--Limpiar codigo (quitar comentarios) y poner las restricciones necesarias en los controladores y no en los html (como en bookListController, para ver si el user tiene permisos).
+Este diagrama muestra las relaciones entre las entidades principales del sistema.
+
+**Diagrama de Navegación y Páginas principales:**
+La pagina de error(arriba izqda, la única sin conexiones visibles) es accesible desde cualquier sitio
+![image](https://github.com/user-attachments/assets/08079230-41ec-4317-a083-26f935b82a10)
+
+
+
+
+**Diagrama de Clases**
+
+![BBDD](https://github.com/user-attachments/assets/df780b3d-118d-447d-98a5-4f8b6ffb2670)
+
+![image](https://github.com/user-attachments/assets/b709809d-1f3a-47ae-acfa-22e3b60e3d42)
 
 
 
 
 
-**COSAS QUE HE HECHO:**
 
-    1.- He creado una pantalla inicial (similar a Letterboxd) donde se muestran los libros, modificando y creando tanto HTMLs como el código Java (sobre todo los controllers para hacer bien los Mapping). Con esto, considero que la página para "usuario no registrado" ya estaría completa, ya que solo puede ver los libros y no puede hacer nada más.
+**Instrucciones de Ejecución:**
 
-    2.- Además, he añadido navegación por la página de 2 formas (de momento):
+    Descarga el repositorio y descomprímelo.
+    Ejecuta el proyecto en tu entorno de desarrollo de preferencia. Recomendamos VS Code.
+    Cuando la aplicación esté en ejecución, abre tu navegador y ve a https://localhost:8443
 
-        2.1.- Si pulsas en el libro de la página principal, nos lleva a la página de detalles del libro.
-
-        2.2.- Dentro de los detalles del libro, aparece el autor. Si pulsamos encima de su nombre, vamos a ir a una página de detalles del autor, que nos muestra su biografía y los libros existentes en la página que sean suyos.
-
-        ¡!: de momento, los libros y autores se inicializan en SampleData, con la función init.
-
-    3.- Si pulsamos en Log In, nos va a llevar a una página de "admin", donde deberíamos d epoder gestionar libros y autores. De momento, no funciona, pero ya he creado la estructura de la página y el controller que nos servirán de base.
+    En lo que respecta a **Postman**, es necesario loggearse para algunas funcionalidad, y estas están limitadas en ocasiones a un único rol. 
+    En caso de recibir un error 401 Unauthorized, hay que introducir en Authorization -> Bearer Token el token que nos da la response cuando inicias sesión con un usuario válido. Después, volver a ejecutar la petición que deseas realizar.
+    Si da error 403 Forbidden, es porque ese rol de usuario no tiene permitido ejecutar esa acción.
 
 
-**COSAS QUE HAY QUE HACER:**
+**Instrucciones de Ejecución: aspectos a tener en cuenta respecto a las relaciones**
 
-    1.- Mi idea sería hacer primero la parte de la Fase 2 (seguridad), porque necesitamos los distintos roles (user y admin) para añadir la funcionalidad de cada uno:
+    - User: tenemos dos tipos (admin y user), además de una página inicial para un usuario no registrado con funcionalidad limitada.
 
-        - User: crear listas de libros y añadir reseñas. La página de "usuario registrado" debería de ser muy similar a la de no registrado, con la diferencia de esas 2 funciones cuando pulsemos en los detalles de un libro. Además, en la cabecera debería de tener la opción de configurar su cuenta (lo dijo el profe en clase cuando explicó la rúbrica).
+    - Autor: se crea y puede estar asociado a libros o no.
 
-        - Admin: gestionar (ver, modificar y borrar) libros y autores. Esta página no tiene tanta importancia, simplemente tiene que poder gestionarlo de manera efectiva en la base de datos y tenemos que asegurarnos de que no nos deje meternos de cualquier manera (seguridad).
+    - Libro: un libro  contiene información como título, género, y fecha de publicación. Además, tiene asociado su autor. Un libro no se puede crear sin antes haber creado el autor de este (si es que no existe ya).
 
+    - Reviews: pertenecen al tipo de usuario User (no admin). Todos pueden verlas, pero solo el propio usuario puede crear, modificar o eliminar sus propias reseñas.
 
-Respecto a la estructura, Como podéis ver, he modificado prácticamente todo el trabajo. 
-Además, teníamos otro repositorio en el que he hecho todos estos cambios para no modificar el repositorio de la práctica 1 mientras el profe estaba corrigiendo. Así que, **IMPORTANTE**, si descomentáis alguna clase que está comentada, es posible que os salgan errores en los imports y en el paquete. Tendréis que cambiar de: "package es.codeurjc.booknest.controller;" a "package es.codeurjc.trabajoweb_vscode.controller;" y lo mismo con el resto de imports que puedan dar error. 
+Requisitos:
+Java: JDK 21
 
-Al ejecutar el trabajo con Spring Boot, os van a salir 2 opciones: seleccionar la de BooknestApplication.
+Maven v0.44.0
+En VS Code, puedes obtenerlo con la extensión Maven for Java.
 
-
-------------------------------------------------------------------------------------------------------
-10/3 --> Guille
-
-Los cambios que he hecho en general han sido de simplicar y poner un poco todo en orden, he estado pensando como organizar todo y que estructura debemos de seguir. En conclusión pienso que lo mejor es seguir la estructura de url del mismo letterbox.
-
-Objetivos:
-
-Crear la pantalla principal para un usuario que no está registrado Configurar el login Adaptar la pantlla principal para que haya diferencias cuando se ha iniciado sesion
+Spring Boot 3.4.4
+En VS Code, necesitarás la extensión Spring Boot Extension Pack.

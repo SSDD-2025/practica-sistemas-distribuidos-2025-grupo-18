@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  app:
+    image: guillermolara2004/booknest:1.0.0
+    container_name: booknest-app
+    ports:
+      - "8443:8443"
+    depends_on:
+      - db
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: booknest
+      DB_USER: root
+      DB_PASSWORD: root
+
+  db:
+    image: mysql:9.2
+    container_name: booknest-db
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: booknest
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:

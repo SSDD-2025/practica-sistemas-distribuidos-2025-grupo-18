@@ -1,0 +1,40 @@
+{{>header}}
+<div class="toolbar-right">
+    <form action="/adminLoggedIn/search" method="get">
+        <input type="text" name="query" placeholder="¿Que quieres buscar?" required>
+        <button type="submit">Buscar</button>
+    </form>    <a href="/adminLoggedIn/add-book" class="boton">Añadir libro</a>
+    <a href="/adminLoggedIn/author-manager">Gestionar autores</a>
+    {{#logged}}
+    <form action="/logout" method="post">
+        <button class="btn btn-primary navbar-btn" type="submit">Cerrar sesión</button>
+        <input type="hidden" name="_csrf" value="{{token}}"/>
+    </form>
+    {{/logged}}
+</div>
+</header>
+<main>
+    <section class="top-libros">
+        <h2>📚 Libros populares de esta semana</h2>
+        <div class="libros-container">
+            {{#books}}
+            <div class="libro">
+                <a href="/book/{{id}}" class="libro-imagen-link">
+                    {{#imageBase64}}
+                    <img src="data:image/jpeg;base64,{{imageBase64}}" alt="{{name}}" class="libro-imagen">
+                    {{/imageBase64}}
+                    {{^imageBase64}}
+                    <img src="/images/default.jpg" alt="{{name}} (Sin imagen)" class="libro-imagen">
+                    {{/imageBase64}}
+                </a>
+                <div class="libro-titulo">{{name}}</div>
+                <div class="libro-botones">
+                    <a href="/adminLoggedIn/edit-book/{{id}}" class="boton boton-modificar">Modificar</a>
+                    <a href="/adminLoggedIn/delete-book/{{id}}" class="boton boton-eliminar">Eliminar</a>
+                </div>
+            </div>
+            {{/books}}
+        </div>
+        {{>footer}}
+    </section>
+</main>

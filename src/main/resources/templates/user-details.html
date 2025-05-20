@@ -1,0 +1,31 @@
+{{>header}}
+        <div class="toolbar-right">
+            <a href="/">Inicio</a>
+        </div>
+    </header>
+    <main>
+        <section class="book-details">
+            <div class="centered">{{user.name}}</div>
+            <div class="container">
+                <div class="box">
+                    <h3>Reseñas</h3>
+                    <ul>
+                        {{#user.reviews}}
+                        <li>Puntuación: {{rate}} - {{textReview}} - <a href="/book/{{book.id}}">{{book.name}}</a></li>
+                        {{/user.reviews}}
+                        {{^user.reviews}}
+                        <li>No hay reseñas disponibles.</li>
+                        {{/user.reviews}}
+                    </ul>
+                </div>
+                <div class="box">
+                    <h3>Listas de Libros</h3>
+                    <ul>
+                        {{#user.bookLists}}
+                        <li><a href="/book-list/{{id}}">{{name}}</a></li>
+                        {{/user.bookLists}}
+                        {{^user.bookLists}}
+                        <li>No hay listas de libros disponibles.</li>
+                        {{/user.bookLists}}
+                    </ul>
+{{>footer}}

@@ -1,0 +1,25 @@
+{{>header}}
+        <div class="toolbar-right">
+        </div>
+    </header>
+
+    <div class="centered-content">
+        <main>
+            <form action="/signUp" method="post" class="login-form">
+                <pForm>SIGN UP</pForm>
+                <labelUser for="user">User:</labelUser>
+                <input type="text" id="username" name="username" required>
+
+                <labelPassword for="password">Password:</labelPassword>
+                <input type="password" id="password" name="password" required>
+                <input type="hidden" name="_csrf" value="{{token}}"/>
+
+                <button type="submit" class="btn btn-primary">Enter</button>
+                <p th:if="${error}" class="text-danger mt-3" th:text="${error}"></p>
+
+            </form>
+            <p class="sign-up-link">Already have an account? <a href="/login">Click here to log in</a></p>
+        </main>
+</body>
+
+</html>
